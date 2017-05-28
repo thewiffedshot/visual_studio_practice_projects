@@ -1,0 +1,6 @@
+c:\users\thewi\documents\visual studio 2017\Projects\ConsoleIO_Task8\ConsoleIO_Task8\bin\Debug\ConsoleIO_Task8.exe.config
+c:\users\thewi\documents\visual studio 2017\Projects\ConsoleIO_Task8\ConsoleIO_Task8\bin\Debug\ConsoleIO_Task8.exe
+c:\users\thewi\documents\visual studio 2017\Projects\ConsoleIO_Task8\ConsoleIO_Task8\bin\Debug\ConsoleIO_Task8.pdb
+c:\users\thewi\documents\visual studio 2017\Projects\ConsoleIO_Task8\ConsoleIO_Task8\obj\Debug\ConsoleIO_Task8.csprojResolveAssemblyReference.cache
+c:\users\thewi\documents\visual studio 2017\Projects\ConsoleIO_Task8\ConsoleIO_Task8\obj\Debug\ConsoleIO_Task8.exe
+c:\users\thewi\documents\visual studio 2017\Projects\ConsoleIO_Task8\ConsoleIO_Task8\obj\Debug\ConsoleIO_Task8.pdb
