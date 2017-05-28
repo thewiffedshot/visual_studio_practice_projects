@@ -1,0 +1,5 @@
+c:\users\thewi\documents\visual studio 2017\Projects\ConsoleIO_Task10\ConsoleIO_Task10\bin\Debug\ConsoleIO_Task10.exe.config
+c:\users\thewi\documents\visual studio 2017\Projects\ConsoleIO_Task10\ConsoleIO_Task10\bin\Debug\ConsoleIO_Task10.exe
+c:\users\thewi\documents\visual studio 2017\Projects\ConsoleIO_Task10\ConsoleIO_Task10\bin\Debug\ConsoleIO_Task10.pdb
+c:\users\thewi\documents\visual studio 2017\Projects\ConsoleIO_Task10\ConsoleIO_Task10\obj\Debug\ConsoleIO_Task10.exe
+c:\users\thewi\documents\visual studio 2017\Projects\ConsoleIO_Task10\ConsoleIO_Task10\obj\Debug\ConsoleIO_Task10.pdb

@@ -1,0 +1,6 @@
+c:\users\thewi\documents\visual studio 2017\Projects\ConsoleIO_Task12\ConsoleIO_Task12\bin\Debug\ConsoleIO_Task12.exe.config
+c:\users\thewi\documents\visual studio 2017\Projects\ConsoleIO_Task12\ConsoleIO_Task12\bin\Debug\ConsoleIO_Task12.exe
+c:\users\thewi\documents\visual studio 2017\Projects\ConsoleIO_Task12\ConsoleIO_Task12\bin\Debug\ConsoleIO_Task12.pdb
+c:\users\thewi\documents\visual studio 2017\Projects\ConsoleIO_Task12\ConsoleIO_Task12\obj\Debug\ConsoleIO_Task12.csprojResolveAssemblyReference.cache
+c:\users\thewi\documents\visual studio 2017\Projects\ConsoleIO_Task12\ConsoleIO_Task12\obj\Debug\ConsoleIO_Task12.exe
+c:\users\thewi\documents\visual studio 2017\Projects\ConsoleIO_Task12\ConsoleIO_Task12\obj\Debug\ConsoleIO_Task12.pdb

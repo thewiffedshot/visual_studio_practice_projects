@@ -1,0 +1,5 @@
+c:\users\thewi\documents\visual studio 2017\Projects\ConsoleIO_Task9\ConsoleIO_Task9\bin\Debug\ConsoleIO_Task9.exe.config
+c:\users\thewi\documents\visual studio 2017\Projects\ConsoleIO_Task9\ConsoleIO_Task9\bin\Debug\ConsoleIO_Task9.exe
+c:\users\thewi\documents\visual studio 2017\Projects\ConsoleIO_Task9\ConsoleIO_Task9\bin\Debug\ConsoleIO_Task9.pdb
+c:\users\thewi\documents\visual studio 2017\Projects\ConsoleIO_Task9\ConsoleIO_Task9\obj\Debug\ConsoleIO_Task9.exe
+c:\users\thewi\documents\visual studio 2017\Projects\ConsoleIO_Task9\ConsoleIO_Task9\obj\Debug\ConsoleIO_Task9.pdb
