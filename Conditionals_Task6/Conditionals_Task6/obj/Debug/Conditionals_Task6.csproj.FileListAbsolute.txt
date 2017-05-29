@@ -1,0 +1,6 @@
+C:\Users\thewi\Documents\Visual Studio 2017\Projects\Conditionals_Task6\Conditionals_Task6\bin\Debug\Conditionals_Task6.exe.config
+C:\Users\thewi\Documents\Visual Studio 2017\Projects\Conditionals_Task6\Conditionals_Task6\bin\Debug\Conditionals_Task6.exe
+C:\Users\thewi\Documents\Visual Studio 2017\Projects\Conditionals_Task6\Conditionals_Task6\bin\Debug\Conditionals_Task6.pdb
+C:\Users\thewi\Documents\Visual Studio 2017\Projects\Conditionals_Task6\Conditionals_Task6\obj\Debug\Conditionals_Task6.csprojResolveAssemblyReference.cache
+C:\Users\thewi\Documents\Visual Studio 2017\Projects\Conditionals_Task6\Conditionals_Task6\obj\Debug\Conditionals_Task6.exe
+C:\Users\thewi\Documents\Visual Studio 2017\Projects\Conditionals_Task6\Conditionals_Task6\obj\Debug\Conditionals_Task6.pdb

@@ -1,0 +1,6 @@
+c:\users\thewi\documents\visual studio 2017\Projects\Conditionals_Task5\Conditionals_Task5\bin\Debug\Conditionals_Task5.exe.config
+c:\users\thewi\documents\visual studio 2017\Projects\Conditionals_Task5\Conditionals_Task5\bin\Debug\Conditionals_Task5.exe
+c:\users\thewi\documents\visual studio 2017\Projects\Conditionals_Task5\Conditionals_Task5\bin\Debug\Conditionals_Task5.pdb
+c:\users\thewi\documents\visual studio 2017\Projects\Conditionals_Task5\Conditionals_Task5\obj\Debug\Conditionals_Task5.exe
+c:\users\thewi\documents\visual studio 2017\Projects\Conditionals_Task5\Conditionals_Task5\obj\Debug\Conditionals_Task5.pdb
+c:\users\thewi\documents\visual studio 2017\Projects\Conditionals_Task5\Conditionals_Task5\obj\Debug\Conditionals_Task5.csprojResolveAssemblyReference.cache

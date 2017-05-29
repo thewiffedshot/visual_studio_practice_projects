@@ -1,0 +1,5 @@
+c:\users\thewi\documents\visual studio 2017\Projects\Conditionals_Task7\Conditionals_Task7\bin\Debug\Conditionals_Task7.exe.config
+c:\users\thewi\documents\visual studio 2017\Projects\Conditionals_Task7\Conditionals_Task7\bin\Debug\Conditionals_Task7.exe
+c:\users\thewi\documents\visual studio 2017\Projects\Conditionals_Task7\Conditionals_Task7\bin\Debug\Conditionals_Task7.pdb
+c:\users\thewi\documents\visual studio 2017\Projects\Conditionals_Task7\Conditionals_Task7\obj\Debug\Conditionals_Task7.exe
+c:\users\thewi\documents\visual studio 2017\Projects\Conditionals_Task7\Conditionals_Task7\obj\Debug\Conditionals_Task7.pdb
