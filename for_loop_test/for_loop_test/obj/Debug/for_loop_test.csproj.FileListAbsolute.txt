@@ -1,0 +1,6 @@
+c:\users\thewi\documents\visual studio 2017\Projects\for_loop_test\for_loop_test\bin\Debug\for_loop_test.exe.config
+c:\users\thewi\documents\visual studio 2017\Projects\for_loop_test\for_loop_test\bin\Debug\for_loop_test.exe
+c:\users\thewi\documents\visual studio 2017\Projects\for_loop_test\for_loop_test\bin\Debug\for_loop_test.pdb
+c:\users\thewi\documents\visual studio 2017\Projects\for_loop_test\for_loop_test\obj\Debug\for_loop_test.csprojResolveAssemblyReference.cache
+c:\users\thewi\documents\visual studio 2017\Projects\for_loop_test\for_loop_test\obj\Debug\for_loop_test.exe
+c:\users\thewi\documents\visual studio 2017\Projects\for_loop_test\for_loop_test\obj\Debug\for_loop_test.pdb
