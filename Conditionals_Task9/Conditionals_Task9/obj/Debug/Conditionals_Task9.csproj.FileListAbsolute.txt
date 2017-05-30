@@ -1,0 +1,6 @@
+c:\users\thewi\documents\visual studio 2017\Projects\Conditionals_Task9\Conditionals_Task9\bin\Debug\Conditionals_Task9.exe.config
+c:\users\thewi\documents\visual studio 2017\Projects\Conditionals_Task9\Conditionals_Task9\bin\Debug\Conditionals_Task9.exe
+c:\users\thewi\documents\visual studio 2017\Projects\Conditionals_Task9\Conditionals_Task9\bin\Debug\Conditionals_Task9.pdb
+c:\users\thewi\documents\visual studio 2017\Projects\Conditionals_Task9\Conditionals_Task9\obj\Debug\Conditionals_Task9.csprojResolveAssemblyReference.cache
+c:\users\thewi\documents\visual studio 2017\Projects\Conditionals_Task9\Conditionals_Task9\obj\Debug\Conditionals_Task9.exe
+c:\users\thewi\documents\visual studio 2017\Projects\Conditionals_Task9\Conditionals_Task9\obj\Debug\Conditionals_Task9.pdb
