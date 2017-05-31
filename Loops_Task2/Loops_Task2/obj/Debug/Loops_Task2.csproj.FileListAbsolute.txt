@@ -1,0 +1,5 @@
+c:\users\thewi\documents\visual studio 2017\Projects\Loops_Task2\Loops_Task2\bin\Debug\Loops_Task2.exe.config
+c:\users\thewi\documents\visual studio 2017\Projects\Loops_Task2\Loops_Task2\bin\Debug\Loops_Task2.exe
+c:\users\thewi\documents\visual studio 2017\Projects\Loops_Task2\Loops_Task2\bin\Debug\Loops_Task2.pdb
+c:\users\thewi\documents\visual studio 2017\Projects\Loops_Task2\Loops_Task2\obj\Debug\Loops_Task2.exe
+c:\users\thewi\documents\visual studio 2017\Projects\Loops_Task2\Loops_Task2\obj\Debug\Loops_Task2.pdb
