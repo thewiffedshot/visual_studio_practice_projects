@@ -1,0 +1,6 @@
+C:\Users\thewi\Documents\Visual Studio 2017\Projects\Loops_Task9\Loops_Task9\bin\Debug\Loops_Task9.exe.config
+C:\Users\thewi\Documents\Visual Studio 2017\Projects\Loops_Task9\Loops_Task9\bin\Debug\Loops_Task9.exe
+C:\Users\thewi\Documents\Visual Studio 2017\Projects\Loops_Task9\Loops_Task9\bin\Debug\Loops_Task9.pdb
+C:\Users\thewi\Documents\Visual Studio 2017\Projects\Loops_Task9\Loops_Task9\obj\Debug\Loops_Task9.csprojResolveAssemblyReference.cache
+C:\Users\thewi\Documents\Visual Studio 2017\Projects\Loops_Task9\Loops_Task9\obj\Debug\Loops_Task9.exe
+C:\Users\thewi\Documents\Visual Studio 2017\Projects\Loops_Task9\Loops_Task9\obj\Debug\Loops_Task9.pdb

@@ -1,0 +1,6 @@
+c:\users\thewi\documents\visual studio 2017\Projects\Loops_Task16\Loops_Task16\bin\Debug\Loops_Task16.exe.config
+c:\users\thewi\documents\visual studio 2017\Projects\Loops_Task16\Loops_Task16\bin\Debug\Loops_Task16.exe
+c:\users\thewi\documents\visual studio 2017\Projects\Loops_Task16\Loops_Task16\bin\Debug\Loops_Task16.pdb
+c:\users\thewi\documents\visual studio 2017\Projects\Loops_Task16\Loops_Task16\obj\Debug\Loops_Task16.csprojResolveAssemblyReference.cache
+c:\users\thewi\documents\visual studio 2017\Projects\Loops_Task16\Loops_Task16\obj\Debug\Loops_Task16.exe
+c:\users\thewi\documents\visual studio 2017\Projects\Loops_Task16\Loops_Task16\obj\Debug\Loops_Task16.pdb
