@@ -1,0 +1,6 @@
+C:\Users\thewi\documents\visual studio 2017\Projects\Arrays_Task1\Arrays_Task1\bin\Debug\Arrays_Task1.exe.config
+C:\Users\thewi\documents\visual studio 2017\Projects\Arrays_Task1\Arrays_Task1\bin\Debug\Arrays_Task1.exe
+C:\Users\thewi\documents\visual studio 2017\Projects\Arrays_Task1\Arrays_Task1\bin\Debug\Arrays_Task1.pdb
+C:\Users\thewi\documents\visual studio 2017\Projects\Arrays_Task1\Arrays_Task1\obj\Debug\Arrays_Task1.csprojResolveAssemblyReference.cache
+C:\Users\thewi\documents\visual studio 2017\Projects\Arrays_Task1\Arrays_Task1\obj\Debug\Arrays_Task1.exe
+C:\Users\thewi\documents\visual studio 2017\Projects\Arrays_Task1\Arrays_Task1\obj\Debug\Arrays_Task1.pdb
