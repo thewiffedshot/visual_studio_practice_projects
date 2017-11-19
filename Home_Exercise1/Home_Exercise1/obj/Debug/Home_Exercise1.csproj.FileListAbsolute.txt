@@ -1,0 +1,6 @@
+c:\users\sovietdoggo\documents\visual studio 2017\Projects\Home_Exercise1\Home_Exercise1\bin\Debug\Home_Exercise1.exe.config
+c:\users\sovietdoggo\documents\visual studio 2017\Projects\Home_Exercise1\Home_Exercise1\bin\Debug\Home_Exercise1.exe
+c:\users\sovietdoggo\documents\visual studio 2017\Projects\Home_Exercise1\Home_Exercise1\bin\Debug\Home_Exercise1.pdb
+c:\users\sovietdoggo\documents\visual studio 2017\Projects\Home_Exercise1\Home_Exercise1\obj\Debug\Home_Exercise1.csprojResolveAssemblyReference.cache
+c:\users\sovietdoggo\documents\visual studio 2017\Projects\Home_Exercise1\Home_Exercise1\obj\Debug\Home_Exercise1.exe
+c:\users\sovietdoggo\documents\visual studio 2017\Projects\Home_Exercise1\Home_Exercise1\obj\Debug\Home_Exercise1.pdb
