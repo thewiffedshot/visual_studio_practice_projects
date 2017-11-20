@@ -4,3 +4,10 @@ c:\users\sovietdoggo\documents\visual studio 2017\Projects\Home_Exercise1\Home_E
 c:\users\sovietdoggo\documents\visual studio 2017\Projects\Home_Exercise1\Home_Exercise1\obj\Debug\Home_Exercise1.csprojResolveAssemblyReference.cache
 c:\users\sovietdoggo\documents\visual studio 2017\Projects\Home_Exercise1\Home_Exercise1\obj\Debug\Home_Exercise1.exe
 c:\users\sovietdoggo\documents\visual studio 2017\Projects\Home_Exercise1\Home_Exercise1\obj\Debug\Home_Exercise1.pdb
+C:\Users\thewiffedshot\Documents\GitHub\visual_studio_practice_projects\Home_Exercise1\Home_Exercise1\bin\Debug\Home_Exercise1.exe.config
+C:\Users\thewiffedshot\Documents\GitHub\visual_studio_practice_projects\Home_Exercise1\Home_Exercise1\bin\Debug\Home_Exercise1.exe
+C:\Users\thewiffedshot\Documents\GitHub\visual_studio_practice_projects\Home_Exercise1\Home_Exercise1\bin\Debug\Home_Exercise1.pdb
+C:\Users\thewiffedshot\Documents\GitHub\visual_studio_practice_projects\Home_Exercise1\Home_Exercise1\obj\Debug\Home_Exercise1.csprojResolveAssemblyReference.cache
+C:\Users\thewiffedshot\Documents\GitHub\visual_studio_practice_projects\Home_Exercise1\Home_Exercise1\obj\Debug\Home_Exercise1.csproj.CoreCompileInputs.cache
+C:\Users\thewiffedshot\Documents\GitHub\visual_studio_practice_projects\Home_Exercise1\Home_Exercise1\obj\Debug\Home_Exercise1.exe
+C:\Users\thewiffedshot\Documents\GitHub\visual_studio_practice_projects\Home_Exercise1\Home_Exercise1\obj\Debug\Home_Exercise1.pdb

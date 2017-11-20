@@ -46,7 +46,7 @@ namespace Home_Exercise1
                     denominator /= i;
 
                     lowerNum = Math.Min(numerator, denominator);
-                    i = 2;
+                    i = 1;
                 }
             }
         }
@@ -55,15 +55,16 @@ namespace Home_Exercise1
         {
             int commonDenominator = denominator * rn.denominator;
 
-            denominator = commonDenominator;
-            rn.denominator = commonDenominator;
-
             numerator *= rn.denominator;
             rn.numerator *= denominator;
+
+            denominator = commonDenominator;
+            rn.denominator = commonDenominator;
 
             RationalNumber result = new RationalNumber(numerator + rn.numerator, commonDenominator);
 
             Rationalize();
+            rn.Rationalize();
 
             return result;
         }
