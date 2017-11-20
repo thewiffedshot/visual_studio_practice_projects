@@ -10,8 +10,8 @@ namespace Home_Exercise1
     {
         static void Main(string[] args)
         {
-            RationalNumber rn = new RationalNumber(2, 8);
-            RationalNumber rn1 = new RationalNumber(7, 28);
+            RationalNumber rn = new RationalNumber(6, 8);
+            RationalNumber rn1 = new RationalNumber(24, 36);
 
             RationalNumber rn2 = rn.Add(rn1);
 
