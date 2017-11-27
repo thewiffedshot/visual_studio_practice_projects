@@ -1,0 +1,7 @@
+c:\users\student\source\repos\Exercise9\Exercise9\bin\Debug\Exercise9.exe.config
+c:\users\student\source\repos\Exercise9\Exercise9\bin\Debug\Exercise9.exe
+c:\users\student\source\repos\Exercise9\Exercise9\bin\Debug\Exercise9.pdb
+c:\users\student\source\repos\Exercise9\Exercise9\obj\Debug\Exercise9.csprojResolveAssemblyReference.cache
+c:\users\student\source\repos\Exercise9\Exercise9\obj\Debug\Exercise9.csproj.CoreCompileInputs.cache
+c:\users\student\source\repos\Exercise9\Exercise9\obj\Debug\Exercise9.exe
+c:\users\student\source\repos\Exercise9\Exercise9\obj\Debug\Exercise9.pdb
