@@ -36,7 +36,42 @@ namespace Home_Exercise1
 
         private void Rationalize()
         {
-            int lowerNum = Math.Min(numerator, denominator);
+            int a = numerator, b = denominator, c;
+
+            if (a > b)
+            {
+                while (true)
+                {
+                    c = a;
+                    a = b;
+
+                    if (c % b == 0) { numerator /= b; denominator /= b; break; }
+
+                    b = c % b;                                        
+                }
+            }
+            else if (a < b)
+            {
+                c = a;
+                a = b;
+                b = c;
+
+                while (true)
+                {
+                    c = a;
+                    a = b;
+
+                    if (c % b == 0) { numerator /= b; denominator /= b; break; }
+
+                    b = c % b;
+                }
+            }
+            else
+            {
+                numerator = 1; denominator = 1;
+            }
+
+            /*int lowerNum = Math.Min(numerator, denominator);
 
             for (int i = 2; i <= lowerNum; i++)
             {
@@ -48,7 +83,7 @@ namespace Home_Exercise1
                     lowerNum = Math.Min(numerator, denominator);
                     i = 1;
                 }
-            }
+            }*/
         }
 
         public RationalNumber Add(RationalNumber rn)
