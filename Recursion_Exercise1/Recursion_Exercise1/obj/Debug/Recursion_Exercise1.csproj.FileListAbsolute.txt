@@ -1,0 +1,7 @@
+C:\Users\thewiffedshot\source\repos\Recursion_Exercise1\Recursion_Exercise1\bin\Debug\Recursion_Exercise1.exe.config
+C:\Users\thewiffedshot\source\repos\Recursion_Exercise1\Recursion_Exercise1\bin\Debug\Recursion_Exercise1.exe
+C:\Users\thewiffedshot\source\repos\Recursion_Exercise1\Recursion_Exercise1\bin\Debug\Recursion_Exercise1.pdb
+C:\Users\thewiffedshot\source\repos\Recursion_Exercise1\Recursion_Exercise1\obj\Debug\Recursion_Exercise1.csprojResolveAssemblyReference.cache
+C:\Users\thewiffedshot\source\repos\Recursion_Exercise1\Recursion_Exercise1\obj\Debug\Recursion_Exercise1.csproj.CoreCompileInputs.cache
+C:\Users\thewiffedshot\source\repos\Recursion_Exercise1\Recursion_Exercise1\obj\Debug\Recursion_Exercise1.exe
+C:\Users\thewiffedshot\source\repos\Recursion_Exercise1\Recursion_Exercise1\obj\Debug\Recursion_Exercise1.pdb
