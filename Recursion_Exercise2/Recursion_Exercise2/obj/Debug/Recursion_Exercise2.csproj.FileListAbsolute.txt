@@ -1,0 +1,6 @@
+c:\users\sovietdoggo\documents\visual studio 2017\Projects\Recursion_Exercise2\Recursion_Exercise2\bin\Debug\Recursion_Exercise2.exe.config
+c:\users\sovietdoggo\documents\visual studio 2017\Projects\Recursion_Exercise2\Recursion_Exercise2\bin\Debug\Recursion_Exercise2.exe
+c:\users\sovietdoggo\documents\visual studio 2017\Projects\Recursion_Exercise2\Recursion_Exercise2\bin\Debug\Recursion_Exercise2.pdb
+c:\users\sovietdoggo\documents\visual studio 2017\Projects\Recursion_Exercise2\Recursion_Exercise2\obj\Debug\Recursion_Exercise2.csprojResolveAssemblyReference.cache
+c:\users\sovietdoggo\documents\visual studio 2017\Projects\Recursion_Exercise2\Recursion_Exercise2\obj\Debug\Recursion_Exercise2.exe
+c:\users\sovietdoggo\documents\visual studio 2017\Projects\Recursion_Exercise2\Recursion_Exercise2\obj\Debug\Recursion_Exercise2.pdb
