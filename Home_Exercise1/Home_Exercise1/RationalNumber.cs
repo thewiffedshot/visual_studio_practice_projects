@@ -71,36 +71,61 @@ namespace Home_Exercise1
                 numerator = 1; denominator = 1;
             }
 
-            /*int lowerNum = Math.Min(numerator, denominator);
-
-            for (int i = 2; i <= lowerNum; i++)
-            {
-                if (numerator % i == 0 && denominator % i == 0)
-                {
-                    numerator /= i;
-                    denominator /= i;
-
-                    lowerNum = Math.Min(numerator, denominator);
-                    i = 1;
-                }
-            }*/
+            if (denominator < 0) { numerator = -numerator; denominator = -denominator; }
         }
 
-        public RationalNumber Add(RationalNumber rn)
+        public static RationalNumber operator +(RationalNumber rn, RationalNumber rn1)
         {
-            int commonDenominator = denominator * rn.denominator;
+            int commonDenominator = rn.denominator * rn1.denominator;
 
-            numerator *= rn.denominator;
-            rn.numerator *= denominator;
+            rn.numerator *= rn1.denominator;
+            rn1.numerator *= rn.denominator;
 
-            denominator = commonDenominator;
             rn.denominator = commonDenominator;
+            rn1.denominator = commonDenominator;
 
-            RationalNumber result = new RationalNumber(numerator + rn.numerator, commonDenominator);
+            RationalNumber result = new RationalNumber(rn.numerator + rn1.numerator, commonDenominator);
 
-            Rationalize();
             rn.Rationalize();
+            rn1.Rationalize();
 
+            return result;
+        }
+
+        public static RationalNumber operator -(RationalNumber rn, RationalNumber rn1)
+        {
+            int commonDenominator = rn.denominator * rn1.denominator;
+
+            rn.numerator *= rn1.denominator;
+            rn1.numerator *= rn.denominator;
+
+            rn.denominator = commonDenominator;
+            rn1.denominator = commonDenominator;
+
+            RationalNumber result = new RationalNumber(rn.numerator - rn1.numerator, commonDenominator);
+
+            rn.Rationalize();
+            rn1.Rationalize();
+
+            return result;
+        }
+
+        public static RationalNumber operator -(RationalNumber rn)
+        {
+            rn.numerator = -rn.numerator;
+
+            return rn;
+        }
+
+        public static RationalNumber operator *(RationalNumber rn, RationalNumber rn1)
+        {
+            RationalNumber result = new RationalNumber(rn.numerator * rn1.numerator, rn.denominator * rn1.denominator);
+            return result;
+        }
+
+        public static RationalNumber operator /(RationalNumber rn, RationalNumber rn1)
+        {
+            RationalNumber result = new RationalNumber(rn.numerator / rn1.numerator, rn.denominator / rn1.denominator);
             return result;
         }
     }

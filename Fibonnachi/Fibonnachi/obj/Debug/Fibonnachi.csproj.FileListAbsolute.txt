@@ -1,0 +1,7 @@
+c:\users\student\source\repos\Fibonnachi\Fibonnachi\bin\Debug\Fibonnachi.exe.config
+c:\users\student\source\repos\Fibonnachi\Fibonnachi\bin\Debug\Fibonnachi.exe
+c:\users\student\source\repos\Fibonnachi\Fibonnachi\bin\Debug\Fibonnachi.pdb
+c:\users\student\source\repos\Fibonnachi\Fibonnachi\obj\Debug\Fibonnachi.csprojResolveAssemblyReference.cache
+c:\users\student\source\repos\Fibonnachi\Fibonnachi\obj\Debug\Fibonnachi.csproj.CoreCompileInputs.cache
+c:\users\student\source\repos\Fibonnachi\Fibonnachi\obj\Debug\Fibonnachi.exe
+c:\users\student\source\repos\Fibonnachi\Fibonnachi\obj\Debug\Fibonnachi.pdb

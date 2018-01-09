@@ -13,7 +13,7 @@ namespace Home_Exercise1
             RationalNumber rn = new RationalNumber(6, 8);
             RationalNumber rn1 = new RationalNumber(24, 36);
 
-            RationalNumber rn2 = rn.Add(rn1);
+            RationalNumber rn2 = rn1 - rn;
 
             Console.ReadKey();
         }
