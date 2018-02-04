@@ -1,0 +1,6 @@
+C:\Users\SovietDoggo\source\repos\Arrays_Task8\Arrays_Task8\bin\Debug\Arrays_Task8.exe.config
+C:\Users\SovietDoggo\source\repos\Arrays_Task8\Arrays_Task8\bin\Debug\Arrays_Task8.exe
+C:\Users\SovietDoggo\source\repos\Arrays_Task8\Arrays_Task8\bin\Debug\Arrays_Task8.pdb
+C:\Users\SovietDoggo\source\repos\Arrays_Task8\Arrays_Task8\obj\Debug\Arrays_Task8.csproj.CoreCompileInputs.cache
+C:\Users\SovietDoggo\source\repos\Arrays_Task8\Arrays_Task8\obj\Debug\Arrays_Task8.exe
+C:\Users\SovietDoggo\source\repos\Arrays_Task8\Arrays_Task8\obj\Debug\Arrays_Task8.pdb
