@@ -1,0 +1,5 @@
+/home/sovietdoggo/Documents/repos/Arrays_Task13/Arrays_Task13/obj/x86/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
+/home/sovietdoggo/Documents/repos/Arrays_Task13/Arrays_Task13/bin/Debug/Arrays_Task13.exe.mdb
+/home/sovietdoggo/Documents/repos/Arrays_Task13/Arrays_Task13/bin/Debug/Arrays_Task13.exe
+/home/sovietdoggo/Documents/repos/Arrays_Task13/Arrays_Task13/obj/x86/Debug/Arrays_Task13.exe
+/home/sovietdoggo/Documents/repos/Arrays_Task13/Arrays_Task13/obj/x86/Debug/Arrays_Task13.exe.mdb
