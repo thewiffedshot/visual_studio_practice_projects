@@ -1,0 +1,7 @@
+C:\Users\SovietDoggo\source\repos\Arrays_Task11\Arrays_Task11\bin\Debug\Arrays_Task11.exe.config
+C:\Users\SovietDoggo\source\repos\Arrays_Task11\Arrays_Task11\bin\Debug\Arrays_Task11.exe
+C:\Users\SovietDoggo\source\repos\Arrays_Task11\Arrays_Task11\bin\Debug\Arrays_Task11.pdb
+C:\Users\SovietDoggo\source\repos\Arrays_Task11\Arrays_Task11\obj\Debug\Arrays_Task11.csprojResolveAssemblyReference.cache
+C:\Users\SovietDoggo\source\repos\Arrays_Task11\Arrays_Task11\obj\Debug\Arrays_Task11.csproj.CoreCompileInputs.cache
+C:\Users\SovietDoggo\source\repos\Arrays_Task11\Arrays_Task11\obj\Debug\Arrays_Task11.exe
+C:\Users\SovietDoggo\source\repos\Arrays_Task11\Arrays_Task11\obj\Debug\Arrays_Task11.pdb

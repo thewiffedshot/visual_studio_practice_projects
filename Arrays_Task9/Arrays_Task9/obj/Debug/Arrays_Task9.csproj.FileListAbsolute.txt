@@ -1,0 +1,7 @@
+C:\Users\SovietDoggo\source\repos\Arrays_Task9\Arrays_Task9\bin\Debug\Arrays_Task9.exe.config
+C:\Users\SovietDoggo\source\repos\Arrays_Task9\Arrays_Task9\bin\Debug\Arrays_Task9.exe
+C:\Users\SovietDoggo\source\repos\Arrays_Task9\Arrays_Task9\bin\Debug\Arrays_Task9.pdb
+C:\Users\SovietDoggo\source\repos\Arrays_Task9\Arrays_Task9\obj\Debug\Arrays_Task9.csprojResolveAssemblyReference.cache
+C:\Users\SovietDoggo\source\repos\Arrays_Task9\Arrays_Task9\obj\Debug\Arrays_Task9.csproj.CoreCompileInputs.cache
+C:\Users\SovietDoggo\source\repos\Arrays_Task9\Arrays_Task9\obj\Debug\Arrays_Task9.exe
+C:\Users\SovietDoggo\source\repos\Arrays_Task9\Arrays_Task9\obj\Debug\Arrays_Task9.pdb
