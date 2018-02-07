@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{6D08E49E-D824-498F-8B47-981A3B4BDAE0}</ProjectGuid>
+    <ProjectGuid>{AFC3C0A9-4BF1-44AF-9F49-229389AD39FF}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Arrays_Task13</RootNamespace>
     <AssemblyName>Arrays_Task13</AssemblyName>
