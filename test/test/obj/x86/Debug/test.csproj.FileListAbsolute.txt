@@ -1,0 +1,5 @@
+/home/sovietdoggo/Projects/test/test/bin/Debug/test.exe
+/home/sovietdoggo/Projects/test/test/bin/Debug/test.pdb
+/home/sovietdoggo/Projects/test/test/obj/x86/Debug/test.csproj.CoreCompileInputs.cache
+/home/sovietdoggo/Projects/test/test/obj/x86/Debug/test.exe
+/home/sovietdoggo/Projects/test/test/obj/x86/Debug/test.pdb
