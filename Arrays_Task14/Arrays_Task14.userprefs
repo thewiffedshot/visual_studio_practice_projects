@@ -1,0 +1,19 @@
+﻿<Properties StartupItem="Arrays_Task14/Arrays_Task14.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Arrays_Task14/Program.cs">
+    <Files>
+      <File FileName="Arrays_Task14/Program.cs" Line="43" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/home/sovietdoggo/Documents/repos/Arrays_Task14/Arrays_Task14/Program.cs" line="21" column="1" />
+      <Breakpoint file="/home/sovietdoggo/Documents/repos/Arrays_Task14/Arrays_Task14/Program.cs" line="30" column="1" />
+      <Breakpoint file="/home/sovietdoggo/Documents/repos/Arrays_Task14/Arrays_Task14/Program.cs" line="31" column="1" />
+      <Breakpoint file="/home/sovietdoggo/Documents/repos/Arrays_Task14/Arrays_Task14/Program.cs" line="34" column="1" />
+      <Breakpoint file="/home/sovietdoggo/Documents/repos/Arrays_Task14/Arrays_Task14/Program.cs" line="36" column="1" />
+      <Breakpoint file="/home/sovietdoggo/Documents/repos/Arrays_Task14/Arrays_Task14/Program.cs" line="43" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
