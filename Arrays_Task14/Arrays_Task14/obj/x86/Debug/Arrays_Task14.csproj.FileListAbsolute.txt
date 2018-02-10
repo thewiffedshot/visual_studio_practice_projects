@@ -1,0 +1,5 @@
+/home/sovietdoggo/Git/visual_studio_practice_projects/Arrays_Task14/Arrays_Task14/bin/Debug/Arrays_Task14.exe
+/home/sovietdoggo/Git/visual_studio_practice_projects/Arrays_Task14/Arrays_Task14/bin/Debug/Arrays_Task14.pdb
+/home/sovietdoggo/Git/visual_studio_practice_projects/Arrays_Task14/Arrays_Task14/obj/x86/Debug/Arrays_Task14.csproj.CoreCompileInputs.cache
+/home/sovietdoggo/Git/visual_studio_practice_projects/Arrays_Task14/Arrays_Task14/obj/x86/Debug/Arrays_Task14.exe
+/home/sovietdoggo/Git/visual_studio_practice_projects/Arrays_Task14/Arrays_Task14/obj/x86/Debug/Arrays_Task14.pdb
