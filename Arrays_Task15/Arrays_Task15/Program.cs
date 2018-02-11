@@ -7,6 +7,8 @@ namespace Arrays_Task15
         public static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+
+            Console.ReadKey();
         }
     }
 }
