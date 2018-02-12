@@ -2,12 +2,14 @@
   <MonoDevelop.Ide.ItemProperties.Arrays__Task15 PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Arrays_Task15/Program.cs">
     <Files>
-      <File FileName="Arrays_Task15/Program.cs" Line="15" Column="1" />
+      <File FileName="Arrays_Task15/Program.cs" Line="22" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/home/sovietdoggo/Git/visual_studio_practice_projects/Arrays_Task15/Arrays_Task15/Program.cs" relfile="Arrays_Task15/Program.cs" line="22" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
