@@ -24,7 +24,7 @@ namespace Emage
 
         public double GetDistanceFrom(ColorVector a)
         {
-            return Math.Abs(Math.Sqrt(red * red + green * green + blue * blue) - Math.Sqrt(a.red * a.red + a.green * a.green + a.blue * a.blue));
+            return Math.Abs(Math.Sqrt((a.red - red) * (a.red - red) + (a.green - green) * (a.green - green) + (a.blue - blue) * (a.blue - blue)));
         }
     }
 }

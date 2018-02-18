@@ -19,10 +19,6 @@ namespace Emage
         private Bitmap convertedImage;
         private int interval = 32;
 
-        private byte red = 0x00;
-        private byte green = 0x00;
-        private byte blue = 0x00;
-
         public Form1()
         {
             InitializeComponent();
@@ -146,6 +142,34 @@ namespace Emage
                 }
             }
 
+            try
+            {
+                image = DrawImage(closestPath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, ex.Source);
+                Application.Exit();
+            }
+
+            pictureBox.Image = image;
+
+            BSave.Enabled = true;
+        }
+
+        private Bitmap DrawImage(string[,] path)
+        {
+            Bitmap bmp = new Bitmap(image.Width, image.Height);
+            Graphics gfx = Graphics.FromImage(bmp);
+            gfx.Clear(Color.Black);
+            
+            for (int i = 0, y = 0; i < path.GetLength(0) * interval; i += interval, y++)
+            {
+                for (int j = 0, x = 0; j < path.GetLength(1) * interval; j += interval, x++)
+                    gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + path[y, x]), new Point(j, i));
+            }
+
+            return bmp;
         }
 
         private void SaveImage(Bitmap image, string path)
