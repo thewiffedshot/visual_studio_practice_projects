@@ -62,6 +62,7 @@
             // 
             // BConvert
             // 
+            this.BConvert.Enabled = false;
             this.BConvert.Location = new System.Drawing.Point(243, 496);
             this.BConvert.Name = "BConvert";
             this.BConvert.Size = new System.Drawing.Size(225, 54);
@@ -72,6 +73,7 @@
             // 
             // BSave
             // 
+            this.BSave.Enabled = false;
             this.BSave.Location = new System.Drawing.Point(12, 556);
             this.BSave.Name = "BSave";
             this.BSave.Size = new System.Drawing.Size(456, 54);
