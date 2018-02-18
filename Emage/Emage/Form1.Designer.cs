@@ -89,7 +89,6 @@
             // 
             // saveDialog
             // 
-            this.saveDialog.CheckFileExists = true;
             this.saveDialog.InitialDirectory = ".";
             this.saveDialog.RestoreDirectory = true;
             // 
@@ -124,7 +123,10 @@
             this.Controls.Add(this.BConvert);
             this.Controls.Add(this.BLoad);
             this.Controls.Add(this.pictureBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = "Emage";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();

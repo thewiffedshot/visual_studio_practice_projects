@@ -36,7 +36,7 @@ namespace Emage
             try
             {
                 image = new Bitmap(path);
-                image = CropImage(image, new Rectangle(new Point(0, 0), new Size(image.Width - (image.Width % interval), image.Height - (image.Height % interval))));
+                if (!(image.Width % interval == 0 && image.Height % interval == 0)) image = CropImage(image, new Rectangle(new Point(0, 0), new Size(image.Width - (image.Width % interval), image.Height - (image.Height % interval))));
                 convertedImage = new Bitmap(path);
             }
             catch (Exception ex)
@@ -174,7 +174,7 @@ namespace Emage
 
         private void SaveImage(Bitmap image, string path)
         {
-            image.Save(path);
+            image.Save(path, System.Drawing.Imaging.ImageFormat.Png);
         }
 
         private string[] ReadLines(string path)
