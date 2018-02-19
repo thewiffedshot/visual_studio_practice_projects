@@ -8,3 +8,13 @@ C:\Users\SovietDoggo\source\repos\Emage\Emage\obj\Debug\Emage.csproj.GenerateRes
 C:\Users\SovietDoggo\source\repos\Emage\Emage\obj\Debug\Emage.csproj.CoreCompileInputs.cache
 C:\Users\SovietDoggo\source\repos\Emage\Emage\obj\Debug\Emage.exe
 C:\Users\SovietDoggo\source\repos\Emage\Emage\obj\Debug\Emage.pdb
+C:\Users\thewiffedshot\Documents\GitHub\visual_studio_practice_projects\Emage\Emage\bin\Debug\Emage.exe.config
+C:\Users\thewiffedshot\Documents\GitHub\visual_studio_practice_projects\Emage\Emage\bin\Debug\Emage.exe
+C:\Users\thewiffedshot\Documents\GitHub\visual_studio_practice_projects\Emage\Emage\bin\Debug\Emage.pdb
+C:\Users\thewiffedshot\Documents\GitHub\visual_studio_practice_projects\Emage\Emage\obj\Debug\Emage.csprojResolveAssemblyReference.cache
+C:\Users\thewiffedshot\Documents\GitHub\visual_studio_practice_projects\Emage\Emage\obj\Debug\Emage.Form1.resources
+C:\Users\thewiffedshot\Documents\GitHub\visual_studio_practice_projects\Emage\Emage\obj\Debug\Emage.Properties.Resources.resources
+C:\Users\thewiffedshot\Documents\GitHub\visual_studio_practice_projects\Emage\Emage\obj\Debug\Emage.csproj.GenerateResource.Cache
+C:\Users\thewiffedshot\Documents\GitHub\visual_studio_practice_projects\Emage\Emage\obj\Debug\Emage.csproj.CoreCompileInputs.cache
+C:\Users\thewiffedshot\Documents\GitHub\visual_studio_practice_projects\Emage\Emage\obj\Debug\Emage.exe
+C:\Users\thewiffedshot\Documents\GitHub\visual_studio_practice_projects\Emage\Emage\obj\Debug\Emage.pdb

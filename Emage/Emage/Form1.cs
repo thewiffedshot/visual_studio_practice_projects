@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.IO;
 using System.Windows.Forms;
 
@@ -15,9 +16,12 @@ namespace Emage
     {
         private string path;
         private string savePath;
-        private Bitmap image;
+        private static Bitmap image;
         private Bitmap convertedImage;
         private int interval = 32;
+        private static ColorVector[,] averages;
+
+        private object _locker = new object();
 
         public Form1()
         {
@@ -98,7 +102,7 @@ namespace Emage
                 if (i < lines.Length) emojiCount++;
 
             ColorVector[] colors = new ColorVector[emojiCount];
-            ColorVector[,] averages = new ColorVector[(image.Height / interval), (image.Width / interval)];
+            averages = new ColorVector[(image.Height / interval), (image.Width / interval)];
             string[,] closestPath = new string[(image.Height / interval), (image.Width / interval)];
 
             for (int i = 0; i < colors.Length; i++)
@@ -106,12 +110,40 @@ namespace Emage
                 colors[i] = GetEmojiColor(lines[4 * i]);
             }
 
-            for (int i = 0; i < image.Height / interval; i++)
+            var t2 = new Task(() =>
             {
-                for (int j = 0; j < image.Width / interval; j++)
+                lock (_locker)
                 {
-                    averages[i, j] = GetAverageColor(i, j);
+                    for (int i = image.Height / interval / 2; i < image.Height / interval; i++)
+                    {
+                        for (int j = 0; j < image.Width / interval; j++)
+                        {
+                            averages[i, j] = GetAverageColor(i, j);
+                        }
+                    }
                 }
+            });
+
+            var t1 = new Task(() =>
+            {
+                lock (_locker)
+                {
+                    for (int i = 0; i < image.Height / interval / 2; i++)
+                    {
+                        for (int j = 0; j < image.Width / interval; j++)
+                        {
+                            averages[i, j] = GetAverageColor(i, j);
+                        }
+                    }
+                }
+            });
+
+            t1.Start();
+            t2.Start();
+
+            while (t1.Status == TaskStatus.Running || t1.Status == TaskStatus.WaitingToRun || t2.Status == TaskStatus.Running || t2.Status == TaskStatus.WaitingToRun)
+            {
+                // Do nothing...
             }
 
             for (int i = 0; i < averages.GetLength(0); i++)
@@ -205,7 +237,10 @@ namespace Emage
             {
                 for (int x = quadX * interval; x < interval * (quadX + 1); x++)
                 {
-                    Color c = image.GetPixel(x, y);
+                    Color c;
+
+                    c = image.GetPixel(x, y);
+
                     averageRed += c.R * c.R;
                     averageGreen += c.G * c.G;
                     averageBlue += c.B * c.B;
