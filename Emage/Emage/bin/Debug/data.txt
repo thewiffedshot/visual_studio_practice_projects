@@ -98,10 +98,6 @@ EFF8F00
 \\assets\\eFF8F00.png
 \\assets\\eFF8F00_small.png
 
-EFF0800
-\\assets\\eFF0800.png
-\\assets\\eFF0800_small.png
-
 EFF1800
 \\assets\\eFF1800.png
 \\assets\\eFF1800_small.png
