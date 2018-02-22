@@ -16,11 +16,19 @@ namespace Emage
             green = _green;
             blue = _blue;
         }
+
+        public ColorVector(byte[] cs)
+        {
+            blue = cs[0];
+            green = cs[1];
+            red = cs[2];
+        }
         
         public ColorVector()
         {
 
         }
+
 
         public double GetDistanceFrom(ColorVector a)
         {

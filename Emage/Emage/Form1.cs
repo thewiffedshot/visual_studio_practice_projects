@@ -17,9 +17,15 @@ namespace Emage
         private string path;
         private string savePath;
         private static Bitmap image;
-        private Bitmap convertedImage;
+        private int width = 0, height = 0;
+        private Bitmap resultImage;
+        private byte[] tempBitmap;
         private int interval = 32;
         private static ColorVector[,] averages;
+
+        private int rowSize = 0;
+
+        private static decimal stopwatch = 0m;
 
         private object _locker = new object();
 
@@ -28,20 +34,52 @@ namespace Emage
             InitializeComponent();
         }
 
+        ~Form1()
+        {
+            try
+            {
+                File.Delete(Path.GetTempPath() + "tempImage.bmp");
+                File.Delete(Path.GetTempPath() + "resultTemp.bmp");
+            }
+            catch (FileNotFoundException)
+            {
+                // Do nothing...
+            }
+            catch (Exception)
+            {
+                // Do nothing...
+            }
+        }
+
         private void BLoad_Click(object sender, EventArgs e)
         {
+            BConvert.Enabled = false;
+            BSave.Enabled = false;
+
             openDialog.InitialDirectory = Application.StartupPath;
             openDialog.ShowDialog();
             path = openDialog.FileName;
 
             if (smallOption.Checked) interval = 16;
-            smallOption.Enabled = false;
 
             try
             {
                 image = new Bitmap(path);
                 if (!(image.Width % interval == 0 && image.Height % interval == 0)) image = CropImage(image, new Rectangle(new Point(0, 0), new Size(image.Width - (image.Width % interval), image.Height - (image.Height % interval))));
-                convertedImage = new Bitmap(path);
+
+                width = image.Width;
+                height = image.Height;
+                rowSize = (int)Math.Floor((24m*image.Width + 31m) / 32m) * 4;
+
+                resultImage = new Bitmap(image.Width, image.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+                resultImage.Save(Path.GetTempPath() + "resultTemp.bmp");
+
+                Bitmap bmp = new Bitmap(image.Width, image.Height, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
+                Graphics gfx = Graphics.FromImage(bmp);
+                gfx.DrawImage(image, new Point(0, 0));
+                gfx.Dispose();
+
+                bmp.Save(Path.GetTempPath() + "tempImage.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
             }
             catch (Exception ex)
             {
@@ -86,7 +124,6 @@ namespace Emage
 
             } while (saveException);
 
-            smallOption.Enabled = true;
             BConvert.Enabled = false;
             BSave.Enabled = false;
 
@@ -95,6 +132,10 @@ namespace Emage
 
         private void BConvert_Click(object sender, EventArgs e)
         {
+            threadOption.Enabled = false;
+
+            timer.Start();
+
             string[] lines = ReadLines("data.txt");
             int emojiCount = 0;
 
@@ -110,40 +151,74 @@ namespace Emage
                 colors[i] = GetEmojiColor(lines[4 * i]);
             }
 
-            var t2 = new Task(() =>
+            if (threadOption.Checked)
             {
-                lock (_locker)
+                var t1 = new Task(() =>
                 {
-                    for (int i = image.Height / interval / 2; i < image.Height / interval; i++)
+                    for (int i = 0; i < height / interval / 2; i++)
                     {
-                        for (int j = 0; j < image.Width / interval; j++)
+                        for (int j = 0; j < width / interval / 2; j++)
                         {
-                            averages[i, j] = GetAverageColor(i, j);
+                            averages[i, j] = GetAverageColor(i, j, true);
                         }
                     }
-                }
-            });
+                });
 
-            var t1 = new Task(() =>
-            {
-                lock (_locker)
+                var t2 = new Task(() =>
                 {
-                    for (int i = 0; i < image.Height / interval / 2; i++)
+                    for (int i = 0; i < height / interval / 2; i++)
                     {
-                        for (int j = 0; j < image.Width / interval; j++)
+                        for (int j = width / interval / 2; j < width / interval; j++)
                         {
-                            averages[i, j] = GetAverageColor(i, j);
+                            averages[i, j] = GetAverageColor(i, j, true);
                         }
                     }
+                });
+
+                var t3 = new Task(() =>
+                {
+                    for (int i = height / interval / 2; i < height / interval; i++)
+                    {
+                        for (int j = 0; j < width / interval / 2; j++)
+                        {
+                            averages[i, j] = GetAverageColor(i, j, true);
+                        }
+                    }
+                });
+
+                var t4 = new Task(() =>
+                {
+                    for (int i = height / interval / 2; i < height / interval; i++)
+                    {
+                        for (int j = width / interval / 2; j < width / interval; j++)
+                        {
+                            averages[i, j] = GetAverageColor(i, j, true);
+                        }
+                    }
+                });
+
+                t1.Start();
+                t2.Start();
+                t3.Start();
+                t4.Start();
+
+                while (t1.Status == TaskStatus.WaitingToRun || t1.Status == TaskStatus.Running
+                    || t2.Status == TaskStatus.WaitingToRun || t2.Status == TaskStatus.Running
+                    || t3.Status == TaskStatus.WaitingToRun || t3.Status == TaskStatus.Running
+                    || t4.Status == TaskStatus.WaitingToRun || t4.Status == TaskStatus.Running)
+                {
+                    // Do nothing...                 
                 }
-            });
-
-            t1.Start();
-            t2.Start();
-
-            while (t1.Status == TaskStatus.Running || t1.Status == TaskStatus.WaitingToRun || t2.Status == TaskStatus.Running || t2.Status == TaskStatus.WaitingToRun)
+            }
+            else
             {
-                // Do nothing...
+                for (int i = 0; i < image.Height / interval; i++)
+                {
+                    for (int j = 0; j < image.Width / interval; j++)
+                    {
+                        averages[i, j] = GetAverageColor(i, j, false);
+                    }
+                }
             }
 
             for (int i = 0; i < averages.GetLength(0); i++)
@@ -159,7 +234,7 @@ namespace Emage
                         {
                             distance = c.GetDistanceFrom(averages[i, j]);
 
-                            if (!smallOption.Checked)
+                            if (interval == 16)
                             {
                                 closestPath[i, j] = lines[n * 4 + 1];
                             }
@@ -174,34 +249,87 @@ namespace Emage
                 }
             }
 
-            try
-            {
-                image = DrawImage(closestPath);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, ex.Source);
-                Application.Exit();
-            }
+            if (threadOption.Checked)
+                try
+                {
+                    image = DrawImage(closestPath, true, ref resultImage);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, ex.Source);
+                    Application.Exit();
+                }
+            else
+                try
+                {
+                    image = DrawImage(closestPath, false, ref resultImage);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, ex.Source);
+                    Application.Exit();
+                }
 
             pictureBox.Image = image;
 
-            BSave.Enabled = true;
-        }
+            timer.Stop();
+            MessageBox.Show(stopwatch.ToString() + " seconds.", "Time:");
 
-        private Bitmap DrawImage(string[,] path)
-        {
-            Bitmap bmp = new Bitmap(image.Width, image.Height);
-            Graphics gfx = Graphics.FromImage(bmp);
-            gfx.Clear(Color.Black);
-            
-            for (int i = 0, y = 0; i < path.GetLength(0) * interval; i += interval, y++)
+            try
             {
-                for (int j = 0, x = 0; j < path.GetLength(1) * interval; j += interval, x++)
-                    gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + path[y, x]), new Point(j, i));
+                File.Delete(Path.GetTempPath() + "tempImage.bmp");
+                File.Delete(Path.GetTempPath() + "resultTemp.bmp");
+            }
+            catch (FileNotFoundException)
+            {
+                // Do nothing...
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message + " Please take note of the exception and try again.", exc.Source);
+                Application.Restart();
             }
 
-            return bmp;
+            BSave.Enabled = true;
+            threadOption.Enabled = true;
+
+            averages = null;
+            image.Dispose();
+        }
+
+        private Bitmap DrawImage(string[,] path, bool threaded, ref Bitmap result)
+        {
+            if (!threaded)
+            {
+                Bitmap bmp = result;
+
+                for (int i = 0, y = 0; i < path.GetLength(0) * interval; i += interval, y++)
+                {
+                    for (int j = 0, x = 0; j < path.GetLength(1) * interval; j += interval, x++)
+                    {
+                        using (MemoryStream ms = new MemoryStream())
+                        {
+                            
+                        }
+                    }
+                }
+
+                return bmp;
+            }
+            else
+            {
+                Bitmap bmp = new Bitmap(image.Width, image.Height);
+                Graphics gfx = Graphics.FromImage(bmp);
+                gfx.Clear(Color.Black);
+
+                for (int i = 0, y = 0; i < path.GetLength(0) * interval; i += interval, y++)
+                {
+                    for (int j = 0, x = 0; j < path.GetLength(1) * interval; j += interval, x++)
+                        gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + path[y, x]), new Point(j, i));
+                }
+
+                return bmp;
+            }
         }
 
         private void SaveImage(Bitmap image, string path)
@@ -229,34 +357,131 @@ namespace Emage
             return null;
         }
 
-        private ColorVector GetAverageColor(int quadY, int quadX)
+        private ColorVector GetAverageColor(int quadY, int quadX, bool threaded)
         {
             double averageRed = 0x00, averageGreen = 0x00, averageBlue = 0x00;
 
-            for (int y = quadY * interval; y < interval * (quadY + 1); y++)
+            if (threaded)
             {
-                for (int x = quadX * interval; x < interval * (quadX + 1); x++)
+                for (int y = quadY * interval; y < interval * (quadY + 1); y++)
                 {
-                    Color c;
+                    for (int x = quadX * interval; x < interval * (quadX + 1); x++)
+                    {
+                        Color c;
 
-                    c = image.GetPixel(x, y);
+                        c = BitmapReadPixel(x, y);
 
-                    averageRed += c.R * c.R;
-                    averageGreen += c.G * c.G;
-                    averageBlue += c.B * c.B;
+                        averageRed += c.R * c.R;
+                        averageGreen += c.G * c.G;
+                        averageBlue += c.B * c.B;
+                    }
                 }
+
+                averageRed /= interval * interval;
+                averageRed = Math.Sqrt(averageRed);
+
+                averageGreen /= interval * interval;
+                averageGreen = Math.Sqrt(averageGreen);
+
+                averageBlue /= interval * interval;
+                averageBlue = Math.Sqrt(averageBlue);
+
+                return new ColorVector((byte)averageRed, (byte)averageGreen, (byte)averageBlue);
+            }
+            else
+            {
+                for (int y = quadY * interval; y < interval * (quadY + 1); y++)
+                {
+                    for (int x = quadX * interval; x < interval * (quadX + 1); x++)
+                    {
+                        Color c;
+
+                        c = image.GetPixel(x, y);
+
+                        averageRed += c.R * c.R;
+                        averageGreen += c.G * c.G;
+                        averageBlue += c.B * c.B;
+                    }
+                }
+
+                averageRed /= interval * interval;
+                averageRed = Math.Sqrt(averageRed);
+
+                averageGreen /= interval * interval;
+                averageGreen = Math.Sqrt(averageGreen);
+
+                averageBlue /= interval * interval;
+                averageBlue = Math.Sqrt(averageBlue);
+
+                return new ColorVector((byte)averageRed, (byte)averageGreen, (byte)averageBlue);
+            }
+        }
+
+        private Color BitmapReadPixel(int x, int y)
+        {
+            Color color = Color.Black;
+            int offset = 0x0A; // Offset containing value of beginning of pixel data.
+
+            byte[] buffer = new byte[3];
+
+            MemoryStream ms = new MemoryStream();
+
+            //try
+            //{
+            using (var fs = File.Open(Path.GetTempPath() + "tempImage.bmp", FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                fs.CopyTo(ms);
             }
 
-            averageRed /= interval * interval;
-            averageRed = Math.Sqrt(averageRed);
+            ms.Seek(offset, SeekOrigin.Begin);
+            ms.Read(buffer, 0, buffer.Length);
 
-            averageGreen /= interval * interval;
-            averageGreen = Math.Sqrt(averageGreen);
+            offset = buffer[0]; // Offset of beginning of pixel data.
 
-            averageBlue /= interval * interval;
-            averageBlue = Math.Sqrt(averageBlue);
+            offset += (height - 0x1 - y) * rowSize + x * 0x3;
 
-            return new ColorVector((byte)averageRed, (byte)averageGreen, (byte)averageBlue);        
+            ms.Seek(offset, SeekOrigin.Begin);
+            ms.Read(buffer, 0, buffer.Length);
+
+            color = Color.FromArgb(buffer[2], buffer[1], buffer[0]);
+                
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message + " Please take note of the exception and try again.", ex.Source);
+            //    Application.Restart();
+            //}
+
+            return color;
+        }
+
+        private void BitmapDrawImage(int x, int y, string path)
+        {
+            Color color = Color.Black;
+            int offset = 0x0A; // Offset containing value of beginning of pixel data.
+
+            byte[] buffer = new byte[3];
+
+            try
+            {
+                using (var fs = File.Open(Path.GetTempPath() + "resultTemp.bmp", FileMode.Open, FileAccess.Write, FileShare.Write))
+                {
+                    fs.Read(buffer, offset, buffer.Length);
+
+                    offset = buffer[0]; // Offset of beginning of pixel data.
+
+                    offset += (image.Height - 0x01 - y) * rowSize + (x * 0x03);
+
+                    fs.Write(buffer, offset, buffer.Length);
+
+                    color = Color.FromArgb(buffer[2], buffer[1], buffer[0]);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " Please take note of the exception and try again.", ex.Source);
+                Application.Restart();
+            }
         }
 
         private ColorVector GetEmojiColor(string name)
@@ -278,6 +503,11 @@ namespace Emage
             blue = byte.Parse(hexBlue, System.Globalization.NumberStyles.HexNumber);
 
             return new ColorVector(red, green, blue);
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            stopwatch += 0.01m;
         }
     }
 }

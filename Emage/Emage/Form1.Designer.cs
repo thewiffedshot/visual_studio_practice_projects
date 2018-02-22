@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.BLoad = new System.Windows.Forms.Button();
@@ -37,6 +38,9 @@
             this.saveDialog = new System.Windows.Forms.SaveFileDialog();
             this.label1 = new System.Windows.Forms.Label();
             this.smallOption = new System.Windows.Forms.CheckBox();
+            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.label2 = new System.Windows.Forms.Label();
+            this.threadOption = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -96,7 +100,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Unispace", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(242, 479);
+            this.label1.Location = new System.Drawing.Point(12, 479);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(105, 14);
             this.label1.TabIndex = 4;
@@ -105,11 +109,36 @@
             // smallOption
             // 
             this.smallOption.AutoSize = true;
-            this.smallOption.Location = new System.Drawing.Point(339, 479);
+            this.smallOption.Location = new System.Drawing.Point(109, 479);
             this.smallOption.Name = "smallOption";
             this.smallOption.Size = new System.Drawing.Size(15, 14);
             this.smallOption.TabIndex = 5;
             this.smallOption.UseVisualStyleBackColor = true;
+            // 
+            // timer
+            // 
+            this.timer.Enabled = true;
+            this.timer.Interval = 10;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Unispace", 8.999999F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(240, 479);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(98, 14);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Multi-Thread:";
+            // 
+            // threadOption
+            // 
+            this.threadOption.AutoSize = true;
+            this.threadOption.Location = new System.Drawing.Point(339, 479);
+            this.threadOption.Name = "threadOption";
+            this.threadOption.Size = new System.Drawing.Size(15, 14);
+            this.threadOption.TabIndex = 7;
+            this.threadOption.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -117,6 +146,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(480, 617);
+            this.Controls.Add(this.threadOption);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.smallOption);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.BSave);
@@ -145,6 +176,9 @@
         private System.Windows.Forms.SaveFileDialog saveDialog;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox smallOption;
+        private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckBox threadOption;
     }
 }
 
