@@ -27,7 +27,7 @@ namespace Emage
 
         private static decimal stopwatch = 0m;
 
-        private object _locker = new object();
+        private Object _locker = new object();
 
         public Form1()
         {
@@ -53,6 +53,8 @@ namespace Emage
 
         private void BLoad_Click(object sender, EventArgs e)
         {
+            GC.Collect();
+
             BConvert.Enabled = false;
             BSave.Enabled = false;
 
@@ -122,7 +124,6 @@ namespace Emage
                     MessageBox.Show(ex.Message + " Please try again.", ex.Source);
                     saveException = true;
                 }
-
             } while (saveException);
 
             BConvert.Enabled = false;
@@ -391,7 +392,7 @@ namespace Emage
                         {
                             distance = c.GetDistanceFrom(averages[i, j]);
 
-                            if (interval == 16)
+                            if (interval == 32)
                             {
                                 closestPath[i, j] = lines[n * 4 + 1];
                             }
@@ -451,7 +452,6 @@ namespace Emage
             threadOption.Enabled = true;
 
             averages = null;
-            image.Dispose();
         }
 
         private Bitmap DrawImage(string[,] path, bool threaded, ref Bitmap result)
@@ -460,38 +460,62 @@ namespace Emage
             {
                 Bitmap bmp = new Bitmap(image.Width, image.Height);
                 Graphics gfx = Graphics.FromImage(bmp);
-                gfx.Clear(Color.Black);
 
-                for (int i = 0, y = 0; i < path.GetLength(0) * interval; i += interval, y++)
+                var t1 = new Task(() =>
                 {
-                    for (int j = 0, x = 0; j < path.GetLength(1) * interval; j += interval, x++)
-                        gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + path[y, x]), new Point(j, i));
-                }
-
-                return bmp;
-
-                // TODO...
-
-                /*Bitmap bmp = result;
-
-                for (int i = 0, y = 0; i < path.GetLength(0) * interval; i += interval, y++)
-                {
-                    for (int j = 0, x = 0; j < path.GetLength(1) * interval; j += interval, x++)
+                    for (int i = 0, y = 0; i < path.GetLength(0) * interval / 2; i += interval, y++)
                     {
-                        using (MemoryStream ms = new MemoryStream())
-                        {
-                            
-                        }
+                        for (int j = 0, x = 0; j < path.GetLength(1) * interval / 2; j += interval, x++)
+                            lock (_locker) { gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + path[y, x]), new Point(j, i)); }
                     }
+                });
+
+                var t2 = new Task(() =>
+                {
+                    for (int i = 0, y = 0; i < path.GetLength(0) * interval / 2; i += interval, y++)
+                    {
+                        for (int j = path.GetLength(1) * interval / 2, x = j / interval; j < path.GetLength(1) * interval; j += interval, x++)
+                            lock (_locker) { gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + path[y, x]), new Point(j, i)); }
+                    }
+                });
+
+                var t3 = new Task(() =>
+                {
+                    for (int i = (path.GetLength(0) + 1) * interval / 2, y = i / interval; i < path.GetLength(0) * interval; i += interval, y++)
+                    {
+                        for (int j = 0, x = 0; j < path.GetLength(1) * interval / 2; j += interval, x++)
+                            lock (_locker) { gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + path[y, x]), new Point(j, i)); }
+                    }
+                });
+
+                var t4 = new Task(() =>
+                {
+                    for (int i = (path.GetLength(0) + 1) * interval / 2, y = i / interval; i < path.GetLength(0) * interval; i += interval, y++)
+                    {
+                        for (int j = path.GetLength(1) * interval / 2, x = j / interval; j < path.GetLength(1) * interval; j += interval, x++)
+                            lock (_locker) { gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + path[y, x]), new Point(j, i)); }
+                    }
+                });
+
+                t1.Start();
+                t2.Start();
+                t3.Start();
+                t4.Start();
+
+                while (t1.Status == TaskStatus.WaitingToRun || t1.Status == TaskStatus.Running
+                   || t2.Status == TaskStatus.WaitingToRun || t2.Status == TaskStatus.Running
+                   || t3.Status == TaskStatus.WaitingToRun || t3.Status == TaskStatus.Running
+                   || t4.Status == TaskStatus.WaitingToRun || t4.Status == TaskStatus.Running)
+                {
+                    // Do nothing...
                 }
 
-                return bmp;*/
+                return bmp;       
             }
             else
             {
                 Bitmap bmp = new Bitmap(image.Width, image.Height);
                 Graphics gfx = Graphics.FromImage(bmp);
-                gfx.Clear(Color.Black);
 
                 for (int i = 0, y = 0; i < path.GetLength(0) * interval; i += interval, y++)
                 {
@@ -610,34 +634,6 @@ namespace Emage
             return color;
         }
 
-        private void BitmapDrawImage(int x, int y, string path)
-        {
-            Color color = Color.Black;
-            int offset = 0x0A; // Offset containing value of beginning of pixel data.
-
-            byte[] buffer = new byte[3];
-
-            try
-            {
-                using (var fs = File.Open(Path.GetTempPath() + "resultTemp.bmp", FileMode.Open, FileAccess.Write, FileShare.Write))
-                {
-                    fs.Read(buffer, offset, buffer.Length);
-
-                    offset = buffer[0]; // Offset of beginning of pixel data.
-
-                    offset += (image.Height - 0x01 - y) * rowSize + (x * 0x03);
-
-                    fs.Write(buffer, offset, buffer.Length);
-
-                    color = Color.FromArgb(buffer[2], buffer[1], buffer[0]);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message + " Please take note of the exception and try again.", ex.Source);
-                Application.Restart();
-            }
-        }
 
         private ColorVector GetEmojiColor(string name)
         {
