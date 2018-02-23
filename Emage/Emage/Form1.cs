@@ -160,7 +160,7 @@ namespace Emage
                     {
                         for (int j = 0; j < width / interval / 4; j++)
                         {
-                            averages[i, j] = GetAverageColor(i, j, true);
+                            GetAverageColor(i, j, true);
                         }
                     }
                 });
@@ -171,7 +171,7 @@ namespace Emage
                     {
                         for (int j = width / interval / 4; j < width / interval / 2; j++)
                         {
-                            averages[i, j] = GetAverageColor(i, j, true);
+                            GetAverageColor(i, j, true);
                         }
                     }
                 });
@@ -182,7 +182,7 @@ namespace Emage
                     {
                         for (int j = width / interval / 2; j < (width / interval / 4) * 3 ; j++)
                         {
-                            averages[i, j] = GetAverageColor(i, j, true);
+                            GetAverageColor(i, j, true);
                         }
                     }
                 });
@@ -193,7 +193,7 @@ namespace Emage
                     {
                         for (int j = (width / interval / 4) * 3; j < width / interval; j++)
                         {
-                            averages[i, j] = GetAverageColor(i, j, true);
+                            GetAverageColor(i, j, true);
                         }
                     }
                 });
@@ -204,7 +204,7 @@ namespace Emage
                     {
                         for (int j = 0; j < width / interval / 4; j++)
                         {
-                            averages[i, j] = GetAverageColor(i, j, true);
+                            GetAverageColor(i, j, true);
                         }
                     }
                 });
@@ -215,7 +215,7 @@ namespace Emage
                     {
                         for (int j = width / interval / 4; j < width / interval / 2; j++)
                         {
-                            averages[i, j] = GetAverageColor(i, j, true);
+                            GetAverageColor(i, j, true);
                         }
                     }
                 });
@@ -226,7 +226,7 @@ namespace Emage
                     {
                         for (int j = width / interval / 2; j < (width / interval / 4) * 3; j++)
                         {
-                            averages[i, j] = GetAverageColor(i, j, true);
+                            GetAverageColor(i, j, true);
                         }
                     }
                 });
@@ -237,7 +237,7 @@ namespace Emage
                     {
                         for (int j = (width / interval / 4) * 3; j < width / interval; j++)
                         {
-                            averages[i, j] = GetAverageColor(i, j, true);
+                            GetAverageColor(i, j, true);
                         }
                     }
                 });
@@ -248,7 +248,7 @@ namespace Emage
                     {
                         for (int j = 0; j < width / interval / 4; j++)
                         {
-                            averages[i, j] = GetAverageColor(i, j, true);
+                            GetAverageColor(i, j, true);
                         }
                     }
                 });
@@ -259,7 +259,7 @@ namespace Emage
                     {
                         for (int j = width / interval / 4; j < width / interval / 2; j++)
                         {
-                            averages[i, j] = GetAverageColor(i, j, true);
+                            GetAverageColor(i, j, true);
                         }
                     }
                 });
@@ -270,7 +270,7 @@ namespace Emage
                     {
                         for (int j = width / interval / 2; j < (width / interval / 4) * 3; j++)
                         {
-                            averages[i, j] = GetAverageColor(i, j, true);
+                            GetAverageColor(i, j, true);
                         }
                     }
                 });
@@ -281,7 +281,7 @@ namespace Emage
                     {
                         for (int j = (width / interval / 4) * 3; j < width / interval; j++)
                         {
-                            averages[i, j] = GetAverageColor(i, j, true);
+                            GetAverageColor(i, j, true);
                         }
                     }
                 });
@@ -292,7 +292,7 @@ namespace Emage
                     {
                         for (int j = 0; j < width / interval / 4; j++)
                         {
-                            averages[i, j] = GetAverageColor(i, j, true);
+                            GetAverageColor(i, j, true);
                         }
                     }
                 });
@@ -303,7 +303,7 @@ namespace Emage
                     {
                         for (int j = width / interval / 4; j < width / interval / 2; j++)
                         {
-                            averages[i, j] = GetAverageColor(i, j, true);
+                            GetAverageColor(i, j, true);
                         }
                     }
                 });
@@ -314,7 +314,7 @@ namespace Emage
                     {
                         for (int j = width / interval / 2; j < (width / interval / 4) * 3; j++)
                         {
-                            averages[i, j] = GetAverageColor(i, j, true);
+                            GetAverageColor(i, j, true);
                         }
                     }
                 });
@@ -325,7 +325,7 @@ namespace Emage
                     {
                         for (int j = (width / interval / 4) * 3; j < width / interval; j++)
                         {
-                            averages[i, j] = GetAverageColor(i, j, true);
+                            GetAverageColor(i, j, true);
                         }
                     }
                 });
@@ -373,7 +373,7 @@ namespace Emage
                 {
                     for (int j = 0; j < image.Width / interval; j++)
                     {
-                        averages[i, j] = GetAverageColor(i, j, false);
+                        GetAverageColor(i, j, false);
                     }
                 }            
             }
@@ -528,7 +528,7 @@ namespace Emage
             return null;
         }
 
-        private ColorVector GetAverageColor(int quadY, int quadX, bool threaded)
+        private void GetAverageColor(int quadY, int quadX, bool threaded)
         {
             double averageRed = 0x00, averageGreen = 0x00, averageBlue = 0x00;
 
@@ -557,7 +557,7 @@ namespace Emage
                 averageBlue /= interval * interval;
                 averageBlue = Math.Sqrt(averageBlue);
 
-                return new ColorVector((byte)averageRed, (byte)averageGreen, (byte)averageBlue);
+                averages[quadY, quadX] = new ColorVector((byte)averageRed, (byte)averageGreen, (byte)averageBlue);
             }
             else
             {
@@ -584,7 +584,7 @@ namespace Emage
                 averageBlue /= interval * interval;
                 averageBlue = Math.Sqrt(averageBlue);
 
-                return new ColorVector((byte)averageRed, (byte)averageGreen, (byte)averageBlue);
+                averages[quadY, quadX] = new ColorVector((byte)averageRed, (byte)averageGreen, (byte)averageBlue);
             }
         }
 
