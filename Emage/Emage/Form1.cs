@@ -80,6 +80,7 @@ namespace Emage
                 gfx.Dispose();
 
                 bmp.Save(Path.GetTempPath() + "tempImage.bmp", System.Drawing.Imaging.ImageFormat.Bmp);
+                tempBitmap = File.ReadAllBytes(Path.GetTempPath() + "tempImage.bmp");
             }
             catch (Exception ex)
             {
@@ -155,9 +156,9 @@ namespace Emage
             {
                 var t1 = new Task(() =>
                 {
-                    for (int i = 0; i < height / interval / 2; i++)
+                    for (int i = 0; i < height / interval / 4; i++)
                     {
-                        for (int j = 0; j < width / interval / 2; j++)
+                        for (int j = 0; j < width / interval / 4; j++)
                         {
                             averages[i, j] = GetAverageColor(i, j, true);
                         }
@@ -166,9 +167,9 @@ namespace Emage
 
                 var t2 = new Task(() =>
                 {
-                    for (int i = 0; i < height / interval / 2; i++)
+                    for (int i = 0; i < height / interval / 4; i++)
                     {
-                        for (int j = width / interval / 2; j < width / interval; j++)
+                        for (int j = width / interval / 4; j < width / interval / 2; j++)
                         {
                             averages[i, j] = GetAverageColor(i, j, true);
                         }
@@ -177,9 +178,9 @@ namespace Emage
 
                 var t3 = new Task(() =>
                 {
-                    for (int i = height / interval / 2; i < height / interval; i++)
+                    for (int i = 0; i < height / interval / 4; i++)
                     {
-                        for (int j = 0; j < width / interval / 2; j++)
+                        for (int j = width / interval / 2; j < (width / interval / 4) * 3 ; j++)
                         {
                             averages[i, j] = GetAverageColor(i, j, true);
                         }
@@ -188,9 +189,141 @@ namespace Emage
 
                 var t4 = new Task(() =>
                 {
-                    for (int i = height / interval / 2; i < height / interval; i++)
+                    for (int i = 0; i < height / interval / 4; i++)
                     {
-                        for (int j = width / interval / 2; j < width / interval; j++)
+                        for (int j = (width / interval / 4) * 3; j < width / interval; j++)
+                        {
+                            averages[i, j] = GetAverageColor(i, j, true);
+                        }
+                    }
+                });
+
+                var t5 = new Task(() =>
+                {
+                    for (int i = height / interval / 4; i < height / interval / 2; i++)
+                    {
+                        for (int j = 0; j < width / interval / 4; j++)
+                        {
+                            averages[i, j] = GetAverageColor(i, j, true);
+                        }
+                    }
+                });
+
+                var t6 = new Task(() =>
+                {
+                    for (int i = height / interval / 4; i < height / interval / 2; i++)
+                    {
+                        for (int j = width / interval / 4; j < width / interval / 2; j++)
+                        {
+                            averages[i, j] = GetAverageColor(i, j, true);
+                        }
+                    }
+                });
+
+                var t7 = new Task(() =>
+                {
+                    for (int i = height / interval / 4; i < height / interval / 2; i++)
+                    {
+                        for (int j = width / interval / 2; j < (width / interval / 4) * 3; j++)
+                        {
+                            averages[i, j] = GetAverageColor(i, j, true);
+                        }
+                    }
+                });
+
+                var t8 = new Task(() =>
+                {
+                    for (int i = height / interval / 4; i < height / interval / 2; i++)
+                    {
+                        for (int j = (width / interval / 4) * 3; j < width / interval; j++)
+                        {
+                            averages[i, j] = GetAverageColor(i, j, true);
+                        }
+                    }
+                });
+
+                var t9 = new Task(() =>
+                {
+                    for (int i = height / interval / 2; i < (height / interval / 4) * 3; i++)
+                    {
+                        for (int j = 0; j < width / interval / 4; j++)
+                        {
+                            averages[i, j] = GetAverageColor(i, j, true);
+                        }
+                    }
+                });
+
+                var t10 = new Task(() =>
+                {
+                    for (int i = height / interval / 2; i < (height / interval / 4) * 3; i++)
+                    {
+                        for (int j = width / interval / 4; j < width / interval / 2; j++)
+                        {
+                            averages[i, j] = GetAverageColor(i, j, true);
+                        }
+                    }
+                });
+
+                var t11 = new Task(() =>
+                {
+                    for (int i = height / interval / 2; i < (height / interval / 4) * 3; i++)
+                    {
+                        for (int j = width / interval / 2; j < (width / interval / 4) * 3; j++)
+                        {
+                            averages[i, j] = GetAverageColor(i, j, true);
+                        }
+                    }
+                });
+
+                var t12 = new Task(() =>
+                {
+                    for (int i = height / interval / 2; i < (height / interval / 4) * 3; i++)
+                    {
+                        for (int j = (width / interval / 4) * 3; j < width / interval; j++)
+                        {
+                            averages[i, j] = GetAverageColor(i, j, true);
+                        }
+                    }
+                });
+
+                var t13 = new Task(() =>
+                {
+                    for (int i = (height / interval / 4) * 3; i < height / interval; i++)
+                    {
+                        for (int j = 0; j < width / interval / 4; j++)
+                        {
+                            averages[i, j] = GetAverageColor(i, j, true);
+                        }
+                    }
+                });
+
+                var t14 = new Task(() =>
+                {
+                    for (int i = (height / interval / 4) * 3; i < height / interval; i++)
+                    {
+                        for (int j = width / interval / 4; j < width / interval / 2; j++)
+                        {
+                            averages[i, j] = GetAverageColor(i, j, true);
+                        }
+                    }
+                });
+
+                var t15 = new Task(() =>
+                {
+                    for (int i = (height / interval / 4) * 3; i < height / interval; i++)
+                    {
+                        for (int j = width / interval / 2; j < (width / interval / 4) * 3; j++)
+                        {
+                            averages[i, j] = GetAverageColor(i, j, true);
+                        }
+                    }
+                });
+
+                var t16 = new Task(() =>
+                {
+                    for (int i = (height / interval / 4) * 3; i < height / interval; i++)
+                    {
+                        for (int j = (width / interval / 4) * 3; j < width / interval; j++)
                         {
                             averages[i, j] = GetAverageColor(i, j, true);
                         }
@@ -201,11 +334,35 @@ namespace Emage
                 t2.Start();
                 t3.Start();
                 t4.Start();
+                t5.Start();
+                t6.Start();
+                t7.Start();
+                t8.Start();
+                t9.Start();
+                t10.Start();
+                t11.Start();
+                t12.Start();
+                t13.Start();
+                t14.Start();
+                t15.Start();
+                t16.Start();
 
                 while (t1.Status == TaskStatus.WaitingToRun || t1.Status == TaskStatus.Running
                     || t2.Status == TaskStatus.WaitingToRun || t2.Status == TaskStatus.Running
                     || t3.Status == TaskStatus.WaitingToRun || t3.Status == TaskStatus.Running
-                    || t4.Status == TaskStatus.WaitingToRun || t4.Status == TaskStatus.Running)
+                    || t4.Status == TaskStatus.WaitingToRun || t4.Status == TaskStatus.Running
+                    || t5.Status == TaskStatus.WaitingToRun || t5.Status == TaskStatus.Running
+                    || t6.Status == TaskStatus.WaitingToRun || t6.Status == TaskStatus.Running
+                    || t7.Status == TaskStatus.WaitingToRun || t7.Status == TaskStatus.Running
+                    || t8.Status == TaskStatus.WaitingToRun || t8.Status == TaskStatus.Running
+                    || t9.Status == TaskStatus.WaitingToRun || t9.Status == TaskStatus.Running
+                    || t10.Status == TaskStatus.WaitingToRun || t10.Status == TaskStatus.Running
+                    || t11.Status == TaskStatus.WaitingToRun || t11.Status == TaskStatus.Running
+                    || t12.Status == TaskStatus.WaitingToRun || t12.Status == TaskStatus.Running
+                    || t13.Status == TaskStatus.WaitingToRun || t13.Status == TaskStatus.Running
+                    || t14.Status == TaskStatus.WaitingToRun || t14.Status == TaskStatus.Running
+                    || t15.Status == TaskStatus.WaitingToRun || t15.Status == TaskStatus.Running
+                    || t16.Status == TaskStatus.WaitingToRun || t16.Status == TaskStatus.Running)
                 {
                     // Do nothing...                 
                 }
@@ -218,9 +375,9 @@ namespace Emage
                     {
                         averages[i, j] = GetAverageColor(i, j, false);
                     }
-                }
+                }            
             }
-
+            
             for (int i = 0; i < averages.GetLength(0); i++)
             {
                 for (int j = 0; j < averages.GetLength(1); j++)
@@ -299,9 +456,23 @@ namespace Emage
 
         private Bitmap DrawImage(string[,] path, bool threaded, ref Bitmap result)
         {
-            if (!threaded)
+            if (threaded)
             {
-                Bitmap bmp = result;
+                Bitmap bmp = new Bitmap(image.Width, image.Height);
+                Graphics gfx = Graphics.FromImage(bmp);
+                gfx.Clear(Color.Black);
+
+                for (int i = 0, y = 0; i < path.GetLength(0) * interval; i += interval, y++)
+                {
+                    for (int j = 0, x = 0; j < path.GetLength(1) * interval; j += interval, x++)
+                        gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + path[y, x]), new Point(j, i));
+                }
+
+                return bmp;
+
+                // TODO...
+
+                /*Bitmap bmp = result;
 
                 for (int i = 0, y = 0; i < path.GetLength(0) * interval; i += interval, y++)
                 {
@@ -314,7 +485,7 @@ namespace Emage
                     }
                 }
 
-                return bmp;
+                return bmp;*/
             }
             else
             {
@@ -422,35 +593,19 @@ namespace Emage
             Color color = Color.Black;
             int offset = 0x0A; // Offset containing value of beginning of pixel data.
 
-            byte[] buffer = new byte[3];
-
-            MemoryStream ms = new MemoryStream();
-
-            //try
-            //{
-            using (var fs = File.Open(Path.GetTempPath() + "tempImage.bmp", FileMode.Open, FileAccess.Read, FileShare.Read))
+            try
             {
-                fs.CopyTo(ms);
+                offset = tempBitmap[offset]; // Offset of beggining of pixel data.
+
+                offset += (height - 0x1 - y) * rowSize + x * 0x3;
+
+                color = Color.FromArgb(tempBitmap[offset + 2], tempBitmap[offset + 1], tempBitmap[offset]);
             }
-
-            ms.Seek(offset, SeekOrigin.Begin);
-            ms.Read(buffer, 0, buffer.Length);
-
-            offset = buffer[0]; // Offset of beginning of pixel data.
-
-            offset += (height - 0x1 - y) * rowSize + x * 0x3;
-
-            ms.Seek(offset, SeekOrigin.Begin);
-            ms.Read(buffer, 0, buffer.Length);
-
-            color = Color.FromArgb(buffer[2], buffer[1], buffer[0]);
-                
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message + " Please take note of the exception and try again.", ex.Source);
-            //    Application.Restart();
-            //}
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " Please take note of the exception and try again.", ex.Source);
+                Application.Restart();
+            }
 
             return color;
         }

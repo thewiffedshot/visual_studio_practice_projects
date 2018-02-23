@@ -137,3 +137,7 @@ EFFFF00
 EFFFFFF
 \\assets\\eFFFFFF.png
 \\assets\\eFFFFFF_small.png
+
+EEEC29B
+\\assets\\EEEC29B.png
+\\assets\\EEEC29B_small.png
