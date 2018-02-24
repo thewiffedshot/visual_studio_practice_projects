@@ -41,6 +41,8 @@
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.label2 = new System.Windows.Forms.Label();
             this.threadOption = new System.Windows.Forms.CheckBox();
+            this.PBLoading = new System.Windows.Forms.ProgressBar();
+            this.LLoading = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,6 +58,7 @@
             // 
             // BLoad
             // 
+            this.BLoad.Enabled = false;
             this.BLoad.Location = new System.Drawing.Point(12, 496);
             this.BLoad.Name = "BLoad";
             this.BLoad.Size = new System.Drawing.Size(225, 54);
@@ -140,12 +143,32 @@
             this.threadOption.TabIndex = 7;
             this.threadOption.UseVisualStyleBackColor = true;
             // 
+            // PBLoading
+            // 
+            this.PBLoading.Location = new System.Drawing.Point(12, 12);
+            this.PBLoading.Name = "PBLoading";
+            this.PBLoading.Size = new System.Drawing.Size(456, 40);
+            this.PBLoading.Step = 20;
+            this.PBLoading.TabIndex = 8;
+            // 
+            // LLoading
+            // 
+            this.LLoading.AutoSize = true;
+            this.LLoading.Font = new System.Drawing.Font("Unispace", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LLoading.Location = new System.Drawing.Point(132, 55);
+            this.LLoading.Name = "LLoading";
+            this.LLoading.Size = new System.Drawing.Size(233, 25);
+            this.LLoading.TabIndex = 9;
+            this.LLoading.Text = "Loading assets...";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(480, 617);
+            this.Controls.Add(this.LLoading);
+            this.Controls.Add(this.PBLoading);
             this.Controls.Add(this.threadOption);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.smallOption);
@@ -179,6 +202,8 @@
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox threadOption;
+        private System.Windows.Forms.ProgressBar PBLoading;
+        private System.Windows.Forms.Label LLoading;
     }
 }
 

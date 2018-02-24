@@ -23,6 +23,15 @@ namespace Emage
         private int interval = 32;
         private static ColorVector[,] averages;
 
+        string[] filePaths = null;
+        string[] smallFilePaths = null;
+
+        string[] fileNames = null;
+        string[] smallFileNames = null;
+
+        private Bitmap[] assets;
+        private Bitmap[] smallAssets;
+
         private int rowSize = 0;
 
         private static decimal stopwatch = 0m;
@@ -32,6 +41,7 @@ namespace Emage
         public Form1()
         {
             InitializeComponent();
+            LoadAssets();
         }
 
         ~Form1()
@@ -49,6 +59,67 @@ namespace Emage
             {
                 // Do nothing...
             }
+        }
+
+        private async void LoadAssets()
+        {
+            var task = new Task(() =>
+            {
+                try
+                {
+                    fileNames = Directory.GetFiles(Application.StartupPath + "\\assets\\", "???????.png");
+                    smallFileNames = Directory.GetFiles(Application.StartupPath + "\\assets\\", "???????_small.png");
+
+                    if (fileNames.Length != smallFileNames.Length)
+                    {
+                        throw new FileNotFoundException("Assets are missing. Fix the issue and try again.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, ex.Source);
+                    Application.Exit();
+                }
+
+                PBLoading.PerformStep();
+
+                assets = new Bitmap[fileNames.Length];
+                smallAssets = new Bitmap[smallFileNames.Length];
+
+                filePaths = new string[fileNames.Length];
+                smallFilePaths = new string[smallFileNames.Length];
+
+                double output;
+
+                for (int i = 0; i < fileNames.Length; i++)
+                {
+                    assets[i] = new Bitmap(fileNames[i]);
+                    smallAssets[i] = new Bitmap(smallFileNames[i]);
+
+                    filePaths[i] = fileNames[i];
+                    smallFilePaths[i] = smallFileNames[i];
+
+                    fileNames[i] = fileNames[i].Substring(Application.StartupPath.Length + 9);
+                    smallFileNames[i] = smallFileNames[i].Substring(Application.StartupPath.Length + 9);
+
+                    output = 20d + (60d / 36d) * i;
+
+                    Invoke(new Action(() => SetPBValue((int)output)));
+                }          
+            });
+
+            task.Start();
+            await task;
+
+            BLoad.Enabled = true;
+            PBLoading.Enabled = false;
+            PBLoading.Visible = false;
+            LLoading.Visible = false;
+        }
+
+        private void SetPBValue(int _output)
+        {
+            PBLoading.Value = _output;
         }
 
         private void BLoad_Click(object sender, EventArgs e)
@@ -136,19 +207,15 @@ namespace Emage
         {
             threadOption.Enabled = false;
 
-            string[] lines = ReadLines("data.txt");
-            int emojiCount = 0;
-
-            for (int i = 0; i < lines.Length; i += 4)
-                if (i < lines.Length) emojiCount++;
+            int emojiCount = fileNames.Length;
 
             ColorVector[] colors = new ColorVector[emojiCount];
             averages = new ColorVector[(image.Height / interval), (image.Width / interval)];
-            string[,] closestPath = new string[(image.Height / interval), (image.Width / interval)];
+            int[,] closestIndex = new int[(image.Height / interval), (image.Width / interval)];
 
             for (int i = 0; i < colors.Length; i++)
             {
-                colors[i] = GetEmojiColor(lines[4 * i]);
+                colors[i] = GetEmojiColor(fileNames[i]);
             }
 
             Task[] tasks = new Task[16];
@@ -362,11 +429,31 @@ namespace Emage
 
                             if (interval == 32)
                             {
-                                closestPath[i, j] = lines[n * 4 + 1];
+                                int counter = 0;
+
+                                foreach (string name in fileNames)
+                                {
+                                    if (int.Parse(name[0].ToString() + name[1].ToString(), System.Globalization.NumberStyles.HexNumber) == c.Red && int.Parse(name[2].ToString() + name[3].ToString(), System.Globalization.NumberStyles.HexNumber) == c.Green && int.Parse(name[4].ToString() + name[5].ToString(), System.Globalization.NumberStyles.HexNumber) == c.Blue)
+                                    {
+                                        closestIndex[i, j] = counter;
+                                    }
+
+                                    counter++;
+                                }
                             }
                             else
                             {
-                                closestPath[i, j] = lines[n * 4 + 2];
+                                int counter = 0;
+
+                                foreach (string name in smallFileNames)
+                                {
+                                    if (int.Parse(name[0].ToString() + name[1].ToString(), System.Globalization.NumberStyles.HexNumber) == c.Red && int.Parse(name[2].ToString() + name[3].ToString(), System.Globalization.NumberStyles.HexNumber) == c.Green && int.Parse(name[4].ToString() + name[5].ToString(), System.Globalization.NumberStyles.HexNumber) == c.Blue)
+                                    {
+                                        closestIndex[i, j] = counter;
+                                    }
+
+                                    counter++;
+                                }
                             }
                         }
 
@@ -386,37 +473,61 @@ namespace Emage
 
                     tasks1[0] = new Task(() =>
                     {
-                        for (int i = 0, y = 0; i < closestPath.GetLength(0) * interval / 2; i += interval, y++)
+                        for (int i = 0, y = 0; i < closestIndex.GetLength(0) * interval / 2; i += interval, y++)
                         {
-                            for (int j = 0, x = 0; j < closestPath.GetLength(1) * interval / 2; j += interval, x++)
-                                lock (_locker) { gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + closestPath[y, x]), new Point(j, i)); }
+                            for (int j = 0, x = 0; j < closestIndex.GetLength(1) * interval / 2; j += interval, x++)
+                                lock (_locker)
+                                {
+                                    if (interval == 32)
+                                        gfx.DrawImage(assets[closestIndex[y, x]], new Point(j, i));
+                                    else
+                                        gfx.DrawImage(smallAssets[closestIndex[y, x]], new Point(j, i));
+                                }
                         }
                     });
 
                     tasks1[1] = new Task(() =>
                     {
-                        for (int i = 0, y = 0; i < closestPath.GetLength(0) * interval / 2; i += interval, y++)
+                        for (int i = 0, y = 0; i < closestIndex.GetLength(0) * interval / 2; i += interval, y++)
                         {
-                            for (int j = closestPath.GetLength(1) * interval / 2, x = j / interval; j < closestPath.GetLength(1) * interval; j += interval, x++)
-                                lock (_locker) { gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + closestPath[y, x]), new Point(j, i)); }
+                            for (int j = closestIndex.GetLength(1) * interval / 2, x = j / interval; j < closestIndex.GetLength(1) * interval; j += interval, x++)
+                                lock (_locker)
+                                {
+                                    if (interval == 32)
+                                        gfx.DrawImage(assets[closestIndex[y, x]], new Point(j, i));
+                                    else
+                                        gfx.DrawImage(smallAssets[closestIndex[y, x]], new Point(j, i));
+                                }
                         }
                     });
 
                     tasks1[2] = new Task(() =>
                     {
-                        for (int i = (closestPath.GetLength(0) + 1) * interval / 2, y = i / interval; i < closestPath.GetLength(0) * interval; i += interval, y++)
+                        for (int i = (closestIndex.GetLength(0) + 1) * interval / 2, y = i / interval; i < closestIndex.GetLength(0) * interval; i += interval, y++)
                         {
-                            for (int j = 0, x = 0; j < closestPath.GetLength(1) * interval / 2; j += interval, x++)
-                                lock (_locker) { gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + closestPath[y, x]), new Point(j, i)); }
+                            for (int j = 0, x = 0; j < closestIndex.GetLength(1) * interval / 2; j += interval, x++)
+                                lock (_locker)
+                                {
+                                    if (interval == 32)
+                                        gfx.DrawImage(assets[closestIndex[y, x]], new Point(j, i));
+                                    else
+                                        gfx.DrawImage(smallAssets[closestIndex[y, x]], new Point(j, i));
+                                }
                         }
                     });
 
                     tasks1[3] = new Task(() =>
                     {
-                        for (int i = (closestPath.GetLength(0) + 1) * interval / 2, y = i / interval; i < closestPath.GetLength(0) * interval; i += interval, y++)
+                        for (int i = (closestIndex.GetLength(0) + 1) * interval / 2, y = i / interval; i < closestIndex.GetLength(0) * interval; i += interval, y++)
                         {
-                            for (int j = closestPath.GetLength(1) * interval / 2, x = j / interval; j < closestPath.GetLength(1) * interval; j += interval, x++)
-                                lock (_locker) { gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + closestPath[y, x]), new Point(j, i)); }
+                            for (int j = closestIndex.GetLength(1) * interval / 2, x = j / interval; j < closestIndex.GetLength(1) * interval; j += interval, x++)
+                                lock (_locker)
+                                {
+                                    if (interval == 32)
+                                        gfx.DrawImage(assets[closestIndex[y, x]], new Point(j, i));
+                                    else
+                                        gfx.DrawImage(smallAssets[closestIndex[y, x]], new Point(j, i));
+                                }
                         }
                     });
 
@@ -440,10 +551,13 @@ namespace Emage
                     Bitmap bmp = new Bitmap(image.Width, image.Height);
                     Graphics gfx = Graphics.FromImage(bmp);
 
-                    for (int i = 0, y = 0; i < closestPath.GetLength(0) * interval; i += interval, y++)
+                    for (int i = 0, y = 0; i < closestIndex.GetLength(0) * interval; i += interval, y++)
                     {
-                        for (int j = 0, x = 0; j < closestPath.GetLength(1) * interval; j += interval, x++)
-                            gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + closestPath[y, x]), new Point(j, i));
+                        for (int j = 0, x = 0; j < closestIndex.GetLength(1) * interval; j += interval, x++)
+                            if (interval == 32)
+                                gfx.DrawImage(assets[closestIndex[y, x]], new Point(j, i));
+                            else
+                                gfx.DrawImage(smallAssets[closestIndex[y, x]], new Point(j, i));
                     }
 
                     image = bmp;
@@ -481,26 +595,6 @@ namespace Emage
         private void SaveImage(Bitmap image, string path)
         {
             image.Save(path, System.Drawing.Imaging.ImageFormat.Png);
-        }
-
-        private string[] ReadLines(string path)
-        {
-            try
-            {
-                return File.ReadAllLines(path);
-            }
-            catch (FileNotFoundException ex)
-            {
-                MessageBox.Show(ex.Message + " Please supply the missing file and then restart the program.", ex.Source);
-                Application.Exit();
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message + " Sort out the exception and then restart the program.", e.Source);
-                Application.Exit();
-            }
-
-            return null;
         }
 
         private void GetAverageColor(int quadY, int quadX, bool threaded)
@@ -591,14 +685,14 @@ namespace Emage
             string hexRed = "", hexGreen = "", hexBlue = "";
             byte red, green, blue;
 
+            hexRed += name[0];
             hexRed += name[1];
-            hexRed += name[2];
 
+            hexGreen += name[2];
             hexGreen += name[3];
-            hexGreen += name[4];
 
+            hexBlue += name[4];
             hexBlue += name[5];
-            hexBlue += name[6];
 
             red = byte.Parse(hexRed, System.Globalization.NumberStyles.HexNumber);
             green = byte.Parse(hexGreen, System.Globalization.NumberStyles.HexNumber);

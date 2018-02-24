@@ -34,5 +34,20 @@ namespace Emage
         {
             return Math.Abs(Math.Sqrt((a.red - red) * (a.red - red) + (a.green - green) * (a.green - green) + (a.blue - blue) * (a.blue - blue)));
         }
+
+        public byte Red
+        {
+            get { return red; }
+        }
+
+        public byte Green
+        {
+            get { return green; }
+        }
+
+        public byte Blue
+        {
+            get { return blue; }
+        }
     }
 }
