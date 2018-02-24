@@ -132,11 +132,9 @@ namespace Emage
             GC.Collect();
         }
 
-        private void BConvert_Click(object sender, EventArgs e)
+        private async void BConvert_Click(object sender, EventArgs e)
         {
             threadOption.Enabled = false;
-
-            timer.Start();
 
             string[] lines = ReadLines("data.txt");
             int emojiCount = 0;
@@ -153,9 +151,11 @@ namespace Emage
                 colors[i] = GetEmojiColor(lines[4 * i]);
             }
 
+            Task[] tasks = new Task[16];
+
             if (threadOption.Checked)
             {
-                var t1 = new Task(() =>
+                tasks[0] = (new Task(() =>
                 {
                     for (int i = 0; i < height / interval / 4; i++)
                     {
@@ -164,9 +164,9 @@ namespace Emage
                             GetAverageColor(i, j, true);
                         }
                     }
-                });
+                }));
 
-                var t2 = new Task(() =>
+                tasks[1] = (new Task(() =>
                 {
                     for (int i = 0; i < height / interval / 4; i++)
                     {
@@ -175,20 +175,20 @@ namespace Emage
                             GetAverageColor(i, j, true);
                         }
                     }
-                });
+                }));
 
-                var t3 = new Task(() =>
+                tasks[2] = (new Task(() =>
                 {
                     for (int i = 0; i < height / interval / 4; i++)
                     {
-                        for (int j = width / interval / 2; j < (width / interval / 4) * 3 ; j++)
+                        for (int j = width / interval / 2; j < (width / interval / 4) * 3; j++)
                         {
                             GetAverageColor(i, j, true);
                         }
                     }
-                });
+                }));
 
-                var t4 = new Task(() =>
+                tasks[3] = (new Task(() =>
                 {
                     for (int i = 0; i < height / interval / 4; i++)
                     {
@@ -197,9 +197,9 @@ namespace Emage
                             GetAverageColor(i, j, true);
                         }
                     }
-                });
+                }));
 
-                var t5 = new Task(() =>
+                tasks[4] = (new Task(() =>
                 {
                     for (int i = height / interval / 4; i < height / interval / 2; i++)
                     {
@@ -208,9 +208,9 @@ namespace Emage
                             GetAverageColor(i, j, true);
                         }
                     }
-                });
+                }));
 
-                var t6 = new Task(() =>
+                tasks[5] = (new Task(() =>
                 {
                     for (int i = height / interval / 4; i < height / interval / 2; i++)
                     {
@@ -219,9 +219,9 @@ namespace Emage
                             GetAverageColor(i, j, true);
                         }
                     }
-                });
+                }));
 
-                var t7 = new Task(() =>
+                tasks[6] = (new Task(() =>
                 {
                     for (int i = height / interval / 4; i < height / interval / 2; i++)
                     {
@@ -230,9 +230,9 @@ namespace Emage
                             GetAverageColor(i, j, true);
                         }
                     }
-                });
+                }));
 
-                var t8 = new Task(() =>
+                tasks[7] = (new Task(() =>
                 {
                     for (int i = height / interval / 4; i < height / interval / 2; i++)
                     {
@@ -241,9 +241,9 @@ namespace Emage
                             GetAverageColor(i, j, true);
                         }
                     }
-                });
+                }));
 
-                var t9 = new Task(() =>
+                tasks[8] = (new Task(() =>
                 {
                     for (int i = height / interval / 2; i < (height / interval / 4) * 3; i++)
                     {
@@ -252,9 +252,9 @@ namespace Emage
                             GetAverageColor(i, j, true);
                         }
                     }
-                });
+                }));
 
-                var t10 = new Task(() =>
+                tasks[9] = (new Task(() =>
                 {
                     for (int i = height / interval / 2; i < (height / interval / 4) * 3; i++)
                     {
@@ -263,9 +263,9 @@ namespace Emage
                             GetAverageColor(i, j, true);
                         }
                     }
-                });
+                }));
 
-                var t11 = new Task(() =>
+                tasks[10] = (new Task(() =>
                 {
                     for (int i = height / interval / 2; i < (height / interval / 4) * 3; i++)
                     {
@@ -274,9 +274,9 @@ namespace Emage
                             GetAverageColor(i, j, true);
                         }
                     }
-                });
+                }));
 
-                var t12 = new Task(() =>
+                tasks[11] = (new Task(() =>
                 {
                     for (int i = height / interval / 2; i < (height / interval / 4) * 3; i++)
                     {
@@ -285,9 +285,9 @@ namespace Emage
                             GetAverageColor(i, j, true);
                         }
                     }
-                });
+                }));
 
-                var t13 = new Task(() =>
+                tasks[12] = (new Task(() =>
                 {
                     for (int i = (height / interval / 4) * 3; i < height / interval; i++)
                     {
@@ -296,9 +296,9 @@ namespace Emage
                             GetAverageColor(i, j, true);
                         }
                     }
-                });
+                }));
 
-                var t14 = new Task(() =>
+                tasks[13] = (new Task(() =>
                 {
                     for (int i = (height / interval / 4) * 3; i < height / interval; i++)
                     {
@@ -307,9 +307,9 @@ namespace Emage
                             GetAverageColor(i, j, true);
                         }
                     }
-                });
+                }));
 
-                var t15 = new Task(() =>
+                tasks[14] = (new Task(() =>
                 {
                     for (int i = (height / interval / 4) * 3; i < height / interval; i++)
                     {
@@ -318,9 +318,9 @@ namespace Emage
                             GetAverageColor(i, j, true);
                         }
                     }
-                });
+                }));
 
-                var t16 = new Task(() =>
+                tasks[15] = (new Task(() =>
                 {
                     for (int i = (height / interval / 4) * 3; i < height / interval; i++)
                     {
@@ -329,44 +329,12 @@ namespace Emage
                             GetAverageColor(i, j, true);
                         }
                     }
-                });
+                }));
 
-                t1.Start();
-                t2.Start();
-                t3.Start();
-                t4.Start();
-                t5.Start();
-                t6.Start();
-                t7.Start();
-                t8.Start();
-                t9.Start();
-                t10.Start();
-                t11.Start();
-                t12.Start();
-                t13.Start();
-                t14.Start();
-                t15.Start();
-                t16.Start();
+                foreach (Task task in tasks)
+                    task.Start();
 
-                while (t1.Status == TaskStatus.WaitingToRun || t1.Status == TaskStatus.Running
-                    || t2.Status == TaskStatus.WaitingToRun || t2.Status == TaskStatus.Running
-                    || t3.Status == TaskStatus.WaitingToRun || t3.Status == TaskStatus.Running
-                    || t4.Status == TaskStatus.WaitingToRun || t4.Status == TaskStatus.Running
-                    || t5.Status == TaskStatus.WaitingToRun || t5.Status == TaskStatus.Running
-                    || t6.Status == TaskStatus.WaitingToRun || t6.Status == TaskStatus.Running
-                    || t7.Status == TaskStatus.WaitingToRun || t7.Status == TaskStatus.Running
-                    || t8.Status == TaskStatus.WaitingToRun || t8.Status == TaskStatus.Running
-                    || t9.Status == TaskStatus.WaitingToRun || t9.Status == TaskStatus.Running
-                    || t10.Status == TaskStatus.WaitingToRun || t10.Status == TaskStatus.Running
-                    || t11.Status == TaskStatus.WaitingToRun || t11.Status == TaskStatus.Running
-                    || t12.Status == TaskStatus.WaitingToRun || t12.Status == TaskStatus.Running
-                    || t13.Status == TaskStatus.WaitingToRun || t13.Status == TaskStatus.Running
-                    || t14.Status == TaskStatus.WaitingToRun || t14.Status == TaskStatus.Running
-                    || t15.Status == TaskStatus.WaitingToRun || t15.Status == TaskStatus.Running
-                    || t16.Status == TaskStatus.WaitingToRun || t16.Status == TaskStatus.Running)
-                {
-                    // Do nothing...                 
-                }
+                await Task.WhenAll(tasks);
             }
             else
             {
@@ -378,7 +346,7 @@ namespace Emage
                     }
                 }            
             }
-            
+
             for (int i = 0; i < averages.GetLength(0); i++)
             {
                 for (int j = 0; j < averages.GetLength(1); j++)
@@ -408,30 +376,86 @@ namespace Emage
             }
 
             if (threadOption.Checked)
+            {
                 try
                 {
-                    image = DrawImage(closestPath, true, ref resultImage);
+                    Bitmap bmp = new Bitmap(width, height);
+                    Graphics gfx = Graphics.FromImage(bmp);
+
+                    Task[] tasks1 = new Task[4];
+
+                    tasks1[0] = new Task(() =>
+                    {
+                        for (int i = 0, y = 0; i < closestPath.GetLength(0) * interval / 2; i += interval, y++)
+                        {
+                            for (int j = 0, x = 0; j < closestPath.GetLength(1) * interval / 2; j += interval, x++)
+                                lock (_locker) { gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + closestPath[y, x]), new Point(j, i)); }
+                        }
+                    });
+
+                    tasks1[1] = new Task(() =>
+                    {
+                        for (int i = 0, y = 0; i < closestPath.GetLength(0) * interval / 2; i += interval, y++)
+                        {
+                            for (int j = closestPath.GetLength(1) * interval / 2, x = j / interval; j < closestPath.GetLength(1) * interval; j += interval, x++)
+                                lock (_locker) { gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + closestPath[y, x]), new Point(j, i)); }
+                        }
+                    });
+
+                    tasks1[2] = new Task(() =>
+                    {
+                        for (int i = (closestPath.GetLength(0) + 1) * interval / 2, y = i / interval; i < closestPath.GetLength(0) * interval; i += interval, y++)
+                        {
+                            for (int j = 0, x = 0; j < closestPath.GetLength(1) * interval / 2; j += interval, x++)
+                                lock (_locker) { gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + closestPath[y, x]), new Point(j, i)); }
+                        }
+                    });
+
+                    tasks1[3] = new Task(() =>
+                    {
+                        for (int i = (closestPath.GetLength(0) + 1) * interval / 2, y = i / interval; i < closestPath.GetLength(0) * interval; i += interval, y++)
+                        {
+                            for (int j = closestPath.GetLength(1) * interval / 2, x = j / interval; j < closestPath.GetLength(1) * interval; j += interval, x++)
+                                lock (_locker) { gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + closestPath[y, x]), new Point(j, i)); }
+                        }
+                    });
+
+                    foreach (Task task in tasks1)
+                        task.Start();
+
+                    await Task.WhenAll(tasks1);
+
+                    image = bmp;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, ex.Source);
                     Application.Exit();
                 }
+            }
             else
+            {
                 try
                 {
-                    image = DrawImage(closestPath, false, ref resultImage);
+                    Bitmap bmp = new Bitmap(image.Width, image.Height);
+                    Graphics gfx = Graphics.FromImage(bmp);
+
+                    for (int i = 0, y = 0; i < closestPath.GetLength(0) * interval; i += interval, y++)
+                    {
+                        for (int j = 0, x = 0; j < closestPath.GetLength(1) * interval; j += interval, x++)
+                            gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + closestPath[y, x]), new Point(j, i));
+                    }
+
+                    image = bmp;
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, ex.Source);
                     Application.Exit();
                 }
+            }
 
             pictureBox.Image = image;
-
-            timer.Stop();
-            MessageBox.Show(stopwatch.ToString() + " seconds.", "Time:");
 
             try
             {
@@ -452,79 +476,6 @@ namespace Emage
             threadOption.Enabled = true;
 
             averages = null;
-        }
-
-        private Bitmap DrawImage(string[,] path, bool threaded, ref Bitmap result)
-        {
-            if (threaded)
-            {
-                Bitmap bmp = new Bitmap(image.Width, image.Height);
-                Graphics gfx = Graphics.FromImage(bmp);
-
-                var t1 = new Task(() =>
-                {
-                    for (int i = 0, y = 0; i < path.GetLength(0) * interval / 2; i += interval, y++)
-                    {
-                        for (int j = 0, x = 0; j < path.GetLength(1) * interval / 2; j += interval, x++)
-                            lock (_locker) { gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + path[y, x]), new Point(j, i)); }
-                    }
-                });
-
-                var t2 = new Task(() =>
-                {
-                    for (int i = 0, y = 0; i < path.GetLength(0) * interval / 2; i += interval, y++)
-                    {
-                        for (int j = path.GetLength(1) * interval / 2, x = j / interval; j < path.GetLength(1) * interval; j += interval, x++)
-                            lock (_locker) { gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + path[y, x]), new Point(j, i)); }
-                    }
-                });
-
-                var t3 = new Task(() =>
-                {
-                    for (int i = (path.GetLength(0) + 1) * interval / 2, y = i / interval; i < path.GetLength(0) * interval; i += interval, y++)
-                    {
-                        for (int j = 0, x = 0; j < path.GetLength(1) * interval / 2; j += interval, x++)
-                            lock (_locker) { gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + path[y, x]), new Point(j, i)); }
-                    }
-                });
-
-                var t4 = new Task(() =>
-                {
-                    for (int i = (path.GetLength(0) + 1) * interval / 2, y = i / interval; i < path.GetLength(0) * interval; i += interval, y++)
-                    {
-                        for (int j = path.GetLength(1) * interval / 2, x = j / interval; j < path.GetLength(1) * interval; j += interval, x++)
-                            lock (_locker) { gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + path[y, x]), new Point(j, i)); }
-                    }
-                });
-
-                t1.Start();
-                t2.Start();
-                t3.Start();
-                t4.Start();
-
-                while (t1.Status == TaskStatus.WaitingToRun || t1.Status == TaskStatus.Running
-                   || t2.Status == TaskStatus.WaitingToRun || t2.Status == TaskStatus.Running
-                   || t3.Status == TaskStatus.WaitingToRun || t3.Status == TaskStatus.Running
-                   || t4.Status == TaskStatus.WaitingToRun || t4.Status == TaskStatus.Running)
-                {
-                    // Do nothing...
-                }
-
-                return bmp;       
-            }
-            else
-            {
-                Bitmap bmp = new Bitmap(image.Width, image.Height);
-                Graphics gfx = Graphics.FromImage(bmp);
-
-                for (int i = 0, y = 0; i < path.GetLength(0) * interval; i += interval, y++)
-                {
-                    for (int j = 0, x = 0; j < path.GetLength(1) * interval; j += interval, x++)
-                        gfx.DrawImage(Image.FromFile(Environment.CurrentDirectory + path[y, x]), new Point(j, i));
-                }
-
-                return bmp;
-            }
         }
 
         private void SaveImage(Bitmap image, string path)
