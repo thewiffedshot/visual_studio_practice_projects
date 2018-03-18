@@ -1,0 +1,10 @@
+C:\Users\SovietDoggo\source\repos\simple_3d_graphics_test\simple_3d_graphics_test\bin\Debug\simple_3d_graphics_test.exe.config
+C:\Users\SovietDoggo\source\repos\simple_3d_graphics_test\simple_3d_graphics_test\bin\Debug\simple_3d_graphics_test.exe
+C:\Users\SovietDoggo\source\repos\simple_3d_graphics_test\simple_3d_graphics_test\bin\Debug\simple_3d_graphics_test.pdb
+C:\Users\SovietDoggo\source\repos\simple_3d_graphics_test\simple_3d_graphics_test\obj\Debug\simple_3d_graphics_test.csprojResolveAssemblyReference.cache
+C:\Users\SovietDoggo\source\repos\simple_3d_graphics_test\simple_3d_graphics_test\obj\Debug\simple_3d_graphics_test.Form1.resources
+C:\Users\SovietDoggo\source\repos\simple_3d_graphics_test\simple_3d_graphics_test\obj\Debug\simple_3d_graphics_test.Properties.Resources.resources
+C:\Users\SovietDoggo\source\repos\simple_3d_graphics_test\simple_3d_graphics_test\obj\Debug\simple_3d_graphics_test.csproj.GenerateResource.Cache
+C:\Users\SovietDoggo\source\repos\simple_3d_graphics_test\simple_3d_graphics_test\obj\Debug\simple_3d_graphics_test.csproj.CoreCompileInputs.cache
+C:\Users\SovietDoggo\source\repos\simple_3d_graphics_test\simple_3d_graphics_test\obj\Debug\simple_3d_graphics_test.exe
+C:\Users\SovietDoggo\source\repos\simple_3d_graphics_test\simple_3d_graphics_test\obj\Debug\simple_3d_graphics_test.pdb
