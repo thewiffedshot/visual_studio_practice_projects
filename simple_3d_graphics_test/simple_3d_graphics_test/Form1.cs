@@ -13,14 +13,14 @@ namespace simple_3d_graphics_test
 {
     public partial class Form1 : Form
     {
-        static Vector4[] cubeOne = { new Vector4(0, 0, 0, 1), new Vector4(0, 20, 0, 1), new Vector4(20, 20, 0, 1), new Vector4(20, 0, 0, 1), new Vector4(0, 0, 20, 1), new Vector4(0, 20, 20, 1), new Vector4(20, 20, 20, 1), new Vector4(20, 0, 20, 1) };
+        static Vector4[] cubeOne = { new Vector4(10, 10, -40, 1), new Vector4(-10, 10, -40, 1), new Vector4(-10, -10, -40, 1), new Vector4(10, -10, -40, 1), new Vector4(10, 10, 40, 1), new Vector4(-10, 10, 40, 1), new Vector4(-10, -10, 40, 1), new Vector4(10, -10, 40, 1) };
         Vector4[] cubeOneTransformed = new Vector4[cubeOne.Length];
         static Vector3 viewPoint = new Vector3(50, 50, 50);
         static float distance = viewPoint.Length();
-        float distanceFromViewPlane = 50f;
+        float distanceFromViewPlane = 250f;
         float xAng = (float)Math.Asin(viewPoint.Y / Math.Sqrt(viewPoint.X * viewPoint.X + viewPoint.Y * viewPoint.Y));
         float zAng = (float)Math.Asin(Math.Sqrt(viewPoint.X * viewPoint.X + viewPoint.Y * viewPoint.Y) / distance);
-        Bitmap image = new Bitmap(800, 800);
+        Bitmap image = new Bitmap(600, 600);
 
         public Form1()
         {
@@ -29,7 +29,8 @@ namespace simple_3d_graphics_test
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            Translate(cubeOne, new Vector3(-200, -100, 50));
+            //Translate(cubeOne, new Vector3(-viewPoint.X * 10, -viewPoint.Y * 10, -viewPoint.Z * 10));
         }
 
         private void Translate(Vector4[] vertecies, Vector3 t)
@@ -45,7 +46,7 @@ namespace simple_3d_graphics_test
         private Vector4 viewTransform(Vector4 world)
         {
             float xView = -world.X * (float)Math.Sin(xAng) + world.Y * (float)Math.Cos(xAng);
-            float yView = -world.X * (float)Math.Cos(xAng) * (float)Math.Cos(zAng) + -world.Y * (float)Math.Sin(xAng) * (float)Math.Cos(zAng) + world.Z * (float)Math.Sin(zAng);
+            float yView = -world.X * (float)Math.Cos(xAng) * (float)Math.Cos(zAng) - world.Y * (float)Math.Sin(xAng) * (float)Math.Cos(zAng) + world.Z * (float)Math.Sin(zAng);
             float zView = -world.X * (float)Math.Cos(xAng) * (float)Math.Sin(zAng) + -world.Y * (float)Math.Sin(xAng) * (float)Math.Sin(zAng) + -world.Z * (float)Math.Cos(zAng) + distance;
 
             return new Vector4(xView, yView, zView, 1);
@@ -53,7 +54,7 @@ namespace simple_3d_graphics_test
 
         private Vector2 ProjectToViewPlane(Vector4 view)
         {
-            return new Vector2((float)Math.Round(view.X, 0), (float)Math.Round(view.Y, 0));
+            return new Vector2((float)Math.Round(view.X / (view.Z / distanceFromViewPlane), 0), (float)Math.Round(view.Y / (view.Z / distanceFromViewPlane), 0));
         }
 
         private void DrawImage(int x, int y)
@@ -70,7 +71,7 @@ namespace simple_3d_graphics_test
                 for (int j = 0; j < image.Height; j++)
                     image.SetPixel(i, j, Color.White);
 
-            //Translate(cubeOne, new Vector3(20, 20, 20));
+            //Translate(cubeOne, new Vector3(25, 25, 25));
 
             for (int i = 0; i < cubeOne.Length; i++)
             {
