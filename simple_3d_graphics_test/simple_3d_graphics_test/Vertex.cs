@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace simple_3d_graphics_test
 {
-    class Vector2D
+    class Vertex
     {
-        public float X { get; set; }
-        public float Y { get; set; }
+        public Vector4 position;
 
-        public Vector2D(float x, float y, float z)
+        public Vertex(Vector4 pos)
         {
-            X = x;
-            Y = y;
+            position = pos;
         }
     }
 }

@@ -6,18 +6,17 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Numerics;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace simple_3d_graphics_test
 {
     public partial class Form1 : Form
     {
-        static Vector4[] cubeOne = { new Vector4(10, 10, -40, 1), new Vector4(-10, 10, -40, 1), new Vector4(-10, -10, -40, 1), new Vector4(10, -10, -40, 1), new Vector4(10, 10, 40, 1), new Vector4(-10, 10, 40, 1), new Vector4(-10, -10, 40, 1), new Vector4(10, -10, 40, 1) };
-        Vector4[] cubeOneTransformed = new Vector4[cubeOne.Length];
+        static Vertex[] cubeOne = { new Vertex(new Vector4(10, 10, -40, 1)), new Vertex(new Vector4(-10, 10, -40, 1)), new Vertex(new Vector4(-10, -10, -40, 1)), new Vertex(new Vector4(10, -10, -40, 1)), new Vertex(new Vector4(10, 10, 40, 1)), new Vertex(new Vector4(-10, 10, 40, 1)), new Vertex(new Vector4(-10, -10, 40, 1)), new Vertex(new Vector4(10, -10, 40, 1)) };
+        Vector2[] cubeOneTransformed = new Vector2[cubeOne.Length];
         static Vector3 viewPoint = new Vector3(50, 50, 50);
         static float distance = viewPoint.Length();
-        float distanceFromViewPlane = 250f;
+        float distanceFromViewPlane = 400f;
         float xAng = (float)Math.Asin(viewPoint.Y / Math.Sqrt(viewPoint.X * viewPoint.X + viewPoint.Y * viewPoint.Y));
         float zAng = (float)Math.Asin(Math.Sqrt(viewPoint.X * viewPoint.X + viewPoint.Y * viewPoint.Y) / distance);
         Bitmap image = new Bitmap(600, 600);
@@ -29,17 +28,18 @@ namespace simple_3d_graphics_test
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Translate(cubeOne, new Vector3(-200, -100, 50));
+            Translate(cubeOne, new Vector3(-200, -200, 50));
+            labelDistance.Text = trackDistance.Value.ToString();
             //Translate(cubeOne, new Vector3(-viewPoint.X * 10, -viewPoint.Y * 10, -viewPoint.Z * 10));
         }
 
-        private void Translate(Vector4[] vertecies, Vector3 t)
+        private void Translate(Vertex[] vertices, Vector3 t)
         {
-            for (int i = 0; i < vertecies.Length; i++)
+            for (int i = 0; i < vertices.Length; i++)
             {
-                vertecies[i].X += t.X;
-                vertecies[i].Y += t.Y;
-                vertecies[i].Z += t.Z;
+                vertices[i].position.X += t.X;
+                vertices[i].position.Y += t.Y;
+                vertices[i].position.Z += t.Z;
             }
         }
 
@@ -71,20 +71,63 @@ namespace simple_3d_graphics_test
                 for (int j = 0; j < image.Height; j++)
                     image.SetPixel(i, j, Color.White);
 
-            //Translate(cubeOne, new Vector3(25, 25, 25));
+            Translate(cubeOne, new Vector3(trackX.Value, trackY.Value, trackZ.Value)); // -6, 8, -14, 857
+
+            /*trackX.Value = 0;
+            trackY.Value = 0;
+            trackZ.Value = 0;
+            labelX.Text = "0";
+            labelY.Text = "0";
+            labelZ.Text = "0";*/
 
             for (int i = 0; i < cubeOne.Length; i++)
             {
-                cubeOneTransformed[i] = viewTransform(cubeOne[i]);
+                cubeOneTransformed[i] = ProjectToViewPlane(viewTransform(cubeOne[i].position));
             }
 
-            for (int i = 0; i < cubeOne.Length; i++)
+            Edge[] edges = new Edge[12];
+            edges[0] = new Edge(new Vector2[] { cubeOneTransformed[0], cubeOneTransformed[1] });
+            edges[1] = new Edge(new Vector2[] { cubeOneTransformed[1], cubeOneTransformed[2] });
+            edges[2] = new Edge(new Vector2[] { cubeOneTransformed[2], cubeOneTransformed[3] });
+            edges[3] = new Edge(new Vector2[] { cubeOneTransformed[3], cubeOneTransformed[0] });
+
+            edges[4] = new Edge(new Vector2[] { cubeOneTransformed[4], cubeOneTransformed[5] });
+            edges[5] = new Edge(new Vector2[] { cubeOneTransformed[5], cubeOneTransformed[6] });
+            edges[6] = new Edge(new Vector2[] { cubeOneTransformed[6], cubeOneTransformed[7] });
+            edges[7] = new Edge(new Vector2[] { cubeOneTransformed[7], cubeOneTransformed[4] });
+
+            edges[8] = new Edge(new Vector2[] { cubeOneTransformed[0], cubeOneTransformed[4] });
+            edges[9] = new Edge(new Vector2[] { cubeOneTransformed[1], cubeOneTransformed[5] });
+            edges[10] = new Edge(new Vector2[] { cubeOneTransformed[2], cubeOneTransformed[6] });
+            edges[11] = new Edge(new Vector2[] { cubeOneTransformed[3], cubeOneTransformed[7] });
+
+            for (int i = 0; i < edges.Length; i++)
             {
-                Vector2 p = ProjectToViewPlane(cubeOneTransformed[i]);
-                DrawImage((int)p.X, (int)p.Y);
+                edges[i].Draw(image);
             }
 
             pictureBox1.Image = image;
+        }
+
+        private void trackX_Scroll(object sender, EventArgs e)
+        {
+            labelX.Text = trackX.Value.ToString();
+        }
+
+        private void trackY_Scroll(object sender, EventArgs e)
+        {
+            labelY.Text = trackY.Value.ToString();
+        }
+
+        private void trackZ_Scroll(object sender, EventArgs e)
+        {
+            labelZ.Text = trackZ.Value.ToString();
+        }
+
+        private void trackDistance_Scroll(object sender, EventArgs e)
+        {
+            labelDistance.Text = trackDistance.Value.ToString();
+            distanceFromViewPlane = trackDistance.Value;
         }
     }
 }
