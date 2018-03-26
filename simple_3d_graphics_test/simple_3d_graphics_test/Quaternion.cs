@@ -9,7 +9,6 @@ namespace simple_3d_graphics_test
 {
     class Quaternion
     {
-<<<<<<< HEAD
         public Vector4 Value { get; set; }
         public Vector4 Inverse { get => new Vector4(-Value.X, -Value.Y, -Value.Z, Value.W); }
         public int Angle { get; set; }
@@ -46,13 +45,6 @@ namespace simple_3d_graphics_test
         private static Vector4 Hamilton(Vector4 a, Vector4 b)
         {
             return new Vector4(a.W * b.X + a.X * b.W + a.Y * b.Z - a.Z * b.Y, a.W * b.Y + a.Y * b.W + a.Z * b.X - a.X * b.Z, a.W * b.Z + a.Z * b.W + a.X * b.Y - a.Y * b.X, a.W * b.W - a.X * b.X - a.Y * b.Y - a.Z * b.Z);
-=======
-        public Vector4 value { get; set; }
-
-        public Quaternion(Vector4 _value)
-        {
-            value = _value;
->>>>>>> 018886b7a8885f417a3ab2d7ce9ef93b12de9a81
         }
     }
 }

@@ -48,15 +48,20 @@ namespace simple_3d_graphics_test
             Vector4 average = new Vector4(0, 0, 0, 1);
             int counter = 0;
 
-            foreach (Vertex vertex in mesh)
+            /*foreach (Vertex vertex in mesh)
             {
                 average += vertex.position;
                 counter++;
-            }
+            }*/
 
-            if (counter != 0)
-            average /= counter;
+            average += mesh[0].position;
+            average += mesh[7].position;
 
+
+            /*if (counter != 0)
+            average /= counter;*/
+
+            average /= 2;
             average.W = 1;
 
             return average;
