@@ -62,6 +62,16 @@ namespace simple_3d_graphics_test
             return average;
         }
 
+        private void Rotate()
+        {
+            Quaternion q = new Quaternion(new Vector3(trackRotX.Value, trackRotY.Value, trackRotZ.Value), trackRotAngle.Value);
+
+            foreach (Vertex vertex in cubeOne)
+            {
+                vertex.position = new Vector4(q.RotateVector(new Vector3(vertex.position.X, vertex.position.Y, vertex.position.Z)), 1);
+            }
+        }
+
         private void RotateZ(Vertex[] vertices, float angle)
         {
             Vector4 center = GetCenter(vertices);
@@ -151,9 +161,11 @@ namespace simple_3d_graphics_test
 
             Translate(cubeOne, new Vector3(trackX.Value, trackY.Value, trackZ.Value)); // -6, 8, -14, 857
 
-            if (trackRotX.Value != 0) RotateX(cubeOne, ((float)Math.PI / 180f) * trackRotX.Value);
+            /*if (trackRotX.Value != 0) RotateX(cubeOne, ((float)Math.PI / 180f) * trackRotX.Value);
             if (trackRotY.Value != 0) RotateY(cubeOne, ((float)Math.PI / 180f) * trackRotY.Value);
-            if (trackRotZ.Value != 0) RotateZ(cubeOne, ((float)Math.PI / 180f) * trackRotZ.Value);
+            if (trackRotZ.Value != 0) RotateZ(cubeOne, ((float)Math.PI / 180f) * trackRotZ.Value);*/
+
+            if (trackRotX.Value != 0 || trackRotY.Value != 0 || trackRotZ.Value != 0) Rotate();
 
             /*trackX.Value = 0;
             trackY.Value = 0;
@@ -225,6 +237,11 @@ namespace simple_3d_graphics_test
         private void trackRotZ_Scroll(object sender, EventArgs e)
         {
             labelRotZ.Text = trackRotZ.Value.ToString();
+        }
+
+        private void trackRotAngle_Scroll(object sender, EventArgs e)
+        {
+            labelRotAngle.Text = trackRotAngle.Value.ToString();
         }
     }
 }

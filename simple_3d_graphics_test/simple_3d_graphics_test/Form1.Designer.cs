@@ -53,6 +53,9 @@
             this.trackRotZ = new System.Windows.Forms.TrackBar();
             this.trackRotY = new System.Windows.Forms.TrackBar();
             this.trackRotX = new System.Windows.Forms.TrackBar();
+            this.trackRotAngle = new System.Windows.Forms.TrackBar();
+            this.labelRotAngle = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackY)).BeginInit();
@@ -61,6 +64,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackRotZ)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackRotY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackRotX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackRotAngle)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -217,9 +221,9 @@
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(651, 211);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(293, 31);
+            this.label6.Size = new System.Drawing.Size(280, 31);
             this.label6.TabIndex = 15;
-            this.label6.Text = "Rotation Vector (deg)";
+            this.label6.Text = "Rotation Axis Vector";
             // 
             // label7
             // 
@@ -311,11 +315,44 @@
             this.trackRotX.TabIndex = 16;
             this.trackRotX.Scroll += new System.EventHandler(this.trackRotX_Scroll);
             // 
+            // trackRotAngle
+            // 
+            this.trackRotAngle.Location = new System.Drawing.Point(657, 428);
+            this.trackRotAngle.Maximum = 360;
+            this.trackRotAngle.Minimum = -360;
+            this.trackRotAngle.Name = "trackRotAngle";
+            this.trackRotAngle.Size = new System.Drawing.Size(247, 45);
+            this.trackRotAngle.TabIndex = 25;
+            this.trackRotAngle.Scroll += new System.EventHandler(this.trackRotAngle_Scroll);
+            // 
+            // labelRotAngle
+            // 
+            this.labelRotAngle.AutoSize = true;
+            this.labelRotAngle.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelRotAngle.Location = new System.Drawing.Point(901, 428);
+            this.labelRotAngle.Name = "labelRotAngle";
+            this.labelRotAngle.Size = new System.Drawing.Size(21, 24);
+            this.labelRotAngle.TabIndex = 26;
+            this.labelRotAngle.Text = "0";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(651, 397);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(206, 31);
+            this.label11.TabIndex = 27;
+            this.label11.Text = "Rotation Angle";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(951, 700);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.labelRotAngle);
+            this.Controls.Add(this.trackRotAngle);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label9);
@@ -354,6 +391,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackRotZ)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackRotY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackRotX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackRotAngle)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -386,6 +424,9 @@
         private System.Windows.Forms.TrackBar trackRotZ;
         private System.Windows.Forms.TrackBar trackRotY;
         private System.Windows.Forms.TrackBar trackRotX;
+        private System.Windows.Forms.TrackBar trackRotAngle;
+        private System.Windows.Forms.Label labelRotAngle;
+        private System.Windows.Forms.Label label11;
     }
 }
 
