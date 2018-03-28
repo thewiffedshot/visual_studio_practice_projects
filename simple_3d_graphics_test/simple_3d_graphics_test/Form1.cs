@@ -13,6 +13,9 @@ namespace simple_3d_graphics_test
     public partial class Form1 : Form
     {
         static Vertex[] cubeOne = { new Vertex(new Vector4(10, 10, -40, 1)), new Vertex(new Vector4(-10, 10, -40, 1)), new Vertex(new Vector4(-10, -10, -40, 1)), new Vertex(new Vector4(10, -10, -40, 1)), new Vertex(new Vector4(10, 10, 40, 1)), new Vertex(new Vector4(-10, 10, 40, 1)), new Vertex(new Vector4(-10, -10, 40, 1)), new Vertex(new Vector4(10, -10, 40, 1)) };
+        static Vertex[] cubeOneCopy = cubeOne;
+        static int angle = 0;
+
         Vector2[] cubeOneTransformed = new Vector2[cubeOne.Length];
         static Vector3 viewPoint = new Vector3(50, 50, 50);
         static float distance = viewPoint.Length();
@@ -28,9 +31,7 @@ namespace simple_3d_graphics_test
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Translate(cubeOne, new Vector3(-200, -200, 50));
             labelDistance.Text = trackDistance.Value.ToString();
-            //Translate(cubeOne, new Vector3(-viewPoint.X * 10, -viewPoint.Y * 10, -viewPoint.Z * 10));
         }
 
         private void Translate(Vertex[] vertices, Vector3 t)
@@ -48,20 +49,15 @@ namespace simple_3d_graphics_test
             Vector4 average = new Vector4(0, 0, 0, 1);
             int counter = 0;
 
-            /*foreach (Vertex vertex in mesh)
+            foreach (Vertex vertex in mesh)
             {
                 average += vertex.position;
                 counter++;
-            }*/
+            }
 
-            average += mesh[0].position;
-            average += mesh[7].position;
+            if (counter != 0)
+            average /= counter;
 
-
-            /*if (counter != 0)
-            average /= counter;*/
-
-            average /= 2;
             average.W = 1;
 
             return average;
@@ -69,70 +65,24 @@ namespace simple_3d_graphics_test
 
         private void Rotate()
         {
-            Quaternion q = new Quaternion(new Vector3(trackRotX.Value, trackRotY.Value, trackRotZ.Value), trackRotAngle.Value);
+            angle += trackRotAngle.Value;
+            angle %= 360;
+
+            Quaternion q = new Quaternion(new Vector3(trackRotX.Value, trackRotY.Value, trackRotZ.Value), angle * (float)(Math.PI / 180));
+
+            cubeOne = cubeOneCopy;
 
             foreach (Vertex vertex in cubeOne)
             {
+                Vector4 c = GetCenter(cubeOne);
+
+                vertex.position -= c;
+
                 vertex.position = new Vector4(q.RotateVector(new Vector3(vertex.position.X, vertex.position.Y, vertex.position.Z)), 1);
-            }
-        }
 
-        private void RotateZ(Vertex[] vertices, float angle)
-        {
-            Vector4 center = GetCenter(vertices);
-            float tX = center.X, tY = center.Y, tZ = center.Z;
+                vertex.position += c;
 
-            for (int i = 0; i < vertices.Length; i++)
-            {
-                // Move to origin
-                vertices[i].position.X -= tX;
-                vertices[i].position.Y -= tY;
-
-                // Rotate at origin...
-                vertices[i].position.X = vertices[i].position.X * (float)Math.Cos(angle) + vertices[i].position.Y * (float)Math.Sin(angle);
-                vertices[i].position.Y = -vertices[i].position.X * (float)Math.Sin(angle) + vertices[i].position.Y * (float)Math.Cos(angle);       
-
-                // Translate back vertex...
-                vertices[i].position.X += tX;
-                vertices[i].position.Y += tY;
-            }
-        }
-
-        private void RotateY(Vertex[] vertices, float angle)
-        {
-            Vector4 center = GetCenter(vertices);
-            float tX = center.X, tY = center.Y, tZ = center.Z;
-
-            for (int i = 0; i < vertices.Length; i++)
-            {
-                // Rotate at origin...
-                vertices[i].position.X = tX * (float)Math.Cos(angle) - tZ * (float)Math.Sin(angle) - tX;
-                vertices[i].position.Y = 0;
-                vertices[i].position.Z = tX * (float)Math.Sin(angle) + tZ * (float)Math.Cos(angle) - tZ;
-
-                // Translate back vertex...
-                vertices[i].position.X += tX;
-                vertices[i].position.Y += tY;
-                vertices[i].position.Z += tZ;
-            }
-        }
-
-        private void RotateX(Vertex[] vertices, float angle)
-        {
-            Vector4 center = GetCenter(vertices);
-            float tX = center.X, tY = center.Y, tZ = center.Z;
-
-            for (int i = 0; i < vertices.Length; i++)
-            {
-                // Rotate at origin...
-                vertices[i].position.X = 0;
-                vertices[i].position.Y = tY * (float)Math.Cos(angle) - tZ * (float)Math.Sin(angle) - tY;
-                vertices[i].position.Z = tY * (float)Math.Sin(angle) + tZ * (float)Math.Cos(angle) - tZ;
-
-                // Translate back vertex...
-                vertices[i].position.X += tX;
-                vertices[i].position.Y += tY;
-                vertices[i].position.Z += tZ;
+                vertex.position.W = 1;
             }
         }
 
@@ -166,18 +116,7 @@ namespace simple_3d_graphics_test
 
             Translate(cubeOne, new Vector3(trackX.Value, trackY.Value, trackZ.Value)); // -6, 8, -14, 857
 
-            /*if (trackRotX.Value != 0) RotateX(cubeOne, ((float)Math.PI / 180f) * trackRotX.Value);
-            if (trackRotY.Value != 0) RotateY(cubeOne, ((float)Math.PI / 180f) * trackRotY.Value);
-            if (trackRotZ.Value != 0) RotateZ(cubeOne, ((float)Math.PI / 180f) * trackRotZ.Value);*/
-
             if (trackRotX.Value != 0 || trackRotY.Value != 0 || trackRotZ.Value != 0) Rotate();
-
-            /*trackX.Value = 0;
-            trackY.Value = 0;
-            trackZ.Value = 0;
-            labelX.Text = "0";
-            labelY.Text = "0";
-            labelZ.Text = "0";*/
 
             for (int i = 0; i < cubeOne.Length; i++)
             {

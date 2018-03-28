@@ -11,13 +11,13 @@ namespace simple_3d_graphics_test
     {
         public Vector4 Value { get; set; }
         public Vector4 Inverse { get => new Vector4(-Value.X, -Value.Y, -Value.Z, Value.W); }
-        public int Angle { get; set; }
+        public float Angle { get; set; }
         public Vector3 Axis { get; set; }
 
 
-        public Quaternion(Vector3 axisVector, int angle)
+        public Quaternion(Vector3 axisVector, float angle)
         {
-            Angle = angle;
+            Angle = angle / 2;
             Vector3 axis = Vector3.Normalize(axisVector);
             Axis = axis;
             Value = new Vector4(axis.X * (float)Math.Sin(angle / 2), axis.Y * (float)Math.Sin(angle / 2), axis.Z * (float)Math.Sin(angle / 2), (float)Math.Cos(angle / 2));
