@@ -65,12 +65,7 @@ namespace simple_3d_graphics_test
 
         private void Rotate()
         {
-            angle += trackRotAngle.Value;
-            angle %= 360;
-
-            Quaternion q = new Quaternion(new Vector3(trackRotX.Value, trackRotY.Value, trackRotZ.Value), angle * (float)(Math.PI / 180));
-
-            cubeOne = cubeOneCopy;
+            Quaternion q = new Quaternion(new Vector3(trackRotX.Value, trackRotY.Value, trackRotZ.Value), trackRotAngle.Value * (float)(Math.PI / 180));
 
             foreach (Vertex vertex in cubeOne)
             {
