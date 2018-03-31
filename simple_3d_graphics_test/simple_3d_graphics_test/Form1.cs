@@ -31,6 +31,8 @@ namespace simple_3d_graphics_test
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Translate(cubeOne, new Vector3(-80, -24, 0));
+            button1_Click(this, new EventArgs());
             labelDistance.Text = trackDistance.Value.ToString();
         }
 
