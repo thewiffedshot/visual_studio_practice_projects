@@ -65,7 +65,11 @@ namespace simple_3d_graphics_test
 
         private void Rotate()
         {
-            Quaternion q = new Quaternion(new Vector3(trackRotX.Value, trackRotY.Value, trackRotZ.Value), trackRotAngle.Value * (float)(Math.PI / 180));
+            angle += trackRotAngle.Value;
+
+            cubeOne = cubeOneCopy;
+
+            Quaternion q = new Quaternion(new Vector3(trackRotX.Value, trackRotY.Value, trackRotZ.Value), angle * (float)(Math.PI / 180));
 
             foreach (Vertex vertex in cubeOne)
             {
@@ -118,21 +122,24 @@ namespace simple_3d_graphics_test
                 cubeOneTransformed[i] = ProjectToViewPlane(viewTransform(cubeOne[i].position));
             }
 
-            Edge[] edges = new Edge[12];
-            edges[0] = new Edge(new Vector2[] { cubeOneTransformed[0], cubeOneTransformed[1] });
-            edges[1] = new Edge(new Vector2[] { cubeOneTransformed[1], cubeOneTransformed[2] });
-            edges[2] = new Edge(new Vector2[] { cubeOneTransformed[2], cubeOneTransformed[3] });
-            edges[3] = new Edge(new Vector2[] { cubeOneTransformed[3], cubeOneTransformed[0] });
+            Edge[] edges = {
 
-            edges[4] = new Edge(new Vector2[] { cubeOneTransformed[4], cubeOneTransformed[5] });
-            edges[5] = new Edge(new Vector2[] { cubeOneTransformed[5], cubeOneTransformed[6] });
-            edges[6] = new Edge(new Vector2[] { cubeOneTransformed[6], cubeOneTransformed[7] });
-            edges[7] = new Edge(new Vector2[] { cubeOneTransformed[7], cubeOneTransformed[4] });
+            new Edge(new Vector2[] { cubeOneTransformed[0], cubeOneTransformed[1] }),
+            new Edge(new Vector2[] { cubeOneTransformed[1], cubeOneTransformed[2] }),
+            new Edge(new Vector2[] { cubeOneTransformed[2], cubeOneTransformed[3] }),
+            new Edge(new Vector2[] { cubeOneTransformed[3], cubeOneTransformed[0] }),
 
-            edges[8] = new Edge(new Vector2[] { cubeOneTransformed[0], cubeOneTransformed[4] });
-            edges[9] = new Edge(new Vector2[] { cubeOneTransformed[1], cubeOneTransformed[5] });
-            edges[10] = new Edge(new Vector2[] { cubeOneTransformed[2], cubeOneTransformed[6] });
-            edges[11] = new Edge(new Vector2[] { cubeOneTransformed[3], cubeOneTransformed[7] });
+            new Edge(new Vector2[] { cubeOneTransformed[4], cubeOneTransformed[5] }),
+            new Edge(new Vector2[] { cubeOneTransformed[5], cubeOneTransformed[6] }),
+            new Edge(new Vector2[] { cubeOneTransformed[6], cubeOneTransformed[7] }),
+            new Edge(new Vector2[] { cubeOneTransformed[7], cubeOneTransformed[4] }),
+
+            new Edge(new Vector2[] { cubeOneTransformed[0], cubeOneTransformed[4] }),
+            new Edge(new Vector2[] { cubeOneTransformed[1], cubeOneTransformed[5] }),
+            new Edge(new Vector2[] { cubeOneTransformed[2], cubeOneTransformed[6] }),
+            new Edge(new Vector2[] { cubeOneTransformed[3], cubeOneTransformed[7] })
+
+            };
 
             for (int i = 0; i < edges.Length; i++)
             {
