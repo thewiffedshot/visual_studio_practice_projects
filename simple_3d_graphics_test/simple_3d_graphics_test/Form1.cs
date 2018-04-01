@@ -71,7 +71,7 @@ namespace simple_3d_graphics_test
 
             cubeOne = cubeOneCopy;
 
-            Quaternion q = new Quaternion(new Vector3(trackRotX.Value, trackRotY.Value, trackRotZ.Value), angle * (float)(Math.PI / 180));
+            Quaternion q = new Quaternion(new Vector3(trackRotX.Value, trackRotY.Value, trackRotZ.Value), angle * (float)(Math.PI / 180.0f));
 
             foreach (Vertex vertex in cubeOne)
             {
@@ -113,9 +113,9 @@ namespace simple_3d_graphics_test
         {
             for (int i = 0; i < image.Width; i++)
                 for (int j = 0; j < image.Height; j++)
-                    image.SetPixel(i, j, Color.White);
+                    image.SetPixel(i, j, Color.DarkGray);
 
-            Translate(cubeOne, new Vector3(trackX.Value, trackY.Value, trackZ.Value)); // -6, 8, -14, 857
+            Translate(cubeOne, new Vector3(trackX.Value, trackY.Value, trackZ.Value));
 
             if (trackRotX.Value != 0 || trackRotY.Value != 0 || trackRotZ.Value != 0) Rotate();
 
