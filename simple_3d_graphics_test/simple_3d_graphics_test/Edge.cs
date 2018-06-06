@@ -52,7 +52,7 @@ namespace simple_3d_graphics_test
 
                 for (int i = minY; i <= maxY; i++)
                     for (int j = minX; j <= maxX; j++)
-                        if (direction.X * i - direction.Y * j + free < 50 && direction.X* i -direction.Y * j + free > -50 && j > 0 && j < image.Width && i > 0 && i < image.Height) image.SetPixel(j, i, Color.Black);
+                        if (direction.X * i - direction.Y * j + free < 50 && direction.X* i -direction.Y * j + free > -50 && j > 0 && j < image.Width && i > 0 && i < image.Height) image.SetPixel(j, i, Color.White);
 
                 Drawn = true;
             }
