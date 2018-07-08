@@ -1,4 +1,6 @@
-﻿  Application.cpp
-c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\application.cpp(248): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
-c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\application.cpp(277): warning C4305: '=': truncation from 'double' to 'float'
+﻿  GLProgram.cpp
+  Application.cpp
+c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\application.cpp(123): warning C4244: 'argument': conversion from 'int' to 'GLfloat', possible loss of data
+c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\application.cpp(151): warning C4305: '=': truncation from 'double' to 'float'
+  Generating Code...
   OpenGL_Test_Project.vcxproj -> C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\Debug\OpenGL_Test_Project.exe

@@ -17,7 +17,6 @@ uniform vec4 u_Color;
 uniform vec4 u_Color2;
 uniform vec2 u_WindowSize;
 uniform float u_SlopeBoundary;
-//uniform float u_Pi;
 uniform bool u_Switched;
 
 vec2 transformedVec = vec2(gl_FragCoord.x - u_WindowSize.x / 2, gl_FragCoord.y - u_WindowSize.y / 2);
