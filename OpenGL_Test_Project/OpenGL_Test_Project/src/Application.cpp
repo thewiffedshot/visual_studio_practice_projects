@@ -108,11 +108,12 @@ int main(void)
 		Vector4 color2(1.0f, 0.0f, 0.0f, 1.0f);
 
 		program.Bind();
+
+		// TODO: Find a way to abstract uniforms and continue with tutorial series.
+
 		GLCall(glUniform4f(location, color1.x, color1.y, color1.z, color1.w));		// u_Color
 		GLCall(glUniform4f(location5, color2.x, color2.y, color2.z, color2.w));		// u_Color2
 		GLCall(glUniform2f(location1, windowWidth, windowHeight));
-		GLCall(glUniform1f(location2, slope));
-		GLCall(glUniform1i(location4, switched));
 
 		/* Loop until the user closes the window */
 		while (!glfwWindowShouldClose(window))
@@ -122,6 +123,9 @@ int main(void)
 
 			ibo.Bind();
 			va.Bind();
+
+			GLCall(glUniform1f(location2, slope));
+			GLCall(glUniform1i(location4, switched));
 
 			GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));		// Draws the currently bound array with specified draw mode using default shaders (if available)
 																					// in the occasion that we aren't binding any custom shaders prior. 
