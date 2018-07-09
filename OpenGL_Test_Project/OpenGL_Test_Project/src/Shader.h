@@ -3,6 +3,7 @@
 #include <GL/glew.h>
 #include <iostream>
 #include <string>
+#include "Uniform.h"
 
 class Shader
 {
@@ -10,7 +11,9 @@ private:
 	unsigned int m_RendererID;
 	unsigned int m_ShaderType;
 	bool m_Attachable = false;
+
 	std::string m_Source;
+	std::string m_ProgramHandle = NULL;
 
 	std::string Parse(const unsigned int type, const std::string& filepath);
 	void Compile();

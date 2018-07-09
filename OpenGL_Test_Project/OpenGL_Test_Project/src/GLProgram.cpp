@@ -1,9 +1,9 @@
 #include "GLProgram.h"
 
-GLProgram::GLProgram(Shader shaders[], unsigned int arraySize)
+GLProgram::GLProgram(Shader shaders[], unsigned int count)
 {
 	GLCall(m_RendererID = glCreateProgram());
-	Attach(shaders, arraySize);
+	Attach(shaders, count);
 	Bind();
 }
 
@@ -27,11 +27,21 @@ void GLProgram::Unbind()
 	GLCall(glUseProgram(0));
 }
 
-void GLProgram::Attach(Shader shaders[], unsigned int arraySize)
+void GLProgram::Attach(Shader shader)
 {
-	unsigned int count = arraySize / sizeof(Shader);
-	ASSERT(count != 0);
+	if (shader.Attachable())
+	{
+		GLCall(glAttachShader(m_RendererID, shader.GetHandle()));
+		m_AttachedShaders.push_back(&shader);
+	}
+	else
+		std::cout << "Shader of type '" << shader.GetType() << "' and handle '" << shader.GetHandle() << "' is not attachable. It was left off the final program with handle '" << m_RendererID << "'" << std::endl;
 
+	LinkProgram();
+}
+
+void GLProgram::Attach(Shader shaders[], unsigned int count)
+{
 	for (unsigned int i = 0; i < count; i++)
 	{
 		if (shaders[i].Attachable())
@@ -86,5 +96,58 @@ void GLProgram::LinkProgram()
 	{
 		GLCall(glDeleteShader(m_AttachedShaders[i]->GetHandle()));
 	}
+}
+
+void GLProgram::AttachUniform(Uniform* uniform)
+{
+	m_Uniforms.push_back(uniform);
+
+	m_UniformLocations = GetUniformLocations();
+}
+
+void GLProgram::AttachUniform(Uniform* uniform[], unsigned int count)
+{
+	for (unsigned int i = 0; i < count; i++)
+	{
+		m_Uniforms.push_back(uniform[i]);
+	}
+
+	m_UniformLocations = GetUniformLocations();
+}
+
+void GLProgram::DeleteUniform(const std::string& identifier)
+{
+	unsigned int i = 0;
+
+	for (Uniform* u : m_Uniforms)
+	{
+		if (u->GetName() == identifier)
+			m_Uniforms.erase(m_Uniforms.begin() + i);
+
+		i++;
+	}
+
+	m_UniformLocations = GetUniformLocations();
+}
+
+unsigned int* GLProgram::GetUniformLocations()
+{
+	if (m_UniformLocations != nullptr) free(m_UniformLocations);
+
+	unsigned int count = m_Uniforms.size();
+	unsigned int* ptr = (unsigned int*)malloc(count * sizeof(unsigned int));
+
+	for (unsigned int i = 0; i < count; i++)
+	{
+		GLCall(*(ptr + i) = glGetUniformLocation(m_RendererID, m_Uniforms[i]->GetName().c_str()));
+		ASSERT(*(ptr + i) != -1);
+	}
+
+	return ptr;
+}
+
+void GLProgram::ParseUniforms()
+{
+	m_UniformLocations = GetUniformLocations();
 }
 

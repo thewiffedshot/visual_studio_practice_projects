@@ -11,6 +11,7 @@
 #include "BufferLayout.h"
 #include "Shader.h"
 #include "GLProgram.h"
+#include "Uniform.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -83,7 +84,7 @@ int main(void)
 			Shader(GL_FRAGMENT_SHADER, "res/shaders/Basic.shader")
 		};
 
-		GLProgram program(testShaders, sizeof(testShaders));
+		GLProgram program(testShaders, 2);
 
 		GLCall(int location = glGetUniformLocation(program.GetHandle(), "u_Color"));
 		ASSERT(location != -1);
