@@ -13,7 +13,6 @@ private:
 	bool m_Attachable = false;
 
 	std::string m_Source;
-	std::string m_ProgramHandle = NULL;
 
 	std::string Parse(const unsigned int type, const std::string& filepath);
 	void Compile();

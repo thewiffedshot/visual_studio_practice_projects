@@ -34,7 +34,6 @@ class Uniform
 {
 private:
 	void* m_Data;
-	unsigned int m_Location;
 	UniformType m_Type = INVALID;
 	std::string m_UName;
 

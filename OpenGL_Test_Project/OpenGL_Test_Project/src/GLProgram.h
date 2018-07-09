@@ -8,10 +8,10 @@ private:
 	unsigned int m_RendererID;
 	std::vector<Shader*> m_AttachedShaders;
 	std::vector<Uniform*> m_Uniforms;
-	unsigned int* m_UniformLocations = nullptr;
+	int* m_UniformLocations = nullptr;
 
 	void LinkProgram();
-	unsigned int* GetUniformLocations();
+	int* GetUniformLocations();
 	void ParseUniforms();
 
 public:
@@ -41,11 +41,5 @@ public:
 		return m_RendererID;
 	}
 
-	inline int GetUniform(const char* uName) const
-	{
-		GLCall(int id = glGetUniformLocation(m_RendererID, uName));
-		ASSERT(id != -1);
-
-		return id;
-	}
+	inline int GetUniformLocation(Uniform* uniform) const;
 };

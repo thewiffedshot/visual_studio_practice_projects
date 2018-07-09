@@ -130,12 +130,12 @@ void GLProgram::DeleteUniform(const std::string& identifier)
 	m_UniformLocations = GetUniformLocations();
 }
 
-unsigned int* GLProgram::GetUniformLocations()
+int* GLProgram::GetUniformLocations()
 {
 	if (m_UniformLocations != nullptr) free(m_UniformLocations);
 
 	unsigned int count = m_Uniforms.size();
-	unsigned int* ptr = (unsigned int*)malloc(count * sizeof(unsigned int));
+	int* ptr = (int*)malloc(count * sizeof(int));
 
 	for (unsigned int i = 0; i < count; i++)
 	{
@@ -146,8 +146,19 @@ unsigned int* GLProgram::GetUniformLocations()
 	return ptr;
 }
 
+inline int GLProgram::GetUniformLocation(Uniform* uniform) const
+{
+	for (unsigned int i = 0; i < m_Uniforms.size(); i++)
+	{
+		if (&uniform == &m_Uniforms[i])
+		{
+			return *(m_UniformLocations + i);
+		}
+	}
+}
+
 void GLProgram::ParseUniforms()
 {
-	m_UniformLocations = GetUniformLocations();
+	
 }
 
