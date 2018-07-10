@@ -12,7 +12,23 @@ private:
 
 	void LinkProgram();
 	int* GetUniformLocations();
-	void ParseUniforms();
+	void ParseUniform(const std::string& uniformName);
+	void ParseUniform(Uniform* uniform);
+	
+	template<typename T, enum type>
+	void SetUniformData(Uniform* uniform, unsigned int count);
+
+	template<typename T>
+	void SetUniformData(Uniform* uniform, unsigned int count);
+
+	template<>
+	void SetUniformData<float>(Uniform* uniform, unsigned int count);
+
+	template<>
+	void SetUniformData<double>(Uniform* uniform, unsigned int count);
+
+	template<>
+	void SetUniformData<int>(Uniform* uniform, unsigned int count);
 
 public:
 	GLProgram(Shader shaders[], unsigned int count);

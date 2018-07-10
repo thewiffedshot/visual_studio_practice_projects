@@ -1,6 +1,6 @@
 #include "Uniform.h"
 
-Uniform::Uniform(void * data, UniformType type, const std::string& identifier)
+Uniform::Uniform(void * data, UniformType type, const std::string& identifier, bool transpose)
 {
 	switch (type)
 	{
@@ -81,54 +81,63 @@ Uniform::Uniform(void * data, UniformType type, const std::string& identifier)
 			InitData<float>(data, 4);
 			m_UName = identifier;
 			m_Type = type;
+			m_Transpose = transpose;
 			break;
 		case fMAT3x3:
 			m_Data = malloc(9 * sizeof(float));
 			InitData<float>(data, 9);
 			m_UName = identifier;
 			m_Type = type;
+			m_Transpose = transpose;
 			break;
 		case fMAT4x4:
 			m_Data = malloc(16 * sizeof(float));
 			InitData<float>(data, 16);
 			m_UName = identifier;
 			m_Type = type;
+			m_Transpose = transpose;
 			break;
 		case dMAT2x2:
 			m_Data = malloc(4 * sizeof(double));
 			InitData<double>(data, 4);
 			m_UName = identifier;
 			m_Type = type;
+			m_Transpose = transpose;
 			break;
 		case dMAT3x3:
 			m_Data = malloc(9 * sizeof(double));
 			InitData<double>(data, 9);
 			m_UName = identifier;
 			m_Type = type;
+			m_Transpose = transpose;
 			break;
 		case dMAT4x4:
 			m_Data = malloc(16 * sizeof(double));
 			InitData<double>(data, 16);
 			m_UName = identifier;
 			m_Type = type;
+			m_Transpose = transpose;
 			break;
 		case iMAT2x2:
 			m_Data = malloc(4 * sizeof(int));
 			InitData<int>(data, 4);
 			m_UName = identifier;
 			m_Type = type;
+			m_Transpose = transpose;
 			break;
 		case iMAT3x3:
 			m_Data = malloc(9 * sizeof(int));
 			InitData<int>(data, 9);
 			m_UName = identifier;
 			m_Type = type;
+			m_Transpose = transpose;
 			break;
 		case iMAT4x4:
 			m_Data = malloc(16 * sizeof(int));
 			InitData<int>(data, 16);
 			m_UName = identifier;
 			m_Type = type;
+			m_Transpose = transpose;
 			break;
 		default:
 		{

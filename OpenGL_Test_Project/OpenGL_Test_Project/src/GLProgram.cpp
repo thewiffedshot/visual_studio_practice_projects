@@ -157,8 +157,562 @@ inline int GLProgram::GetUniformLocation(Uniform* uniform) const
 	}
 }
 
-void GLProgram::ParseUniforms()
+void GLProgram::ParseUniform(const std::string& uName)
 {
-	
+	Uniform* uniform = nullptr;
+	unsigned int locationOffset = 0;
+
+	for (Uniform* u : m_Uniforms)
+	{
+		if (u->GetName() == uName)
+		{
+			uniform = u;
+			break;
+		}
+
+		locationOffset++;
+	}
+
+	if (uniform == nullptr)
+	{
+		std::cout << "No uniform with identifier '" << uName << "' present. It was not parsed." << std::endl;
+		return;
+	}
+
+	UniformType type = uniform->GetType();
+	void* data = nullptr;
+
+	bool oneValue = type == UniformType::FLOAT || type == UniformType::DOUBLE || type == UniformType::INT;
+	bool twoValues = type == UniformType::FLOAT2 || type == UniformType::DOUBLE2 || type == UniformType::INT2;
+	bool threeValues = type == UniformType::FLOAT3 || type == UniformType::DOUBLE3 || type == UniformType::INT3;
+	bool fourValues = type == UniformType::FLOAT4 || type == UniformType::DOUBLE4 || type == UniformType::INT4;
+	bool mat2x2 = type == UniformType::fMAT2x2 || type == UniformType::dMAT2x2 || type == UniformType::iMAT2x2;
+	bool mat3x3 = type == UniformType::fMAT3x3 || type == UniformType::dMAT3x3 || type == UniformType::iMAT3x3;
+	bool mat4x4 = type == UniformType::fMAT4x4 || type == UniformType::dMAT4x4 || type == UniformType::iMAT4x4;
+	bool floatCast = type >= 0 && type <= 6 ? true : false;
+	bool doubleCast = type >= 7 && type <= 13 ? true : false;
+	bool intCast = type > 13 ? true : false;
+
+
+	if (oneValue)
+	{
+		if (floatCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniform1f(*(m_UniformLocations + locationOffset), *((float*)data)));
+		}
+		else if (doubleCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniform1d(*(m_UniformLocations + locationOffset), *((double*)data)));
+		}
+		else if (intCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniform1i(*(m_UniformLocations + locationOffset), *((int*)data)));
+		}
+	}
+	else if (twoValues)
+	{
+		if (floatCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniform2f(*(m_UniformLocations + locationOffset), *(((float*)data)), *(((float*)data) + 1)));
+		}
+		else if (doubleCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniform2d(*(m_UniformLocations + locationOffset), *(((double*)data)), *(((double*)data) + 1)));
+		}
+		else if (intCast)
+		{
+			GLCall(glUniform2i(*(m_UniformLocations + locationOffset), *(((int*)data)), *(((int*)data) + 1)));
+		}
+	}
+	else if (threeValues)
+	{
+		if (floatCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniform3f(*(m_UniformLocations + locationOffset), *(((float*)data)), *(((float*)data) + 1), *(((float*)data) + 2)));
+		}
+		else if (doubleCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniform3d(*(m_UniformLocations + locationOffset), *(((double*)data)), *(((double*)data) + 1), *(((double*)data) + 2)));
+		}
+		else if (intCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniform3i(*(m_UniformLocations + locationOffset), *(((int*)data)), *(((int*)data) + 1), *(((int*)data) + 2)));
+		}
+	}
+	else if (fourValues)
+	{
+		if (floatCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniform4f(*(m_UniformLocations + locationOffset), *(((float*)data)), *(((float*)data) + 1), *(((float*)data) + 2), *(((float*)data) + 3)));
+		}
+		else if (doubleCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniform4d(*(m_UniformLocations + locationOffset), *(((double*)data)), *(((double*)data) + 1), *(((double*)data) + 2), *(((double*)data) + 3)));
+		}
+		else if (intCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniform4i(*(m_UniformLocations + locationOffset), *(((int*)data)), *(((int*)data) + 1), *(((int*)data) + 2), *(((int*)data) + 3)));
+		}
+	}
+	else if (mat2x2)
+	{
+		if (floatCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniformMatrix2fv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (float*)data));
+		}
+		else if (doubleCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniformMatrix2dv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (double*)data));
+		}
+	}
+	else if (mat3x3)
+	{
+		if (floatCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniformMatrix3fv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (float*)data));
+		}
+		else if (doubleCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniformMatrix3dv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (double*)data));
+		}
+	}
+	else if (mat4x4)
+	{
+		if (floatCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniformMatrix4fv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (float*)data));
+		}
+		else if (doubleCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniformMatrix4dv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (double*)data));
+		}
+	}
 }
 
+void GLProgram::ParseUniform(Uniform* uniform)
+{
+	unsigned int locationOffset = 0;
+
+	for (Uniform* u : m_Uniforms)
+	{
+		if (u == uniform)
+			break;
+
+		locationOffset++;
+	}
+
+	if (locationOffset >= m_Uniforms.size())
+	{
+		std::cout << "No uniform with identifier '" << uniform->GetName() << "' present. It was not parsed." << std::endl;
+		return;
+	}
+
+	UniformType type = uniform->GetType();
+	void* data = nullptr;
+
+	bool oneValue = type == UniformType::FLOAT || type == UniformType::DOUBLE || type == UniformType::INT;
+	bool twoValues = type == UniformType::FLOAT2 || type == UniformType::DOUBLE2 || type == UniformType::INT2;
+	bool threeValues = type == UniformType::FLOAT3 || type == UniformType::DOUBLE3 || type == UniformType::INT3;
+	bool fourValues = type == UniformType::FLOAT4 || type == UniformType::DOUBLE4 || type == UniformType::INT4;
+	bool mat2x2 = type == UniformType::fMAT2x2 || type == UniformType::dMAT2x2 || type == UniformType::iMAT2x2;
+	bool mat3x3 = type == UniformType::fMAT3x3 || type == UniformType::dMAT3x3 || type == UniformType::iMAT3x3;
+	bool mat4x4 = type == UniformType::fMAT4x4 || type == UniformType::dMAT4x4 || type == UniformType::iMAT4x4;
+	bool floatCast = type >= 0 && type <= 6 ? true : false;
+	bool doubleCast = type >= 7 && type <= 13 ? true : false;
+	bool intCast = type > 13 ? true : false;
+
+
+	if (oneValue)
+	{
+		if (floatCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniform1f(*(m_UniformLocations + locationOffset), *((float*)data)));
+		}
+		else if (doubleCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniform1d(*(m_UniformLocations + locationOffset), *((double*)data)));
+		}
+		else if (intCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniform1i(*(m_UniformLocations + locationOffset), *((int*)data)));
+		}
+	}
+	else if (twoValues)
+	{
+		if (floatCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniform2f(*(m_UniformLocations + locationOffset), *(((float*)data)), *(((float*)data) + 1)));
+		}
+		else if (doubleCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniform2d(*(m_UniformLocations + locationOffset), *(((double*)data)), *(((double*)data) + 1)));
+		}
+		else if (intCast)
+		{
+			GLCall(glUniform2i(*(m_UniformLocations + locationOffset), *(((int*)data)), *(((int*)data) + 1)));
+		}
+	}
+	else if (threeValues)
+	{
+		if (floatCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniform3f(*(m_UniformLocations + locationOffset), *(((float*)data)), *(((float*)data) + 1), *(((float*)data) + 2)));
+		}
+		else if (doubleCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniform3d(*(m_UniformLocations + locationOffset), *(((double*)data)), *(((double*)data) + 1), *(((double*)data) + 2)));
+		}
+		else if (intCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniform3i(*(m_UniformLocations + locationOffset), *(((int*)data)), *(((int*)data) + 1), *(((int*)data) + 2)));
+		}
+	}
+	else if (fourValues)
+	{
+		if (floatCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniform4f(*(m_UniformLocations + locationOffset), *(((float*)data)), *(((float*)data) + 1), *(((float*)data) + 2), *(((float*)data) + 3)));
+		}
+		else if (doubleCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniform4d(*(m_UniformLocations + locationOffset), *(((double*)data)), *(((double*)data) + 1), *(((double*)data) + 2), *(((double*)data) + 3)));
+		}
+		else if (intCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniform4i(*(m_UniformLocations + locationOffset), *(((int*)data)), *(((int*)data) + 1), *(((int*)data) + 2), *(((int*)data) + 3)));
+		}
+	}
+	else if (mat2x2)
+	{
+		if (floatCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniformMatrix2fv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (float*)data));
+		}
+		else if (doubleCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniformMatrix2dv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (double*)data));
+		}
+	}
+	else if (mat3x3)
+	{
+		if (floatCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniformMatrix3fv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (float*)data));
+		}
+		else if (doubleCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniformMatrix3dv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (double*)data));
+		}
+	}
+	else if (mat4x4)
+	{
+		if (floatCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniformMatrix4fv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (float*)data));
+		}
+		else if (doubleCast)
+		{
+			data = uniform->GetData();
+
+			GLCall(glUniformMatrix4dv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (double*)data));
+		}
+	}
+}
+
+template<typename T, enum type>
+void GLProgram::SetUniformData(Uniform* uniform, unsigned int count)
+{
+	UniformType type = uniform->GetType();
+	ASSERT(type != UniformType::INVALID);
+	void* data = uniform->GetData();
+
+	bool oneValue = type == UniformType::FLOAT || type == UniformType::DOUBLE || type == UniformType::INT;
+	bool twoValues = type == UniformType::FLOAT2 || type == UniformType::DOUBLE2 || type == UniformType::INT2;
+	bool threeValues = type == UniformType::FLOAT3 || type == UniformType::DOUBLE3 || type == UniformType::INT3;
+	bool fourValues = type == UniformType::FLOAT4 || type == UniformType::DOUBLE4 || type == UniformType::INT4;
+	bool mat2x2 = type == UniformType::fMAT2x2 || type == UniformType::dMAT2x2 || type == UniformType::iMAT2x2;
+	bool mat3x3 = type == UniformType::fMAT3x3 || type == UniformType::dMAT3x3 || type == UniformType::iMAT3x3;
+	bool mat4x4 = type == UniformType::fMAT4x4 || type == UniformType::dMAT4x4 || type == UniformType::iMAT4x4;
+	bool floatCast = type >= 0 && type <= 6 ? true : false;
+	bool doubleCast = type >= 7 && type <= 13 ? true : false;
+	bool intCast = type > 13 ? true : false;
+
+
+	if (oneValue)
+	{
+		if (floatCast)
+		{
+			for (unsigned int i)
+
+			GLCall(glUniform1f(*(m_UniformLocations + locationOffset), *((float*)data)));
+		}
+		else if (doubleCast)
+		{
+			GLCall(glUniform1d(*(m_UniformLocations + locationOffset), *((double*)data)));
+		}
+		else if (intCast)
+		{
+			GLCall(glUniform1i(*(m_UniformLocations + locationOffset), *((int*)data)));
+		}
+	}
+	else if (twoValues)
+	{
+		if (floatCast)
+		{
+			GLCall(glUniform2f(*(m_UniformLocations + locationOffset), *(((float*)data)), *(((float*)data) + 1)));
+		}
+		else if (doubleCast)
+		{
+			GLCall(glUniform2d(*(m_UniformLocations + locationOffset), *(((double*)data)), *(((double*)data) + 1)));
+		}
+		else if (intCast)
+		{
+			GLCall(glUniform2i(*(m_UniformLocations + locationOffset), *(((int*)data)), *(((int*)data) + 1)));
+		}
+	}
+	else if (threeValues)
+	{
+		if (floatCast)
+		{
+			GLCall(glUniform3f(*(m_UniformLocations + locationOffset), *(((float*)data)), *(((float*)data) + 1), *(((float*)data) + 2)));
+		}
+		else if (doubleCast)
+		{
+			GLCall(glUniform3d(*(m_UniformLocations + locationOffset), *(((double*)data)), *(((double*)data) + 1), *(((double*)data) + 2)));
+		}
+		else if (intCast)
+		{
+			GLCall(glUniform3i(*(m_UniformLocations + locationOffset), *(((int*)data)), *(((int*)data) + 1), *(((int*)data) + 2)));
+		}
+	}
+	else if (fourValues)
+	{
+		if (floatCast)
+		{
+			GLCall(glUniform4f(*(m_UniformLocations + locationOffset), *(((float*)data)), *(((float*)data) + 1), *(((float*)data) + 2), *(((float*)data) + 3)));
+		}
+		else if (doubleCast)
+		{
+			GLCall(glUniform4d(*(m_UniformLocations + locationOffset), *(((double*)data)), *(((double*)data) + 1), *(((double*)data) + 2), *(((double*)data) + 3)));
+		}
+		else if (intCast)
+		{
+			GLCall(glUniform4i(*(m_UniformLocations + locationOffset), *(((int*)data)), *(((int*)data) + 1), *(((int*)data) + 2), *(((int*)data) + 3)));
+		}
+	}
+	else if (mat2x2)
+	{
+		if (floatCast)
+		{
+			GLCall(glUniformMatrix2fv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (float*)data));
+		}
+		else if (doubleCast)
+		{
+			GLCall(glUniformMatrix2dv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (double*)data));
+		}
+	}
+	else if (mat3x3)
+	{
+		if (floatCast)
+		{
+			GLCall(glUniformMatrix3fv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (float*)data));
+		}
+		else if (doubleCast)
+		{
+			GLCall(glUniformMatrix3dv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (double*)data));
+		}
+	}
+	else if (mat4x4)
+	{
+		if (floatCast)
+		{
+			GLCall(glUniformMatrix4fv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (float*)data));
+		}
+		else if (doubleCast)
+		{
+			GLCall(glUniformMatrix4dv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (double*)data));
+		}
+	}
+}
+
+template<typename T>
+void GLProgram::SetUniformData(Uniform* uniform, unsigned int count)
+{
+	UniformType type = uniform->GetType();
+	ASSERT(type != UniformType::INVALID);
+	void* data = uniform->GetData();
+
+	bool oneValue = type == UniformType::FLOAT || type == UniformType::DOUBLE || type == UniformType::INT;
+	bool twoValues = type == UniformType::FLOAT2 || type == UniformType::DOUBLE2 || type == UniformType::INT2;
+	bool threeValues = type == UniformType::FLOAT3 || type == UniformType::DOUBLE3 || type == UniformType::INT3;
+	bool fourValues = type == UniformType::FLOAT4 || type == UniformType::DOUBLE4 || type == UniformType::INT4;
+	bool mat2x2 = type == UniformType::fMAT2x2 || type == UniformType::dMAT2x2 || type == UniformType::iMAT2x2;
+	bool mat3x3 = type == UniformType::fMAT3x3 || type == UniformType::dMAT3x3 || type == UniformType::iMAT3x3;
+	bool mat4x4 = type == UniformType::fMAT4x4 || type == UniformType::dMAT4x4 || type == UniformType::iMAT4x4;
+	bool floatCast = type >= 0 && type <= 6 ? true : false;
+	bool doubleCast = type >= 7 && type <= 13 ? true : false;
+	bool intCast = type > 13 ? true : false;
+
+
+	if (oneValue)
+	{
+		if (floatCast)
+		{
+			for (unsigned int i)
+
+				GLCall(glUniform1f(*(m_UniformLocations + locationOffset), *((float*)data)));
+		}
+		else if (doubleCast)
+		{
+			GLCall(glUniform1d(*(m_UniformLocations + locationOffset), *((double*)data)));
+		}
+		else if (intCast)
+		{
+			GLCall(glUniform1i(*(m_UniformLocations + locationOffset), *((int*)data)));
+		}
+	}
+	else if (twoValues)
+	{
+		if (floatCast)
+		{
+			GLCall(glUniform2f(*(m_UniformLocations + locationOffset), *(((float*)data)), *(((float*)data) + 1)));
+		}
+		else if (doubleCast)
+		{
+			GLCall(glUniform2d(*(m_UniformLocations + locationOffset), *(((double*)data)), *(((double*)data) + 1)));
+		}
+		else if (intCast)
+		{
+			GLCall(glUniform2i(*(m_UniformLocations + locationOffset), *(((int*)data)), *(((int*)data) + 1)));
+		}
+	}
+	else if (threeValues)
+	{
+		if (floatCast)
+		{
+			GLCall(glUniform3f(*(m_UniformLocations + locationOffset), *(((float*)data)), *(((float*)data) + 1), *(((float*)data) + 2)));
+		}
+		else if (doubleCast)
+		{
+			GLCall(glUniform3d(*(m_UniformLocations + locationOffset), *(((double*)data)), *(((double*)data) + 1), *(((double*)data) + 2)));
+		}
+		else if (intCast)
+		{
+			GLCall(glUniform3i(*(m_UniformLocations + locationOffset), *(((int*)data)), *(((int*)data) + 1), *(((int*)data) + 2)));
+		}
+	}
+	else if (fourValues)
+	{
+		if (floatCast)
+		{
+			GLCall(glUniform4f(*(m_UniformLocations + locationOffset), *(((float*)data)), *(((float*)data) + 1), *(((float*)data) + 2), *(((float*)data) + 3)));
+		}
+		else if (doubleCast)
+		{
+			GLCall(glUniform4d(*(m_UniformLocations + locationOffset), *(((double*)data)), *(((double*)data) + 1), *(((double*)data) + 2), *(((double*)data) + 3)));
+		}
+		else if (intCast)
+		{
+			GLCall(glUniform4i(*(m_UniformLocations + locationOffset), *(((int*)data)), *(((int*)data) + 1), *(((int*)data) + 2), *(((int*)data) + 3)));
+		}
+	}
+	else if (mat2x2)
+	{
+		if (floatCast)
+		{
+			GLCall(glUniformMatrix2fv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (float*)data));
+		}
+		else if (doubleCast)
+		{
+			GLCall(glUniformMatrix2dv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (double*)data));
+		}
+	}
+	else if (mat3x3)
+	{
+		if (floatCast)
+		{
+			GLCall(glUniformMatrix3fv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (float*)data));
+		}
+		else if (doubleCast)
+		{
+			GLCall(glUniformMatrix3dv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (double*)data));
+		}
+	}
+	else if (mat4x4)
+	{
+		if (floatCast)
+		{
+			GLCall(glUniformMatrix4fv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (float*)data));
+		}
+		else if (doubleCast)
+		{
+			GLCall(glUniformMatrix4dv(*(m_UniformLocations + locationOffset), 1, uniform->Transpose(), (double*)data));
+		}
+	}
+}

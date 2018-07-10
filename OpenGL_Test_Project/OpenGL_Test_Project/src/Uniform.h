@@ -36,6 +36,7 @@ private:
 	void* m_Data;
 	UniformType m_Type = INVALID;
 	std::string m_UName;
+	bool m_Transpose = false;
 
 	template<typename T>
 	void InitData(void* data, unsigned int count);
@@ -50,28 +51,26 @@ private:
 	void InitData<float>(void* data, unsigned int count);
 
 public:
-	Uniform(void* data, UniformType type, const std::string& identifier);
+	Uniform(void* data, UniformType type, const std::string& identifier, bool transpose);
 	~Uniform();
 	
-	void* GetData(unsigned int& stride) const
+	void* GetData() const
 	{
 		if (m_Type < 0)
 		{
 			std::cout << "Error getting uniform data. Uniform is not initialized properly." << std::endl;
-			stride = -1;
 			return nullptr;
 		}
-		else if (m_Type >= 0 && m_Type <= 6)
+
+		return m_Data;
+	}
+
+	void* GetDataSet(unsigned int& count)
+	{
+		if (m_Type < 0)
 		{
-			stride = sizeof(float);
-		}
-		else if (m_Type >= 7 && m_Type <= 13)
-		{
-			stride = sizeof(double);
-		}
-		else if (m_Type > 13)
-		{
-			stride = sizeof(int);
+			std::cout << "Error getting uniform data. Uniform is not initialized properly." << std::endl;
+			return nullptr;
 		}
 
 		return m_Data;
@@ -80,5 +79,15 @@ public:
 	inline const std::string& GetName() const
 	{
 		return m_UName;
+	}
+
+	inline const UniformType GetType() const
+	{
+		return m_Type;
+	}
+
+	inline const bool Transpose() const
+	{
+		return m_Transpose;
 	}
 };
