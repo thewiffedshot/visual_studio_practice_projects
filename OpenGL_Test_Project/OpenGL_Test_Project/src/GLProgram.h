@@ -12,23 +12,7 @@ private:
 
 	void LinkProgram();
 	int* GetUniformLocations();
-	void ParseUniform(const std::string& uniformName);
 	void ParseUniform(Uniform* uniform);
-	
-	template<typename T, enum type>
-	void SetUniformData(Uniform* uniform, unsigned int count);
-
-	template<typename T>
-	void SetUniformData(Uniform* uniform, unsigned int count);
-
-	template<>
-	void SetUniformData<float>(Uniform* uniform, unsigned int count);
-
-	template<>
-	void SetUniformData<double>(Uniform* uniform, unsigned int count);
-
-	template<>
-	void SetUniformData<int>(Uniform* uniform, unsigned int count);
 
 public:
 	GLProgram(Shader shaders[], unsigned int count);
@@ -40,9 +24,9 @@ public:
 	void Detach(Shader& shader);
 	void Reattach();
 
-	void AttachUniform(Uniform* uniform);
-	void AttachUniform(Uniform* uniform[], unsigned int count);
+	void AttachUniform(Uniform& uniform);
 	void DeleteUniform(const std::string& identifier);
+	void RefreshUniforms();
 
 	void Bind();
 	void Unbind();
@@ -57,5 +41,25 @@ public:
 		return m_RendererID;
 	}
 
-	inline int GetUniformLocation(Uniform* uniform) const;
+	inline int GetUniformLocation(Uniform& uniform) const
+	{
+		for (unsigned int i = 0; i < m_Uniforms.size(); i++)
+		{
+			if (&uniform == m_Uniforms[i])
+			{
+				return *(m_UniformLocations + i);
+			}
+		}
+	}
+
+	inline int GetUniformLocation(std::string& uName) const
+	{
+		for (unsigned int i = 0; i < m_Uniforms.size(); i++)
+		{
+			if (m_Uniforms[i]->GetName() == uName)
+			{
+				return *(m_UniformLocations + i);
+			}
+		}
+	}
 };

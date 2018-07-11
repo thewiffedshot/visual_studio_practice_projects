@@ -86,35 +86,33 @@ int main(void)
 
 		GLProgram program(testShaders, 2);
 
-		GLCall(int location = glGetUniformLocation(program.GetHandle(), "u_Color"));
-		ASSERT(location != -1);
-		GLCall(int location1 = glGetUniformLocation(program.GetHandle(), "u_WindowSize"));
-		ASSERT(location1 != -1);
-		GLCall(int location2 = glGetUniformLocation(program.GetHandle(), "u_SlopeBoundary"));
-		ASSERT(location2 != -1);
-		GLCall(int location4 = glGetUniformLocation(program.GetHandle(), "u_Switched"));
-		ASSERT(location4 != -1);
-		GLCall(int location5 = glGetUniformLocation(program.GetHandle(), "u_Color2"));
-		ASSERT(location != -1);
+		float slopeIncrement = 0.04f;
+		bool clockwise = true;
+		unsigned long count = 0;
 
 		int windowWidth, windowHeight;
 		glfwGetWindowSize(window, &windowWidth, &windowHeight);
 
+		float color1[4] = { 0.0f, 1.0f, 0.0f, 1.0f };
+		float color2[4] = { 1.0f, 0.0f, 0.0f, 1.0f };
+		float windowSize[2] = { windowWidth, windowHeight };
 		float slope = 0.0f;
-		float slopeIncrement = 0.04f;
-		bool switched = false;
-		bool clockwise = true;
-		unsigned long count = 0;
-		Vector4 color1(0.0f, 1.0f, 0.0f, 1.0f);
-		Vector4 color2(1.0f, 0.0f, 0.0f, 1.0f);
+		int switched = false;
+
+		Uniform c1(color1, UniformType::FLOAT4, "u_Color", false);
+		Uniform c2(color2, UniformType::FLOAT4, "u_Color2", false);
+		Uniform WindowSize(windowSize, UniformType::FLOAT2, "u_WindowSize", false);
+		Uniform SlopeBounds(&slope, UniformType::FLOAT, "u_SlopeBoundary", false);
+		Uniform ColorSwitched(&switched, UniformType::INT, "u_Switched", false);
 
 		program.Bind();
 
-		// TODO: Find a way to abstract uniforms and continue with tutorial series.
-
-		GLCall(glUniform4f(location, color1.x, color1.y, color1.z, color1.w));		// u_Color
-		GLCall(glUniform4f(location5, color2.x, color2.y, color2.z, color2.w));		// u_Color2
-		GLCall(glUniform2f(location1, windowWidth, windowHeight));
+		program.AttachUniform(c1);
+		program.AttachUniform(c2);
+		program.AttachUniform(WindowSize);
+		program.AttachUniform(SlopeBounds);
+		program.AttachUniform(ColorSwitched);
+		program.RefreshUniforms();
 
 		/* Loop until the user closes the window */
 		while (!glfwWindowShouldClose(window))
@@ -125,8 +123,9 @@ int main(void)
 			ibo.Bind();
 			va.Bind();
 
-			GLCall(glUniform1f(location2, slope));
-			GLCall(glUniform1i(location4, switched));
+			SlopeBounds.SetData(&slope);
+			ColorSwitched.SetData(&switched);
+			program.RefreshUniforms();
 
 			GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));		// Draws the currently bound array with specified draw mode using default shaders (if available)
 																					// in the occasion that we aren't binding any custom shaders prior. 

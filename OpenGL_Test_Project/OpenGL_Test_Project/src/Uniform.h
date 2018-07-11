@@ -39,33 +39,22 @@ private:
 	bool m_Transpose = false;
 
 	template<typename T>
-	void InitData(void* data, unsigned int count);
+	void ChangeData(void* data, unsigned int count);
 
 	template<>
-	void InitData<int>(void* data, unsigned int count);
+	void ChangeData<float>(void* data, unsigned int count);
 
 	template<>
-	void InitData<double>(void* data, unsigned int count);
+	void ChangeData<double>(void* data, unsigned int count);
 
 	template<>
-	void InitData<float>(void* data, unsigned int count);
+	void ChangeData<int>(void* data, unsigned int count);
 
 public:
 	Uniform(void* data, UniformType type, const std::string& identifier, bool transpose);
 	~Uniform();
-	
+
 	void* GetData() const
-	{
-		if (m_Type < 0)
-		{
-			std::cout << "Error getting uniform data. Uniform is not initialized properly." << std::endl;
-			return nullptr;
-		}
-
-		return m_Data;
-	}
-
-	void* GetDataSet(unsigned int& count)
 	{
 		if (m_Type < 0)
 		{
@@ -90,4 +79,6 @@ public:
 	{
 		return m_Transpose;
 	}
+
+	void SetData(void* data);
 };

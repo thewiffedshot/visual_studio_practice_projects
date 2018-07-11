@@ -5,193 +5,263 @@ Uniform::Uniform(void * data, UniformType type, const std::string& identifier, b
 	switch (type)
 	{
 		case FLOAT:
-			m_Data = malloc(sizeof(float));
-			InitData<float>(data, 1);
-			m_UName = identifier;
+			m_Data = new float;
 			m_Type = type;
+			SetData(data);
+			m_UName = identifier;
 			break;
 		case FLOAT2:
-			m_Data = malloc(2 * sizeof(float));
-			InitData<float>(data, 2);
-			m_UName = identifier;
+			m_Data = new float[2];
 			m_Type = type;
+			SetData(data);
+			m_UName = identifier;
 			break;
 		case FLOAT3:
-			m_Data = malloc(3 * sizeof(float));
-			InitData<float>(data, 3);
-			m_UName = identifier;
+			m_Data = new float[3];
 			m_Type = type;
+			SetData(data);
+			m_UName = identifier;
 			break;
 		case FLOAT4:
-			m_Data = malloc(4 * sizeof(float));
-			InitData<float>(data, 4);
-			m_UName = identifier;
+			m_Data = new float[4];
 			m_Type = type;
+			SetData(data);
+			m_UName = identifier;
 			break;
 		case DOUBLE:
-			m_Data = malloc(sizeof(double));
-			InitData<double>(data, 1);
-			m_UName = identifier;
+			m_Data = new double;
 			m_Type = type;
+			SetData(data);
+			m_UName = identifier;
 			break;
 		case DOUBLE2:
-			m_Data = malloc(2 * sizeof(double));
-			InitData<double>(data, 2);
-			m_UName = identifier;
+			m_Data = new double[2];
 			m_Type = type;
+			SetData(data);
+			m_UName = identifier;
 			break;
 		case DOUBLE3:
-			m_Data = malloc(3 * sizeof(double));
-			InitData<double>(data, 3);
-			m_UName = identifier;
+			m_Data = new double[3];
 			m_Type = type;
+			SetData(data);
+			m_UName = identifier;
 			break;
 		case DOUBLE4:
-			m_Data = malloc(4 * sizeof(double));
-			InitData<double>(data, 4);
-			m_UName = identifier;
+			m_Data = new double[4];
 			m_Type = type;
+			SetData(data);
+			m_UName = identifier;
 			break;
 		case INT:
-			m_Data = malloc(sizeof(int));
-			InitData<int>(data, 1);
-			m_UName = identifier;
+			m_Data = new int;
 			m_Type = type;
+			SetData(data);
+			m_UName = identifier;
 			break;
 		case INT2:
-			m_Data = malloc(2 * sizeof(int));
-			InitData<int>(data, 2);
-			m_UName = identifier;
+			m_Data = new int[2];
 			m_Type = type;
+			SetData(data);
+			m_UName = identifier;
 			break;
 		case INT3:
-			m_Data = malloc(3 * sizeof(int));
-			InitData<int>(data, 3);
-			m_UName = identifier;
+			m_Data = new int[3];
 			m_Type = type;
+			SetData(data);
+			m_UName = identifier;
 			break;
 		case INT4:
-			m_Data = malloc(4 * sizeof(int));
-			InitData<int>(data, 4);
-			m_UName = identifier;
+			m_Data = new int[4];
 			m_Type = type;
+			SetData(data);
+			m_UName = identifier;
 			break;
 		case fMAT2x2:
-			m_Data = malloc(4 * sizeof(float));
-			InitData<float>(data, 4);
-			m_UName = identifier;
+			m_Data = new float[4];
 			m_Type = type;
+			SetData(data);
+			m_UName = identifier;
 			m_Transpose = transpose;
 			break;
 		case fMAT3x3:
-			m_Data = malloc(9 * sizeof(float));
-			InitData<float>(data, 9);
-			m_UName = identifier;
+			m_Data = new float[9];
 			m_Type = type;
+			SetData(data);
+			m_UName = identifier;
 			m_Transpose = transpose;
 			break;
 		case fMAT4x4:
-			m_Data = malloc(16 * sizeof(float));
-			InitData<float>(data, 16);
-			m_UName = identifier;
+			m_Data = new float[16];
 			m_Type = type;
+			SetData(data);
+			m_UName = identifier;
 			m_Transpose = transpose;
 			break;
 		case dMAT2x2:
-			m_Data = malloc(4 * sizeof(double));
-			InitData<double>(data, 4);
-			m_UName = identifier;
+			m_Data = new double[4];
 			m_Type = type;
+			SetData(data);
+			m_UName = identifier;
 			m_Transpose = transpose;
 			break;
 		case dMAT3x3:
-			m_Data = malloc(9 * sizeof(double));
-			InitData<double>(data, 9);
-			m_UName = identifier;
+			m_Data = new double[9];
 			m_Type = type;
+			SetData(data);
+			m_UName = identifier;
 			m_Transpose = transpose;
 			break;
 		case dMAT4x4:
-			m_Data = malloc(16 * sizeof(double));
-			InitData<double>(data, 16);
-			m_UName = identifier;
+			m_Data = new double[16];
 			m_Type = type;
+			SetData(data);
+			m_UName = identifier;
 			m_Transpose = transpose;
 			break;
 		case iMAT2x2:
-			m_Data = malloc(4 * sizeof(int));
-			InitData<int>(data, 4);
-			m_UName = identifier;
+			m_Data = new int[4];
 			m_Type = type;
+			SetData(data);
+			m_UName = identifier;
 			m_Transpose = transpose;
 			break;
 		case iMAT3x3:
-			m_Data = malloc(9 * sizeof(int));
-			InitData<int>(data, 9);
-			m_UName = identifier;
+			m_Data = new int[9];
 			m_Type = type;
+			SetData(data);
+			m_UName = identifier;
 			m_Transpose = transpose;
 			break;
 		case iMAT4x4:
-			m_Data = malloc(16 * sizeof(int));
-			InitData<int>(data, 16);
-			m_UName = identifier;
+			m_Data = new int[16];
 			m_Type = type;
+			SetData(data);
+			m_UName = identifier;
 			m_Transpose = transpose;
 			break;
-		default:
-		{
-			std::cout << "Uniform not set, invalid type supplied." << std::endl;
-			m_Type = UniformType::INVALID;
-		}
 	}
 }
 
 Uniform::~Uniform()
 {
-	if (m_Type >= 0 && m_Type <= 6)
+	if ((m_Type >= 0 && m_Type <= 3))
 	{
-		free(m_Data);
+		delete (float*)m_Data;
 	}
-	else if (m_Type >= 7 && m_Type <= 13)
+	else if ((m_Type >= 4 && m_Type <= 6))
 	{
-		free(m_Data);
+		delete[] (float*)m_Data;
 	}
-	else if (m_Type > 13)
+	else if ((m_Type >= 7 && m_Type <= 10))
 	{
-		free(m_Data);
+		delete (double*)m_Data;
+	}
+	else if ((m_Type >= 11 && m_Type <= 13))
+	{
+		delete[] (double*)m_Data;
+	}
+	else if ((m_Type >= 14 && m_Type <= 16))
+	{
+		delete (int*)m_Data;
+	}
+	else if ((m_Type >= 17 && m_Type <= 20))
+	{
+		delete[] (int*)m_Data;
+	}
+}
+
+void Uniform::SetData(void* data)
+{
+	switch (m_Type)
+	{
+		case FLOAT:
+			ChangeData<float>(data, 1);
+			break;
+		case FLOAT2:
+			ChangeData<float>(data, 2);
+			break;
+		case FLOAT3:
+			ChangeData<float>(data, 3);
+			break;
+		case FLOAT4:
+			ChangeData<float>(data, 4);
+			break;
+		case DOUBLE:
+			ChangeData<double>(data, 1);
+			break;
+		case DOUBLE2:
+			ChangeData<double>(data, 2);
+			break;
+		case DOUBLE3:
+			ChangeData<double>(data, 3);
+			break;
+		case DOUBLE4:
+			ChangeData<double>(data, 4);
+			break;
+		case INT:
+			ChangeData<int>(data, 1);
+			break;
+		case INT2:
+			ChangeData<int>(data, 2);
+		case INT3:
+			ChangeData<int>(data, 3);
+			break;
+		case INT4:
+			ChangeData<int>(data, 4);
+			break;
+		case fMAT2x2:
+			ChangeData<float>(data, 4);
+			break;
+		case fMAT3x3:
+			ChangeData<float>(data, 9);
+			break;
+		case fMAT4x4:
+			ChangeData<float>(data, 16);
+			break;
+		case dMAT2x2:
+			ChangeData<double>(data, 4);
+			break;
+		case dMAT3x3:
+			ChangeData<double>(data, 9);
+			break;
+		case dMAT4x4:
+			ChangeData<double>(data, 16);
+			break;
+		case iMAT2x2:
+			ChangeData<int>(data, 4);
+			break;
+		case iMAT3x3:
+			ChangeData<int>(data, 9);
+			break;
+		case iMAT4x4:
+			ChangeData<int>(data, 16);
+			break;
 	}
 }
 
 template<>
-void Uniform::InitData<int>(void* data, unsigned int count)
+void Uniform::ChangeData<float>(void* data, unsigned int count)
 {
-	int* ptr = (int*)data;
-
-	for (unsigned int i = 0; i < count; ptr++, i++)
+	for (unsigned int i = 0; i < count; i++)
 	{
-		memset((int*)m_Data + i, *(ptr + i), sizeof(int));
+		*((float*)m_Data + i) = *((float*)data + i);
 	}
 }
 
 template<>
-void Uniform::InitData<float>(void* data, unsigned int count)
+void Uniform::ChangeData<double>(void* data, unsigned int count)
 {
-	float* ptr = (float*)data;
-
-	for (unsigned int i = 0; i < count; ptr++, i++)
+	for (unsigned int i = 0; i < count; i++)
 	{
-		memset((float*)m_Data + i, *(ptr + i), sizeof(float));
+		*((double*)m_Data + i) = *((double*)data + i);
 	}
 }
 
 template<>
-void Uniform::InitData<double>(void* data, unsigned int count)
+void Uniform::ChangeData<int>(void* data, unsigned int count)
 {
-	double* ptr = (double*)data;
-
-	for (unsigned int i = 0; i < count; ptr++, i++)
+	for (unsigned int i = 0; i < count; i++)
 	{
-		memset((double*)m_Data + i, *(ptr + i), sizeof(double));
+		*((int*)m_Data + i) = *((int*)data + i);
 	}
 }

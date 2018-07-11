@@ -1,9 +1,5 @@
-﻿  Uniform.cpp
-c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\uniform.cpp(184): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\uniform.cpp(195): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-  GLProgram.cpp
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  Shader.cpp
-  Application.cpp
+﻿  Application.cpp
+c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\application.cpp(98): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\application.cpp(98): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\application.cpp(150): warning C4305: '=': truncation from 'double' to 'float'
   OpenGL_Test_Project.vcxproj -> C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\Debug\OpenGL_Test_Project.exe
