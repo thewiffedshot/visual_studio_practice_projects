@@ -1,6 +1,10 @@
 #pragma once
+#include "Macros.h"
 #include "Shader.h"
+#include "Uniform.h"
 #include <vector>
+#include <GL/glew.h>
+#include <iostream>
 
 class GLProgram
 {
@@ -20,7 +24,7 @@ public:
 	~GLProgram();
 
 	void Attach(Shader shaders[], unsigned int count);
-	void Attach(Shader shader);
+	void Attach(Shader& shader);
 	void Detach(Shader& shader);
 	void Reattach();
 

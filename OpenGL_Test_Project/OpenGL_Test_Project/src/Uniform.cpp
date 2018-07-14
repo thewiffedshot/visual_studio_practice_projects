@@ -203,6 +203,7 @@ void Uniform::SetData(void* data)
 			break;
 		case INT2:
 			ChangeData<int>(data, 2);
+			break;
 		case INT3:
 			ChangeData<int>(data, 3);
 			break;

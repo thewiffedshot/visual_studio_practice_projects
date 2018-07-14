@@ -1,9 +1,10 @@
 #pragma once
-#include "Renderer.h"
+#include "Macros.h"
+#include <fstream>
+#include <sstream>
+#include <string>
 #include <GL/glew.h>
 #include <iostream>
-#include <string>
-#include "Uniform.h"
 
 class Shader
 {
@@ -14,7 +15,7 @@ private:
 
 	std::string m_Source;
 
-	std::string Parse(const unsigned int type, const std::string& filepath);
+	std::string Parse(const std::string& filepath);
 	void Compile();
 	bool CompileCheck();
 
@@ -39,7 +40,7 @@ public:
 		return m_ShaderType;
 	}
 
-	inline const std::string& GetSource() const
+	inline const std::string GetSource() const
 	{
 		return m_Source;
 	}

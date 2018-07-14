@@ -1,25 +1,22 @@
 #include "Shader.h"
-#include <sstream>
-#include <fstream>
-
 
 Shader::Shader(const unsigned int type, const std::string& filepath)
 {
 	switch (type)
 	{
-		case GL_VERTEX_SHADER:
-			m_ShaderType = GL_VERTEX_SHADER;
-			m_Source = Parse(m_ShaderType, filepath);
-			break;
-		case GL_FRAGMENT_SHADER:
-			m_ShaderType = GL_FRAGMENT_SHADER;
-			m_Source = Parse(m_ShaderType, filepath);
-			break;
-		default:
-			std::cout << "Unrecognized shader type. Defaulting to GL_VERTEX_SHADER..." << std::endl;
-			m_ShaderType = GL_VERTEX_SHADER;
-			m_Source = Parse(m_ShaderType, filepath);
+	case GL_VERTEX_SHADER:
+		m_ShaderType = GL_VERTEX_SHADER;
+		break;
+	case GL_FRAGMENT_SHADER:
+		m_ShaderType = GL_FRAGMENT_SHADER;
+		break;
+	default:
+		ASSERT(0);
+		std::cout << "Unrecognized shader type. Defaulting to GL_VERTEX_SHADER..." << std::endl;
+		m_ShaderType = GL_VERTEX_SHADER;
+		break;
 	}
+	m_Source = Parse(filepath);
 
 	GLCall(m_RendererID = glCreateShader(m_ShaderType));
 
@@ -31,7 +28,7 @@ Shader::~Shader()
 	GLCall(glDeleteShader(m_RendererID));
 }
 
-std::string Shader::Parse(const unsigned int type, const std::string& filepath)
+std::string Shader::Parse(const std::string& filepath)
 {
 	std::ifstream stream(filepath);
 
@@ -39,7 +36,7 @@ std::string Shader::Parse(const unsigned int type, const std::string& filepath)
 	std::stringstream stringStream;
 	bool write = false;
 
-	if (type == GL_VERTEX_SHADER)
+	if (m_ShaderType == GL_VERTEX_SHADER)
 	{
 		while (getline(stream, line))
 		{
@@ -57,7 +54,7 @@ std::string Shader::Parse(const unsigned int type, const std::string& filepath)
 			}
 		}
 	}
-	else if (type == GL_FRAGMENT_SHADER)
+	else if (m_ShaderType == GL_FRAGMENT_SHADER)
 	{
 		while (getline(stream, line))
 		{
@@ -93,12 +90,12 @@ void Shader::Compile()
 
 	bool state = CompileCheck();
 	ASSERT(state);
-	m_Attachable = state ? true : false;
+	m_Attachable = state;
 }
 
 void Shader::Recompile(const std::string& filepath)
 {
-	m_Source = Parse(m_ShaderType, filepath);
+	m_Source = Parse(filepath);
 	const char* src = m_Source.c_str();
 
 	GLCall(glShaderSource(m_RendererID, 1, &src, nullptr));    
@@ -106,7 +103,7 @@ void Shader::Recompile(const std::string& filepath)
 
 	bool state = CompileCheck();
 	ASSERT(state);
-	m_Attachable = state ? true : false;
+	m_Attachable = state;
 }
 
 bool Shader::CompileCheck()

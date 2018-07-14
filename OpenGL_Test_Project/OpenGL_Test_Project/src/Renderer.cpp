@@ -1,18 +1,9 @@
 #include "Renderer.h"
-#include <GL\glew.h>
-#include <iostream>
 
-bool GLCheckError(const char* functionLog, const char* sourceFile, int line)
+void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, GLProgram& program) const
 {
-	while (GLenum error = glGetError())
-	{
-		std::cout << "\n[OpenGL Error " << error << "]: " << functionLog << " : " << sourceFile << " : " << line << std::endl;
-		return false;
-	}
-	return true;
-}
-
-void GLClearError()
-{
-	while (glGetError() != GL_NO_ERROR);
+	program.Bind();
+	ib.Bind();
+	va.Bind();
+	GLCall(glDrawElements(GL_TRIANGLES, ib.GetVertexCount(), GL_UNSIGNED_INT, nullptr));
 }

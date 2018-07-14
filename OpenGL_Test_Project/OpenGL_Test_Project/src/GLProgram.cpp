@@ -27,7 +27,7 @@ void GLProgram::Unbind()
 	GLCall(glUseProgram(0));
 }
 
-void GLProgram::Attach(Shader shader)
+void GLProgram::Attach(Shader& shader)
 {
 	if (shader.Attachable())
 	{
@@ -98,7 +98,7 @@ void GLProgram::LinkProgram()
 	}
 }
 
-void GLProgram::AttachUniform(Uniform& uniform)		// Returns location of uniform in program (for modifying uniform data at runtime).
+void GLProgram::AttachUniform(Uniform& uniform)
 {
 	m_Uniforms.push_back(&uniform);
 	m_UniformLocations = GetUniformLocations();

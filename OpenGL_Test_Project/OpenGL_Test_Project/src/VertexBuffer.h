@@ -1,4 +1,6 @@
 #pragma once
+#include "Macros.h"
+#include <GL/glew.h>
 
 class VertexBuffer
 {

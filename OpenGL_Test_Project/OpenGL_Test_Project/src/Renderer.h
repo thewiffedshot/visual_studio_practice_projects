@@ -1,15 +1,15 @@
 #pragma once
 #include <GL/glew.h>
+#include <vector>
+#include <iostream>
+#include <string>
+#include "Macros.h"
+#include "VertexArray.h"
+#include "IndexBuffer.h"
+#include "GLProgram.h"
 
-// GL function calls error checking macro.
-#ifdef _DEBUG
-#define ASSERT(x)\
-	 if(!(x)) __debugbreak();
-#define GLCall(x) GLClearError(); x; ASSERT(GLCheckError(#x, __FILE__, __LINE__))
-#else
-#define ASSERT(x) ;
-#define GLCall(x) x;
-#endif
-
-void GLClearError();
-bool GLCheckError(const char* functionLog, const char* sourceFile, int line);
+class Renderer
+{
+public:
+	void Draw(const VertexArray& va, const IndexBuffer& ib, GLProgram& program) const;
+};

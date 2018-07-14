@@ -1,8 +1,7 @@
 #pragma once
+#include "Macros.h"
+#include <string>
 #include <iostream>
-#include <vector>
-#include <GL\glew.h>
-#include "Renderer.h"
 
 enum UniformType
 {
@@ -54,6 +53,8 @@ public:
 	Uniform(void* data, UniformType type, const std::string& identifier, bool transpose);
 	~Uniform();
 
+	Uniform(const Uniform& other) = delete;
+
 	void* GetData() const
 	{
 		if (m_Type < 0)
@@ -65,7 +66,7 @@ public:
 		return m_Data;
 	}
 
-	inline const std::string& GetName() const
+	inline const std::string GetName() const
 	{
 		return m_UName;
 	}

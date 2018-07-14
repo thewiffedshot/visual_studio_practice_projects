@@ -1,10 +1,5 @@
-﻿#include <GL/glew.h>
+﻿#include "Renderer.h"
 #include <GLFW/glfw3.h>
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
-#include "Renderer.h"
 #include "IndexBuffer.h"
 #include "VertexBuffer.h"
 #include "VertexArray.h"
@@ -12,9 +7,12 @@
 #include "Shader.h"
 #include "GLProgram.h"
 #include "Uniform.h"
+#include "Macros.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
+
+// TODO: Check in CodeReview and fix all the major issues (memory management and error checking) and all the stylistic and formating errors.
 
 struct Vector4
 {
@@ -56,7 +54,7 @@ int main(void)
 
 	std::cout << glGetString(GL_VERSION) << std::endl;														
 
-	float tri2Dpositions[8] = {				// Defined an array containing all our verticies for a simple quad in this case.
+	float tri2Dpositions[8] = {				// Defined an array containing all our verticies.
 		-0.4f, -0.35f,
 		 0.8f, -0.35f,
 		 0.4f,  0.35f,
@@ -78,13 +76,13 @@ int main(void)
 		VertexArray va;
 		va.AddBuffer(vbo, layout);
 
-		Shader testShaders[2] =
+		Shader testShaders[2] =										// Shader abstraction in use.
 		{
 			Shader(GL_VERTEX_SHADER, "res/shaders/Basic.shader"),
 			Shader(GL_FRAGMENT_SHADER, "res/shaders/Basic.shader")
 		};
 
-		GLProgram program(testShaders, 2);
+		GLProgram program(testShaders, 2);							
 
 		float slopeIncrement = 0.04f;
 		bool clockwise = true;
@@ -99,13 +97,12 @@ int main(void)
 		float slope = 0.0f;
 		int switched = false;
 
-		Uniform c1(color1, UniformType::FLOAT4, "u_Color", false);
+		Uniform c1(color1, UniformType::FLOAT4, "u_Color", false);					// Uniform abstraction in use.
 		Uniform c2(color2, UniformType::FLOAT4, "u_Color2", false);
 		Uniform WindowSize(windowSize, UniformType::FLOAT2, "u_WindowSize", false);
 		Uniform SlopeBounds(&slope, UniformType::FLOAT, "u_SlopeBoundary", false);
 		Uniform ColorSwitched(&switched, UniformType::INT, "u_Switched", false);
 
-		program.Bind();
 
 		program.AttachUniform(c1);
 		program.AttachUniform(c2);
@@ -120,6 +117,7 @@ int main(void)
 			/* Render here */
 			glClear(GL_COLOR_BUFFER_BIT);
 
+			program.Bind();
 			ibo.Bind();
 			va.Bind();
 
