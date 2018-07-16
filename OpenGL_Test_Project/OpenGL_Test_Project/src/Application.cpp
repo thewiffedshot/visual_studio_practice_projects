@@ -103,30 +103,25 @@ int main(void)
 		Uniform SlopeBounds(&slope, UniformType::FLOAT, "u_SlopeBoundary", false);
 		Uniform ColorSwitched(&switched, UniformType::INT, "u_Switched", false);
 
-
 		program.AttachUniform(c1);
 		program.AttachUniform(c2);
 		program.AttachUniform(WindowSize);
 		program.AttachUniform(SlopeBounds);
 		program.AttachUniform(ColorSwitched);
-		program.RefreshUniforms();
+
+		Renderer renderer;
 
 		/* Loop until the user closes the window */
 		while (!glfwWindowShouldClose(window))
 		{
 			/* Render here */
-			glClear(GL_COLOR_BUFFER_BIT);
-
-			program.Bind();
-			ibo.Bind();
-			va.Bind();
+			renderer.Clear();
 
 			SlopeBounds.SetData(&slope);
 			ColorSwitched.SetData(&switched);
-			program.RefreshUniforms();
 
-			GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr));		// Draws the currently bound array with specified draw mode using default shaders (if available)
-																					// in the occasion that we aren't binding any custom shaders prior. 
+			renderer.Draw(va, ibo, program);
+																				
 			if (!clockwise)
 			{
 				slopeIncrement = abs(slopeIncrement);

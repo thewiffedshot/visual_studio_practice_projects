@@ -57,7 +57,7 @@ public:
 
 	void* GetData() const
 	{
-		if (m_Type < 0)
+		if (m_Type == INVALID)
 		{
 			std::cout << "Error getting uniform data. Uniform is not initialized properly." << std::endl;
 			return nullptr;

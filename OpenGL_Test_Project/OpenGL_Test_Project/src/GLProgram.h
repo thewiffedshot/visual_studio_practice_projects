@@ -26,7 +26,6 @@ public:
 	void Attach(Shader shaders[], unsigned int count);
 	void Attach(Shader& shader);
 	void Detach(Shader& shader);
-	void Reattach();
 
 	void AttachUniform(Uniform& uniform);
 	void DeleteUniform(const std::string& identifier);
@@ -51,7 +50,7 @@ public:
 		{
 			if (&uniform == m_Uniforms[i])
 			{
-				return *(m_UniformLocations + i);
+				return m_UniformLocations[i];
 			}
 		}
 	}
@@ -62,7 +61,7 @@ public:
 		{
 			if (m_Uniforms[i]->GetName() == uName)
 			{
-				return *(m_UniformLocations + i);
+				return m_UniformLocations[i];
 			}
 		}
 	}

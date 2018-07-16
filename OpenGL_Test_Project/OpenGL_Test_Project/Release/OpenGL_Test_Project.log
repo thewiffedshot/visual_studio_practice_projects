@@ -119,9 +119,9 @@
   Note: including file:  C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\um\GL/gl.h
   Note: including file: C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\math.h
   Note: including file:  C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\corecrt_math_defines.h
-src\Application.cpp(94): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-src\Application.cpp(94): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-src\Application.cpp(146): warning C4305: '=': truncation from 'double' to 'float'
+src\Application.cpp(96): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+src\Application.cpp(96): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+src\Application.cpp(143): warning C4305: '=': truncation from 'double' to 'float'
   GLProgram.cpp
   Note: including file: c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\GLProgram.h
   Note: including file:  c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\Macros.h
@@ -769,9 +769,9 @@ src\Application.cpp(146): warning C4305: '=': truncation from 'double' to 'float
   Note: including file:    C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\um\GL/gl.h
 LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
   Generating code
-  1 of 411 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    2 functions had inline decision re-evaluated but remain unchanged
+  39 of 413 functions ( 9.4%) were compiled, the rest were copied from previous compilation.
+    9 functions were new in current compilation
+    46 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
 glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\Release\vc120.pdb'; linking object as if no debug info
   OpenGL_Test_Project.vcxproj -> C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\Release\OpenGL_Test_Project.exe

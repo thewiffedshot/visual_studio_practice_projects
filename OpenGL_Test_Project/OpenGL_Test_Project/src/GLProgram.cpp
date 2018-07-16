@@ -15,10 +15,12 @@ GLProgram::GLProgram()
 GLProgram::~GLProgram()
 {
 	GLCall(glDeleteProgram(m_RendererID));
+	delete[] m_UniformLocations;
 }
 
 void GLProgram::Bind()
 {
+	RefreshUniforms();
 	GLCall(glUseProgram(m_RendererID));
 }
 
@@ -72,29 +74,14 @@ void GLProgram::Detach(Shader& shader)
 	LinkProgram();
 }
 
-void GLProgram::Reattach()
-{
-	unsigned int count = m_AttachedShaders.size();
-
-	for (unsigned int i = 0; i < count; i++)
-	{
-		GLCall(glDetachShader(m_RendererID, m_AttachedShaders[i]->GetHandle()));
-		GLCall(glAttachShader(m_RendererID, m_AttachedShaders[i]->GetHandle()));
-	}
-
-	LinkProgram();
-}
-
 void GLProgram::LinkProgram()
 {
 	GLCall(glLinkProgram(m_RendererID));
 	GLCall(glValidateProgram(m_RendererID));
 
-	unsigned int count = m_AttachedShaders.size();
-	
-	for (unsigned int i = 0; i < count; i++)
+	for (Shader* shader : m_AttachedShaders)
 	{
-		GLCall(glDeleteShader(m_AttachedShaders[i]->GetHandle()));
+		GLCall(glDeleteShader(shader->GetHandle()));
 	}
 }
 
@@ -112,7 +99,10 @@ void GLProgram::DeleteUniform(const std::string& identifier)
 	for (Uniform* u : m_Uniforms)
 	{
 		if (u->GetName() == identifier)
+		{
 			m_Uniforms.erase(m_Uniforms.begin() + i);
+			break;
+		}
 
 		i++;
 	}
@@ -123,18 +113,28 @@ void GLProgram::DeleteUniform(const std::string& identifier)
 
 int* GLProgram::GetUniformLocations()
 {
-	if (m_UniformLocations != nullptr) free(m_UniformLocations);
-
-	unsigned int count = m_Uniforms.size();
-	int* ptr = (int*)malloc(count * sizeof(int));
-
-	for (unsigned int i = 0; i < count; i++)
+	if (m_UniformLocations != nullptr)
 	{
-		GLCall(*(ptr + i) = glGetUniformLocation(m_RendererID, m_Uniforms[i]->GetName().c_str()));
-		ASSERT(*(ptr + i) != -1);
+		delete[] m_UniformLocations;
+		m_UniformLocations = nullptr;
 	}
 
-	return ptr;
+	unsigned int count = m_Uniforms.size();
+
+	if (count != 0)
+	{
+		int* ptr = new int[count];
+
+		for (unsigned int i = 0; i < count; i++)
+		{
+			GLCall(ptr[i] = glGetUniformLocation(m_RendererID, m_Uniforms[i]->GetName().c_str()));
+			ASSERT(ptr[i] != -1);
+		}
+
+		return ptr;
+	}
+	else
+		return nullptr;
 }
 
 void GLProgram::ParseUniform(Uniform* uniform)
@@ -169,7 +169,7 @@ void GLProgram::ParseUniform(Uniform* uniform)
 	bool doubleCast = type >= 7 && type <= 13 ? true : false;
 	bool intCast = type > 13 ? true : false;
 
-
+	// Change this to a switch statement for all the different types.
 	if (oneValue)
 	{
 		if (floatCast)

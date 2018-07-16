@@ -1,173 +1,82 @@
 #include "Uniform.h"
 
 Uniform::Uniform(void * data, UniformType type, const std::string& identifier, bool transpose)
+	: m_Type(type), m_UName(identifier), m_Transpose(transpose)
 {
 	switch (type)
 	{
 		case FLOAT:
-			m_Data = new float;
-			m_Type = type;
-			SetData(data);
-			m_UName = identifier;
+			m_Data = new float[1];
 			break;
 		case FLOAT2:
 			m_Data = new float[2];
-			m_Type = type;
-			SetData(data);
-			m_UName = identifier;
 			break;
 		case FLOAT3:
 			m_Data = new float[3];
-			m_Type = type;
-			SetData(data);
-			m_UName = identifier;
 			break;
 		case FLOAT4:
 			m_Data = new float[4];
-			m_Type = type;
-			SetData(data);
-			m_UName = identifier;
 			break;
 		case DOUBLE:
-			m_Data = new double;
-			m_Type = type;
-			SetData(data);
-			m_UName = identifier;
+			m_Data = new double[1];
 			break;
 		case DOUBLE2:
 			m_Data = new double[2];
-			m_Type = type;
-			SetData(data);
-			m_UName = identifier;
 			break;
 		case DOUBLE3:
 			m_Data = new double[3];
-			m_Type = type;
-			SetData(data);
-			m_UName = identifier;
 			break;
 		case DOUBLE4:
 			m_Data = new double[4];
-			m_Type = type;
-			SetData(data);
-			m_UName = identifier;
 			break;
 		case INT:
-			m_Data = new int;
-			m_Type = type;
-			SetData(data);
-			m_UName = identifier;
+			m_Data = new int[1];
 			break;
 		case INT2:
 			m_Data = new int[2];
-			m_Type = type;
-			SetData(data);
-			m_UName = identifier;
 			break;
 		case INT3:
 			m_Data = new int[3];
-			m_Type = type;
-			SetData(data);
-			m_UName = identifier;
 			break;
 		case INT4:
 			m_Data = new int[4];
-			m_Type = type;
-			SetData(data);
-			m_UName = identifier;
 			break;
 		case fMAT2x2:
 			m_Data = new float[4];
-			m_Type = type;
-			SetData(data);
-			m_UName = identifier;
-			m_Transpose = transpose;
 			break;
 		case fMAT3x3:
 			m_Data = new float[9];
-			m_Type = type;
-			SetData(data);
-			m_UName = identifier;
-			m_Transpose = transpose;
 			break;
 		case fMAT4x4:
 			m_Data = new float[16];
-			m_Type = type;
-			SetData(data);
-			m_UName = identifier;
-			m_Transpose = transpose;
 			break;
 		case dMAT2x2:
 			m_Data = new double[4];
-			m_Type = type;
-			SetData(data);
-			m_UName = identifier;
-			m_Transpose = transpose;
 			break;
 		case dMAT3x3:
 			m_Data = new double[9];
-			m_Type = type;
-			SetData(data);
-			m_UName = identifier;
-			m_Transpose = transpose;
 			break;
 		case dMAT4x4:
 			m_Data = new double[16];
-			m_Type = type;
-			SetData(data);
-			m_UName = identifier;
-			m_Transpose = transpose;
 			break;
 		case iMAT2x2:
 			m_Data = new int[4];
-			m_Type = type;
-			SetData(data);
-			m_UName = identifier;
-			m_Transpose = transpose;
 			break;
 		case iMAT3x3:
 			m_Data = new int[9];
-			m_Type = type;
-			SetData(data);
-			m_UName = identifier;
-			m_Transpose = transpose;
 			break;
 		case iMAT4x4:
 			m_Data = new int[16];
-			m_Type = type;
-			SetData(data);
-			m_UName = identifier;
-			m_Transpose = transpose;
 			break;
 	}
+
+	SetData(data);
 }
 
 Uniform::~Uniform()
 {
-	if ((m_Type >= 0 && m_Type <= 3))
-	{
-		delete (float*)m_Data;
-	}
-	else if ((m_Type >= 4 && m_Type <= 6))
-	{
-		delete[] (float*)m_Data;
-	}
-	else if ((m_Type >= 7 && m_Type <= 10))
-	{
-		delete (double*)m_Data;
-	}
-	else if ((m_Type >= 11 && m_Type <= 13))
-	{
-		delete[] (double*)m_Data;
-	}
-	else if ((m_Type >= 14 && m_Type <= 16))
-	{
-		delete (int*)m_Data;
-	}
-	else if ((m_Type >= 17 && m_Type <= 20))
-	{
-		delete[] (int*)m_Data;
-	}
+	if (m_Type != INVALID)
+		delete[] m_Data;
 }
 
 void Uniform::SetData(void* data)
