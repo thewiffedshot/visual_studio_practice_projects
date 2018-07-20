@@ -23,11 +23,6 @@ Shader::Shader(const unsigned int type, const std::string& filepath)
 	Compile();
 }
 
-Shader::~Shader()
-{
-	GLCall(glDeleteShader(m_RendererID));
-}
-
 std::string Shader::Parse(const std::string& filepath)
 {
 	std::ifstream stream(filepath);

@@ -13,19 +13,6 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-// TODO: Check in CodeReview and fix all the major issues (memory management and error checking) and all the stylistic and formating errors.
-
-struct Vector4
-{
-	float x, y, z, w;
-
-	Vector4(float x, float y, float z, float w)
-		: x(x), y(y), z(z), w(w)
-	{
-
-	}
-};
-
 int main(void)
 {
 	GLFWwindow* window;
@@ -78,13 +65,13 @@ int main(void)
 		VertexArray va;
 		va.AddBuffer(vbo, layout);
 
-		Shader testShaders[2] =											// Shader abstraction in use.
+		Shader testShaders[2] =														// Shader abstraction in use.
 		{
 			Shader(GL_VERTEX_SHADER, "res/shaders/Basic2.shader"),
 			Shader(GL_FRAGMENT_SHADER, "res/shaders/Basic2.shader")
 		};
 
-		Shader testShaders2[2] =										// Shader abstraction in use.
+		Shader testShaders2[2] =													// Shader abstraction in use.
 		{
 			Shader(GL_VERTEX_SHADER, "res/shaders/Basic.shader"),
 			Shader(GL_FRAGMENT_SHADER, "res/shaders/Basic.shader")
@@ -99,18 +86,14 @@ int main(void)
 		int windowWidth, windowHeight;
 		glfwGetWindowSize(window, &windowWidth, &windowHeight);
 
-		float color1[4] = { 0.0f, 1.0f, 0.0f, 0.5f };
-		float color2[4] = { 1.0f, 0.0f, 0.0f, 0.5f };
+		float color1[4] = { 0.0f, 1.0f, 0.0f, 0.4f };
+		float color2[4] = { 1.0f, 0.0f, 0.0f, 0.4f };
 		float windowSize[2] = { windowWidth, windowHeight };
 		float slope = 0.0f;
 		int switched = false;
 
-		GLCall(glEnable(GL_BLEND));
-		GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
-
-		Texture t1("res/textures/groundT.png");
-		int tslot = 0;
-		t1.Bind(tslot);
+		GLCall(glEnable(GL_BLEND));													// Enable blending.
+		GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));					// Set blending function to enable transparency by alpha difference.
 
 		Uniform c1(color1, UniformType::FLOAT4, "u_Color", false);					// Uniform abstraction in use.
 		Uniform c2(color2, UniformType::FLOAT4, "u_Color2", false);
@@ -118,13 +101,16 @@ int main(void)
 		Uniform SlopeBounds(&slope, UniformType::FLOAT, "u_SlopeBoundary", false);
 		Uniform ColorSwitched(&switched, UniformType::INT, "u_Switched", false);
 
-		Uniform tslot_t1(&tslot, UniformType::INT, "u_Texture", false);
-
-		program.AttachUniform(c1);
+		program.AttachUniform(c1);				// Important: Need to rewrite GLProgram code so that it eliminates possible duplicate identifier uniforms from it's 'vector' Uniform cache.
 		program.AttachUniform(c2);
 		program.AttachUniform(WindowSize);
 		program.AttachUniform(SlopeBounds);
 		program.AttachUniform(ColorSwitched);
+
+		Texture t1("res/textures/groundT.png");
+		int tslot = 0;
+		t1.Bind(tslot);
+		Uniform tslot_t1(&tslot, UniformType::INT, "u_Texture", false);
 
 		GLProgram secondProgram(testShaders2, 2);
 		secondProgram.AttachUniform(tslot_t1);
@@ -137,9 +123,7 @@ int main(void)
 			/* Render here */
 			renderer.Clear();
 
-			//t1.Bind(tslot);
 			renderer.Draw(va, ibo, secondProgram);
-			//t1.Unbind();
 
 			SlopeBounds.SetData(&slope);
 			ColorSwitched.SetData(&switched);

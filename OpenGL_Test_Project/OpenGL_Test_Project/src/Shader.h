@@ -21,7 +21,6 @@ private:
 
 public:
 	Shader(const unsigned int type, const std::string& filepath);
-	~Shader();
 
 	void Recompile(const std::string& filepath);
 
