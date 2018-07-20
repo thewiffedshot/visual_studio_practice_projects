@@ -20,7 +20,7 @@ namespace simple_3d_graphics_test
             Angle = angle / 2;
             Vector3 axis = Vector3.Normalize(axisVector);
             Axis = axis;
-            Value = new Vector4(axis.X * (float)Math.Sin(angle / 2), axis.Y * (float)Math.Sin(angle / 2), axis.Z * (float)Math.Sin(angle / 2), (float)Math.Cos(angle / 2));
+            Value = new Vector4(Axis.X * (float)Math.Sin(angle / 2), Axis.Y * (float)Math.Sin(angle / 2), Axis.Z * (float)Math.Sin(angle / 2), (float)Math.Cos(angle / 2));
         }
 
         public Quaternion(Vector3 vector)

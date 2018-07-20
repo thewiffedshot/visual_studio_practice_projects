@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Windows;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -67,11 +68,33 @@ namespace simple_3d_graphics_test
 
         private void Rotate()
         {
-            angle += trackRotAngle.Value;
-
             cubeOne = cubeOneCopy;
 
-            Quaternion q = new Quaternion(new Vector3(trackRotX.Value, trackRotY.Value, trackRotZ.Value), angle * (float)(Math.PI / 180.0f));
+            RotateX(trackRotX.Value * (float)Math.PI / 180f);
+            RotateY(trackRotY.Value * (float)Math.PI / 180f);
+            RotateZ(trackRotZ.Value * (float)Math.PI / 180f);
+
+            /*float c = (float)Math.Cos(angle * (Math.PI / 180));
+            float s = (float)Math.Sin(angle * (Math.PI / 180));
+            float C = 1f - c;
+
+            foreach (Vertex vertex in cubeOne)
+            {
+                Vector4 center = GetCenter(cubeOne);
+
+                vertex.position -= center;
+
+                vertex.position.X = vertex.position.X * (trackRotX.Value * trackRotX.Value * C + c) + vertex.position.Y * (trackRotX.Value * trackRotY.Value * C + trackRotZ.Value * s) + trackRotZ.Value * (trackRotZ.Value * trackRotX.Value * C - trackRotY.Value * s);
+                vertex.position.Y = vertex.position.X * (trackRotX.Value * trackRotY.Value * C - trackRotZ.Value * s) + vertex.position.Y * (trackRotY.Value * trackRotY.Value * C + c) + trackRotZ.Value * (trackRotZ.Value * trackRotY.Value * C + trackRotX.Value * s);
+                vertex.position.Z = vertex.position.X * (trackRotX.Value * trackRotZ.Value * C + trackRotY.Value * s) + vertex.position.Y * (trackRotY.Value * trackRotZ.Value * C - trackRotX.Value * s) + trackRotZ.Value * (trackRotZ.Value * trackRotZ.Value * C + c);
+
+                vertex.position += center;
+
+                vertex.position.W = 1;
+            }*/
+
+
+            /*Quaternion q = new Quaternion(new Vector3(trackRotX.Value, trackRotY.Value, trackRotZ.Value), angle * (float)(Math.PI / 180.0f));
 
             foreach (Vertex vertex in cubeOne)
             {
@@ -82,6 +105,57 @@ namespace simple_3d_graphics_test
                 vertex.position = new Vector4(q.RotateVector(new Vector3(vertex.position.X, vertex.position.Y, vertex.position.Z)), 1);
 
                 vertex.position += c;
+
+                vertex.position.W = 1;
+            }*/
+        }
+
+        private void RotateZ(float angle)
+        {
+            foreach (Vertex vertex in cubeOne)
+            {
+                Vector4 center = GetCenter(cubeOne);
+
+                vertex.position -= center;
+
+                vertex.position.X = vertex.position.X * (float)Math.Cos(angle) - vertex.position.Y * (float)Math.Sin(angle);
+                vertex.position.Y = vertex.position.X * (float)Math.Sin(angle) + vertex.position.Y * (float)Math.Cos(angle);
+
+                vertex.position += center;
+
+                vertex.position.W = 1;
+            }
+        }
+
+        private void RotateY(float angle)
+        {
+            foreach (Vertex vertex in cubeOne)
+            {
+                Vector4 center = GetCenter(cubeOne);
+
+                vertex.position -= center;
+
+                vertex.position.X = vertex.position.X * (float)Math.Cos(angle) + vertex.position.Z * (float)Math.Sin(angle);
+                vertex.position.Z = -vertex.position.X * (float)Math.Sin(angle) + vertex.position.Z * (float)Math.Cos(angle);
+
+                vertex.position += center;
+
+                vertex.position.W = 1;
+            }
+        }
+
+        private void RotateX(float angle)
+        {
+            foreach (Vertex vertex in cubeOne)
+            {
+                Vector4 center = GetCenter(cubeOne);
+
+                vertex.position -= center;
+
+                vertex.position.Y = vertex.position.Y * (float)Math.Cos(angle) - vertex.position.Z * (float)Math.Sin(angle);
+                vertex.position.Z = vertex.position.Y * (float)Math.Sin(angle) + vertex.position.Z * (float)Math.Cos(angle);
+
+                vertex.position += center;
 
                 vertex.position.W = 1;
             }

@@ -8,6 +8,7 @@
 #include "GLProgram.h"
 #include "Uniform.h"
 #include "Macros.h"
+#include "Texture.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -33,9 +34,9 @@ int main(void)
 	if (!glfwInit())
 		return -1;
 
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	/* Create a windowed mode window and its OpenGL context */
 	window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);				// Window with OpenGL context is created but context is not set to current.
@@ -54,11 +55,11 @@ int main(void)
 
 	std::cout << glGetString(GL_VERSION) << std::endl;														
 
-	float tri2Dpositions[8] = {				// Defined an array containing all our verticies.
-		-0.4f, -0.35f,
-		 0.8f, -0.35f,
-		 0.4f,  0.35f,
-		-0.8f,  0.35f
+	float tri2Dpositions[] = {				// Defined an array containing all our verticies.
+		-0.4f, -0.35f,  0.0f,  0.0f,
+		 0.8f, -0.35f,  1.0f,  0.0f,
+		 0.4f,  0.35f,  1.0f,  1.0f,
+		-0.8f,  0.35f,  0.0f,  1.0f
 	};
 
 	unsigned int indicies[6] = {			// Defined indicies of drawing order.
@@ -72,17 +73,24 @@ int main(void)
 
 		BufferLayout layout;
 		layout.Push<float>(2);
+		layout.Push<float>(2);
 
 		VertexArray va;
 		va.AddBuffer(vbo, layout);
 
-		Shader testShaders[2] =										// Shader abstraction in use.
+		Shader testShaders[2] =											// Shader abstraction in use.
+		{
+			Shader(GL_VERTEX_SHADER, "res/shaders/Basic2.shader"),
+			Shader(GL_FRAGMENT_SHADER, "res/shaders/Basic2.shader")
+		};
+
+		Shader testShaders2[2] =										// Shader abstraction in use.
 		{
 			Shader(GL_VERTEX_SHADER, "res/shaders/Basic.shader"),
 			Shader(GL_FRAGMENT_SHADER, "res/shaders/Basic.shader")
 		};
 
-		GLProgram program(testShaders, 2);							
+		GLProgram program(testShaders, 2);
 
 		float slopeIncrement = 0.04f;
 		bool clockwise = true;
@@ -91,11 +99,18 @@ int main(void)
 		int windowWidth, windowHeight;
 		glfwGetWindowSize(window, &windowWidth, &windowHeight);
 
-		float color1[4] = { 0.0f, 1.0f, 0.0f, 1.0f };
-		float color2[4] = { 1.0f, 0.0f, 0.0f, 1.0f };
+		float color1[4] = { 0.0f, 1.0f, 0.0f, 0.5f };
+		float color2[4] = { 1.0f, 0.0f, 0.0f, 0.5f };
 		float windowSize[2] = { windowWidth, windowHeight };
 		float slope = 0.0f;
 		int switched = false;
+
+		GLCall(glEnable(GL_BLEND));
+		GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
+
+		Texture t1("res/textures/groundT.png");
+		int tslot = 0;
+		t1.Bind(tslot);
 
 		Uniform c1(color1, UniformType::FLOAT4, "u_Color", false);					// Uniform abstraction in use.
 		Uniform c2(color2, UniformType::FLOAT4, "u_Color2", false);
@@ -103,11 +118,16 @@ int main(void)
 		Uniform SlopeBounds(&slope, UniformType::FLOAT, "u_SlopeBoundary", false);
 		Uniform ColorSwitched(&switched, UniformType::INT, "u_Switched", false);
 
+		Uniform tslot_t1(&tslot, UniformType::INT, "u_Texture", false);
+
 		program.AttachUniform(c1);
 		program.AttachUniform(c2);
 		program.AttachUniform(WindowSize);
 		program.AttachUniform(SlopeBounds);
 		program.AttachUniform(ColorSwitched);
+
+		GLProgram secondProgram(testShaders2, 2);
+		secondProgram.AttachUniform(tslot_t1);
 
 		Renderer renderer;
 
@@ -116,6 +136,10 @@ int main(void)
 		{
 			/* Render here */
 			renderer.Clear();
+
+			//t1.Bind(tslot);
+			renderer.Draw(va, ibo, secondProgram);
+			//t1.Unbind();
 
 			SlopeBounds.SetData(&slope);
 			ColorSwitched.SetData(&switched);
