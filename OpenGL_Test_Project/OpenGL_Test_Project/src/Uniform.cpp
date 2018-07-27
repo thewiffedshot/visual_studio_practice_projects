@@ -1,7 +1,7 @@
 #include "Uniform.h"
 
 Uniform::Uniform(void * data, UniformType type, const std::string& identifier, bool transpose)
-	: m_Type(type), m_UName(identifier), m_Transpose(transpose)
+	: m_Type(type), m_UName(identifier), m_Transpose(transpose), m_DataSource(data)
 {
 	switch (type)
 	{
@@ -75,8 +75,85 @@ Uniform::Uniform(void * data, UniformType type, const std::string& identifier, b
 
 Uniform::~Uniform()
 {
-	if (m_Type != INVALID)
+	if (m_Data != nullptr)
+	{
 		delete[] m_Data;
+		m_Data = nullptr;
+	}
+}
+
+Uniform::Uniform(const Uniform & other)
+	: m_Type(other.GetType()), m_UName(other.GetName()), m_Transpose(other.Transpose())
+{
+	switch (m_Type)
+	{
+		case FLOAT:
+			m_Data = new float[1];
+			break;
+		case FLOAT2:
+			m_Data = new float[2];
+			break;
+		case FLOAT3:
+			m_Data = new float[3];
+			break;
+		case FLOAT4:
+			m_Data = new float[4];
+			break;
+		case DOUBLE:
+			m_Data = new double[1];
+			break;
+		case DOUBLE2:
+			m_Data = new double[2];
+			break;
+		case DOUBLE3:
+			m_Data = new double[3];
+			break;
+		case DOUBLE4:
+			m_Data = new double[4];
+			break;
+		case INT:
+			m_Data = new int[1];
+			break;
+		case INT2:
+			m_Data = new int[2];
+			break;
+		case INT3:
+			m_Data = new int[3];
+			break;
+		case INT4:
+			m_Data = new int[4];
+			break;
+		case fMAT2x2:
+			m_Data = new float[4];
+			break;
+		case fMAT3x3:
+			m_Data = new float[9];
+			break;
+		case fMAT4x4:
+			m_Data = new float[16];
+			break;
+		case dMAT2x2:
+			m_Data = new double[4];
+			break;
+		case dMAT3x3:
+			m_Data = new double[9];
+			break;
+		case dMAT4x4:
+			m_Data = new double[16];
+			break;
+		case iMAT2x2:
+			m_Data = new int[4];
+			break;
+		case iMAT3x3:
+			m_Data = new int[9];
+			break;
+		case iMAT4x4:
+			m_Data = new int[16];
+			break;
+	}
+
+	m_DataSource = other.GetDataSource();
+	SetData(m_DataSource);
 }
 
 void Uniform::SetData(void* data)

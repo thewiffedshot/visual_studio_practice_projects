@@ -12,6 +12,7 @@ private:
 	unsigned char* m_LocalBuffer;
 public:
 	Texture(const std::string& filepath, bool keepPixelData = false);
+	Texture() { }
 	~Texture();
 
 	void Bind(unsigned int slot = 0) const;

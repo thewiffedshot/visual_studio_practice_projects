@@ -21,6 +21,7 @@ private:
 
 public:
 	Shader(const unsigned int type, const std::string& filepath);
+	Shader();														// Object not instatiated via this contstructor. Acting as stack allocation placeholder. Do not use.
 
 	void Recompile(const std::string& filepath);
 

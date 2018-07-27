@@ -32,7 +32,8 @@ enum UniformType
 class Uniform
 {
 private:
-	void* m_Data;
+	void* m_Data = nullptr;
+	void* m_DataSource = nullptr;
 	UniformType m_Type = INVALID;
 	std::string m_UName;
 	bool m_Transpose = false;
@@ -51,9 +52,10 @@ private:
 
 public:
 	Uniform(void* data, UniformType type, const std::string& identifier, bool transpose);
+	Uniform() { }																			// Placeholder object instanciation for stack allocation.
 	~Uniform();
 
-	Uniform(const Uniform& other) = delete;
+	Uniform(const Uniform& other);
 
 	void* GetData() const
 	{
@@ -69,6 +71,11 @@ public:
 	inline const std::string GetName() const
 	{
 		return m_UName;
+	}
+
+	inline void* GetDataSource() const
+	{
+		return m_DataSource;
 	}
 
 	inline const UniformType GetType() const

@@ -1,5 +1,5 @@
 #include "Texture.h"
-#include "vendor/stb_image/stb_image.h"
+#include "stb_image/stb_image.h"
 
 Texture::Texture(const std::string & filepath, bool keepPixelData)
 	: m_RendererID(0), m_FilePath(filepath), m_Width(0), m_Height(0), m_BPP(0), m_LocalBuffer(nullptr)

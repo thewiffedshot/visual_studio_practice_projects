@@ -23,6 +23,11 @@ Shader::Shader(const unsigned int type, const std::string& filepath)
 	Compile();
 }
 
+Shader::Shader()
+{
+
+}
+
 std::string Shader::Parse(const std::string& filepath)
 {
 	std::ifstream stream(filepath);

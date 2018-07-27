@@ -9,6 +9,7 @@ private:
 	unsigned int m_Count;
 public:
 	IndexBuffer(const unsigned int* data, unsigned int count);
+	IndexBuffer();												// Object not instatiated via this contstructor. Acting as stack allocation placeholder. Do not use.	
 	~IndexBuffer();
 
 	void Bind() const;
