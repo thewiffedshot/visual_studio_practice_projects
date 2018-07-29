@@ -1,5 +1,6 @@
 #pragma once
 #include "Test.h"
+#include "GL/glew.h"
 #include <GLFW/glfw3.h>
 #include "VertexArray.h"
 #include "VertexBuffer.h"
@@ -9,19 +10,24 @@
 #include "Uniform.h"
 #include "Texture.h"
 #include "glm/glm.hpp"
+#include "imgui\imgui.h"
+#include "imgui\imgui_impl_opengl3.h"
+#include "imgui\imgui_impl_glfw.h"
 
 namespace test
 {
 	class TestShaderBlending : public Test
 	{
 	public:
-		TestShaderBlending(GLFWwindow* window);
+		TestShaderBlending(GLFWwindow* window, ImGuiContext* gui);
 		~TestShaderBlending();
 
 		void OnUpdate(float deltaTime) override;
 		void OnRender(const Renderer& renderer) override;
 		void OnImGuiRender() override;
 	private:
+		int windowWidth, windowHeight;
+
 		float tri2Dpositions[16] = {			
 			-0.4f, -0.35f,  0.0f,  0.0f,
 			 0.8f, -0.35f,  1.0f,  0.0f,
@@ -34,14 +40,14 @@ namespace test
 			2, 3, 0
 		};
 
-		int windowWidth, windowHeight;
+		ImGuiContext* guiContext;
 
-		VertexBuffer vbo;
-		IndexBuffer ibo;
+		VertexBuffer* vbo;
+		IndexBuffer* ibo;
 
-		BufferLayout layout;
+		BufferLayout* layout;
 
-		VertexArray va;
+		VertexArray* va;
 
 		Shader testShaders[2] =														
 		{
@@ -54,9 +60,6 @@ namespace test
 			Shader(GL_VERTEX_SHADER, "res/shaders/Basic.shader"),
 			Shader(GL_FRAGMENT_SHADER, "res/shaders/Basic.shader")
 		};
-
-		GLProgram program;
-		GLProgram secondProgram;
 
 		float slopeIncrement;
 		bool clockwise;
@@ -73,15 +76,18 @@ namespace test
 
 		glm::mat4 projMatrix;
 
-		Texture t1;
+		Texture* t1;
 		unsigned int tslot;
 
-		Uniform tslot_t1;
-		Uniform c1;					
-		Uniform c2;
-		Uniform WindowSize;
-		Uniform SlopeBounds;
-		Uniform ColorSwitched;
-		Uniform MVP;
+		GLProgram* program;
+		GLProgram* secondProgram;
+
+		Uniform* tslot_t1;
+		Uniform* c1;
+		Uniform* c2;
+		Uniform* WindowSize;
+		Uniform* SlopeBounds;
+		Uniform* ColorSwitched;
+		Uniform* MVP;
 	};
 }

@@ -252,28 +252,25 @@
   Note: including file:       C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.12.25827\include\vcruntime.h
   Note: including file:     c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\vendor\glm\detail\func_integer_simd.inl
   Note: including file:      c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\vendor\glm\detail\../simd/integer.h
-  Note: including file: C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\OpenGL_Test_Project\src\vendor\imgui\imgui.h
-  Note: including file:  c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\vendor\imgui\imconfig.h
-  Note: including file:  C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.12.25827\include\stdarg.h
-  Note: including file:   C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.12.25827\include\vcruntime.h
-  Note: including file:  C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\assert.h
+  Note: including file:  C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\OpenGL_Test_Project\src\vendor\imgui\imgui.h
+  Note: including file:   c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\vendor\imgui\imconfig.h
+  Note: including file:   C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.12.25827\include\stdarg.h
+  Note: including file:    C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.12.25827\include\vcruntime.h
+  Note: including file:   C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\assert.h
+  Note: including file:  C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\OpenGL_Test_Project\src\vendor\imgui\imgui_impl_opengl3.h
+  Note: including file:  C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\OpenGL_Test_Project\src\vendor\imgui\imgui_impl_glfw.h
   Note: including file: C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\OpenGL_Test_Project\src\vendor\glm/gtc/matrix_transform.hpp
   Note: including file:  c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\vendor\glm\gtc\../gtc/constants.hpp
   Note: including file:   c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\vendor\glm\gtc\../detail/setup.hpp
   Note: including file:   c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\vendor\glm\gtc\constants.inl
   Note: including file:  c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\vendor\glm\gtc\matrix_transform.inl
+  Note: including file: C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\OpenGL_Test_Project\src\vendor\imgui\imgui_impl_opengl3.h
+  Note: including file: C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\OpenGL_Test_Project\src\vendor\imgui\imgui_impl_glfw.h
   Note: including file: C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\math.h
   Note: including file:  C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\corecrt_math_defines.h
-c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\tests\testshaderblending.cpp(15): error C2530: 'test::TestShaderBlending::tslot_t1': references must be initialized
-c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\tests\testshaderblending.cpp(15): error C2530: 'test::TestShaderBlending::c1': references must be initialized
-c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\tests\testshaderblending.cpp(15): error C2530: 'test::TestShaderBlending::c2': references must be initialized
-c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\tests\testshaderblending.cpp(15): error C2530: 'test::TestShaderBlending::WindowSize': references must be initialized
-c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\tests\testshaderblending.cpp(15): error C2530: 'test::TestShaderBlending::SlopeBounds': references must be initialized
-c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\tests\testshaderblending.cpp(15): error C2530: 'test::TestShaderBlending::ColorSwitched': references must be initialized
-c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\tests\testshaderblending.cpp(15): error C2530: 'test::TestShaderBlending::MVP': references must be initialized
-c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\tests\testshaderblending.cpp(17): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\tests\testshaderblending.cpp(18): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\tests\testshaderblending.cpp(88): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\tests\testshaderblending.cpp(24): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\tests\testshaderblending.cpp(25): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\tests\testshaderblending.cpp(114): warning C4305: '=': truncation from 'double' to 'float'
   Generating Code...
   Compiling...
   Application.cpp
@@ -393,7 +390,7 @@ c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\te
   Note: including file:    C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.12.25827\include\fstream
   Note: including file:    C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.12.25827\include\sstream
   Note: including file:   c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\Uniform.h
-  Note: including file: C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\Dependencies\GLFW\include\GLFW/glfw3.h
+  Note: including file: C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\Dependencies\GLFW\include\GLFW\glfw3.h
   Note: including file:  C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\um\GL/gl.h
   Note: including file: C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\OpenGL_Test_Project\src\vendor\imgui\imgui.h
   Note: including file:  c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\vendor\imgui\imconfig.h
@@ -537,6 +534,9 @@ c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\te
   Note: including file:       C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.12.25827\include\vcruntime.h
   Note: including file:     c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\vendor\glm\detail\func_integer_simd.inl
   Note: including file:      c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\vendor\glm\detail\../simd/integer.h
+  Note: including file:  C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\OpenGL_Test_Project\src\vendor\imgui\imgui_impl_opengl3.h
+  Note: including file:  C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\OpenGL_Test_Project\src\vendor\imgui\imgui_impl_glfw.h
   Note: including file: C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\math.h
   Note: including file:  C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\corecrt_math_defines.h
   Generating Code...
+  OpenGL_Test_Project.vcxproj -> C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\Debug\OpenGL_Test_Project.exe
