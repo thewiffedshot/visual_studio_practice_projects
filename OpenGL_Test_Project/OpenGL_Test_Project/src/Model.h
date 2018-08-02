@@ -39,4 +39,5 @@ private:
 	VertexArray va;
 
 	void Update();
+	void Parse(const std::string& vertexData, const std::string& indexData, const std::string& normalData);
 };

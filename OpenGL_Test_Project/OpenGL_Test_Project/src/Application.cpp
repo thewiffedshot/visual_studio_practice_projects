@@ -8,6 +8,7 @@
 #include "imgui\imgui_impl_glfw.h"
 #include "tests\Test.h"
 #include "tests\TestShaderBlending.h"
+#include "Model.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -51,6 +52,7 @@ int main(void)
 	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));					// Set blending function to enable transparency by alpha difference.
 
 	Renderer renderer;
+	Model model;
 
 	{
 		test::TestShaderBlending test(window, guiContext);
