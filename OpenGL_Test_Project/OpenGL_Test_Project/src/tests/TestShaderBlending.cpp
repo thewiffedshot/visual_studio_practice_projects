@@ -123,9 +123,6 @@ void test::TestShaderBlending::OnImGuiRender()
 
 	ImGui::ShowDemoWindow(&show_demo_window);
 
-	static float f = 0.0f;
-	static int counter = 0;
-
 	ImGui::Begin("Controls.");                          // Create a window called "Hello, world!" and append into it.
 
 	ImGui::Text("Use this form to control parameters.");					  // Display some text (you can use a format strings too)
