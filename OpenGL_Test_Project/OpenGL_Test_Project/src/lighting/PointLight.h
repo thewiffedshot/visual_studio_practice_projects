@@ -11,4 +11,6 @@ struct PointLight
 	Vector4 lightColor = { 1.0f, 1.0f, 1.0f, 1.0f };
 	float lightEnergy = 10.0f;
 	float distance = 20.0f;
+
+	Vector3 m_WorldPos = { 1.0f, 1.0f, 1.0f };
 };

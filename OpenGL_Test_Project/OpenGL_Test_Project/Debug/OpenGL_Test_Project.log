@@ -114,5 +114,11 @@
   Note: including file:  c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\lighting\Material.h
   Note: including file:  c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\lighting\PointLight.h
   Note: including file: C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Tools\MSVC\14.12.25827\include\fstream
-c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\model.cpp(47): warning C4018: '<': signed/unsigned mismatch
+c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\model.cpp(51): warning C4018: '<': signed/unsigned mismatch
+c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\model.cpp(111): warning C4101: 'vnData': unreferenced local variable
+c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\model.cpp(110): warning C4101: 'vData': unreferenced local variable
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  TestDrawSphere.cpp
+  Application.cpp
   OpenGL_Test_Project.vcxproj -> C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\Debug\OpenGL_Test_Project.exe

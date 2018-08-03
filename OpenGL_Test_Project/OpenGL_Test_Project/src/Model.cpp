@@ -22,7 +22,9 @@ Model::Model()
 
 	std::stringstream vertexStream;
 	std::stringstream normalStream;
-	std::stringstream faceNormalStream;
+	std::stringstream textureStream;   // TODO
+	std::stringstream faceVertexIndexStream;
+	std::stringstream faceNormalIndexStream;
 
 	while (getline(stream, line))
 	{
@@ -40,7 +42,9 @@ Model::Model()
 		}
 		else if (line.find("f ") != std::string::npos)
 		{
+			int counter = 0;
 			std::string values = line.substr(2, line.size() - 2);
+			std::stringstream ss;
 
 			bool skip = false;
 
@@ -48,49 +52,65 @@ Model::Model()
 			{
 				if (!skip)
 				{
-					if (values[i] == '/')
+					if (values[i] != '/')
+					{
+						ss << values[i];
+					}
+					else
+					{
 						skip = true;
-		
-					else if (values[i] != ' ')
-						faceNormalStream << values[i];
+						ss << ' ';
+
+						continue;
+					}
 				}
 
-				if (skip == true && values[i] == ' ')
+				skip = false;
+			}
+
+			ss << ' ';
+
+			for (char ch : ss.str())
+			{
+				if (ch == ' ')
 				{
-					skip = false;
-					faceNormalStream << ' ';
+					counter++;
+
+					if (counter % 2 == 0)
+						faceVertexIndexStream << ch;
+					else if (counter != 1)
+						faceNormalIndexStream << ch;
+				}
+				else
+				{
+					if (counter % 2 == 0)
+					{
+						faceVertexIndexStream << ch;
+					}
+					else
+					{
+						faceNormalIndexStream << ch;
+					}
 				}
 			}
 
-			faceNormalStream << ' ';
+			faceNormalIndexStream << ' ';
 		}
 	}
 
-	Parse(vertexStream.str(), faceNormalStream.str(), normalStream.str());
+	Parse(vertexStream.str(), faceVertexIndexStream.str(), normalStream.str(), faceNormalIndexStream.str());
 }
 
-void Model::Parse(const std::string& vertexData, const std::string& normalData, const std::string& faceNormalData)
+void Model::Parse(const std::string& vertexData, const std::string& indexData, const std::string& normalData, const std::string& normalIndexData)
 {
-	std::vector<float> verteces;
-	std::string value;
+	int counter = 0;
 
-	for (char ch : vertexData)
-	{
-		if (ch == ' ')
-		{
-			verteces.push_back(std::stof(value, 0));
-			value = "";
-		}
-		else
-		{
-			value += ch;
-		}
-	}
+	// TODO: Allocate needed data arrays on the heap and use them to initiate vertex array.
 
-	for (auto ch : faceNormalData)
-	{
-		
-	}
+	float vData[3];
+	float vnData[3];
+
+	// TODO
 }
 
 Model::~Model()
