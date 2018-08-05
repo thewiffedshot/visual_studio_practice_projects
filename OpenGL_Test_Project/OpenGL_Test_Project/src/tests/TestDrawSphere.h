@@ -25,6 +25,8 @@ namespace test
 		PointLight light;
 		Model sphereModel;
 		Camera camera;
+
+		
 		
 		glm::mat4 perspective;
 		glm::mat4 MVP;

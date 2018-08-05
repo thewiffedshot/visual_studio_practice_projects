@@ -26,6 +26,7 @@ public:
 	void Attach(Shader shaders[], unsigned int count);
 	void Attach(Shader& shader);
 	void Detach(Shader& shader);
+	void Detach();
 
 	void AttachUniform(Uniform& uniform);
 	void DeleteUniform(const std::string& identifier);

@@ -81,6 +81,19 @@ void GLProgram::Detach(Shader& shader)
 	LinkProgram();
 }
 
+void GLProgram::Detach()
+{
+	unsigned int count = m_AttachedShaders.size();
+
+	for (unsigned int i = 0; i < count; i++)
+	{
+		m_AttachedShaders.erase(m_AttachedShaders.begin() + i);
+		GLCall(glDetachShader(m_RendererID, m_AttachedShaders[i]->GetHandle()));
+	}
+
+	LinkProgram();
+}
+
 void GLProgram::LinkProgram()
 {
 	GLCall(glLinkProgram(m_RendererID));
