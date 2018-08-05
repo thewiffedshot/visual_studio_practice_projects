@@ -24,6 +24,16 @@ public:
 		return m_WorldPos;
 	}
 
+	unsigned long GetFaces() const
+	{
+		return m_Faces;
+	}
+
+	unsigned long GetVerteces() const
+	{
+		return m_Verteces;
+	}
+
 	void Translate(Vector3 vec)
 	{
 		m_WorldPos += vec;
@@ -32,11 +42,14 @@ public:
 
 private:
 	Vector3 m_WorldPos = { 0, 0, 0 };
-	VertexBuffer vbo;
-	IndexBuffer ibo;
+	unsigned long m_Faces = -1;
+	unsigned long m_Verteces = -1;
 
-	BufferLayout layout;
-	VertexArray va;
+	VertexBuffer* vbo;
+	IndexBuffer* ibo;
+
+	BufferLayout* layout;
+	VertexArray* va;
 
 	void Update();
 	void Parse(const std::string& vertexData, const std::string& indexData, const std::string& normalData, const std::string& normalIndexData);

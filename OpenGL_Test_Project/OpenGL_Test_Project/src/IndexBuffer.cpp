@@ -1,7 +1,7 @@
 #include "IndexBuffer.h"
 
 IndexBuffer::IndexBuffer(const unsigned int* data, unsigned int count)
-	: m_Count(count)
+	: m_Count(count), initialized(true)
 {
 	ASSERT(sizeof(unsigned int) == sizeof(GLuint));
 
@@ -22,7 +22,14 @@ IndexBuffer::~IndexBuffer()
 
 void IndexBuffer::Bind() const
 {
-	GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID));
+	if (initialized)
+	{
+		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_RendererID));
+	}
+	else
+	{
+		GLCall(glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0));
+	}
 }
 
 void IndexBuffer::Unbind() const

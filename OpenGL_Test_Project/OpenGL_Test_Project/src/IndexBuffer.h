@@ -7,6 +7,7 @@ class IndexBuffer
 private:
 	unsigned int m_RendererID;
 	unsigned int m_Count;
+	bool initialized = false;
 public:
 	IndexBuffer(const unsigned int* data, unsigned int count);
 	IndexBuffer();												// Object not instatiated via this contstructor. Acting as stack allocation placeholder. Do not use.	

@@ -10,7 +10,7 @@ test::TestDrawSphere::~TestDrawSphere()
 
 }
 
-void test::TestDrawSphere::OnRender(const Renderer & renderer)
+void test::TestDrawSphere::OnRender(const Renderer& renderer)
 {
 
 }

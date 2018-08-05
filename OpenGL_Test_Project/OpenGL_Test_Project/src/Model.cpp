@@ -1,6 +1,9 @@
 #include "Model.h"
 #include <fstream>
 #include <vector>
+#include <memory>
+
+static void ParseData(const std::string& data, std::vector<Vector3>* parsed);
 
 Model::Model(const std::string & objectPath)
 {
@@ -103,14 +106,89 @@ Model::Model()
 
 void Model::Parse(const std::string& vertexData, const std::string& indexData, const std::string& normalData, const std::string& normalIndexData)
 {
-	int counter = 0;
+	std::vector<Vector3> verteces;
+	ParseData(vertexData, &verteces);
+	std::vector<Vector3> vNormals;
+	ParseData(normalData, &vNormals);
+	std::vector<Vector3> indeces;
+	ParseData(indexData, &indeces);
+	std::vector<Vector3> nIndeces;
+	ParseData(normalIndexData, &nIndeces);
+	
+	m_Faces = indeces.size();
+	m_Verteces = verteces.size();
 
-	// TODO: Allocate needed data arrays on the heap and use them to initiate vertex array.
+	unsigned long counter = 0;
 
+	std::unique_ptr<float> vertexArray(new float[18 * indeces.size()]);
 	float vData[3];
-	float vnData[3];
+	float nData[3];
 
-	// TODO
+	for (unsigned int i = 0; i < m_Faces; i++)
+	{
+		Vector3* ptr = &indeces[i];
+		Vector3* nPtr = &nIndeces[i];
+
+		for (int j = 0; j < 3; j++)
+		{
+			float val = *((float*)(ptr) + j);
+			int index = val - 1;
+
+			vData[0] = verteces[index].x;
+			vData[1] = verteces[index].y;
+			vData[2] = verteces[index].z;
+
+			val = *((float*)(nPtr) + j);
+			index = val - 1;
+
+			nData[0] = vNormals[index].x;
+			nData[1] = vNormals[index].y;
+			nData[2] = vNormals[index].z;
+
+
+			memcpy(vertexArray.get() + sizeof(nData) / sizeof(float) * counter, vData, sizeof(vData));
+			counter++;
+			memcpy(vertexArray.get() + sizeof(nData) / sizeof(float) * counter, nData, sizeof(nData));
+			counter++;
+		}
+	}
+
+	vbo = new VertexBuffer(vertexArray.get(), 18 * m_Faces);
+	ibo = new IndexBuffer;
+	
+	layout = new BufferLayout;
+	layout->Push<float>(3);
+	layout->Push<float>(3);
+	
+	va = new VertexArray;
+	va->AddBuffer(*vbo, *layout);
+}
+
+static void ParseData(const std::string& data, std::vector<Vector3>* parsed)
+{
+	int counter = 0;
+	float vData[3];
+
+	std::stringstream ph;
+
+	for (unsigned long i = 0; i < data.size(); i++)
+	{
+		if (data[i] == ' ')
+		{
+			vData[counter % 3] = std::stof(ph.str());
+			counter++;
+			ph.str("");
+
+			if (counter % 3 == 0)
+			{
+				parsed->push_back({ vData[0], vData[1], vData[2] });
+			}
+		}
+		else
+		{
+			ph << data[i];
+		}
+	}
 }
 
 Model::~Model()
