@@ -4,6 +4,7 @@
 #include "imgui\imgui.h"
 #include "imgui\imgui_impl_opengl3.h"
 #include "imgui\imgui_impl_glfw.h"
+#include "Camera.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -20,7 +21,6 @@ test::TestShaderBlending::TestShaderBlending(GLFWwindow* window, ImGuiContext* g
 	layout = new BufferLayout;
 	va = new VertexArray;
 
-	glfwGetWindowSize(window, &windowWidth, &windowHeight);
 	windowSize[0] = windowWidth;
 	windowSize[1] = windowHeight;
 

@@ -131,7 +131,6 @@
     <ClCompile Include="src\Camera.cpp" />
     <ClCompile Include="src\GLProgram.cpp" />
     <ClCompile Include="src\IndexBuffer.cpp" />
-    <ClCompile Include="src\lighting\Material.cpp" />
     <ClCompile Include="src\Macros.cpp" />
     <ClCompile Include="src\Model.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
@@ -153,6 +152,7 @@
   <ItemGroup>
     <None Include="res\shaders\Basic.shader" />
     <None Include="res\shaders\Basic2.shader" />
+    <None Include="res\shaders\Diffuse.shader" />
     <None Include="src\vendor\glm\detail\func_common.inl" />
     <None Include="src\vendor\glm\detail\func_common_simd.inl" />
     <None Include="src\vendor\glm\detail\func_exponential.inl" />

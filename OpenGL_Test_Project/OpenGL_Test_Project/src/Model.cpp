@@ -98,7 +98,7 @@ Model::Model(const std::string & objPath)
 	Parse(vertexStream.str(), faceVertexIndexStream.str(), normalStream.str(), faceNormalIndexStream.str());
 }
 
-Model::Model(Vector3 worldPosition, const std::string & objPath)
+Model::Model(Vector4 worldPosition, const std::string & objPath)
 	: m_WorldPos(worldPosition)
 {
 	program = new GLProgram;

@@ -1,8 +1,9 @@
 #include "TestDrawSphere.h"
 
-test::TestDrawSphere::TestDrawSphere()
+test::TestDrawSphere::TestDrawSphere(GLFWwindow* window)
+	: window(window)
 {
-	
+	camera.Initialize(window);
 }
 
 test::TestDrawSphere::~TestDrawSphere()

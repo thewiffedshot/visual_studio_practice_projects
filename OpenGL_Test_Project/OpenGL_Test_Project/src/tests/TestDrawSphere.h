@@ -5,6 +5,7 @@
 #include "Model.h"
 #include "Camera.h";
 #include <string>
+#include "GLFW\glfw3.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -14,7 +15,7 @@ namespace test
 	class TestDrawSphere : public Test
 	{
 	public:
-		TestDrawSphere();
+		TestDrawSphere(GLFWwindow* window);
 		~TestDrawSphere();
 
 		void OnRender(const Renderer& renderer) override;
@@ -22,14 +23,10 @@ namespace test
 		void OnUpdate(float deltaTime) override;
 
 	private:
+		GLFWwindow* window;
 		PointLight light;
 		Model sphereModel;
 		Camera camera;
-
-		
-		
-		glm::mat4 perspective;
-		glm::mat4 MVP;
 
 		Shader shaders[2] = {
 			Shader(GL_VERTEX_SHADER, "res/shaders/BasicLighting.shader"),

@@ -260,13 +260,9 @@
   Note: including file:   c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\lighting\PointLight.h
 c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\tests\TestDrawSphere.h(6): warning C4067: unexpected tokens following preprocessor directive - expected a newline
   Note: including file:  C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\OpenGL_Test_Project\src\Camera.h
+  Note: including file:   C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\OpenGL_Test_Project\src\vendor\glm/gtx/transform.hpp
+  Note: including file:    c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\vendor\glm\gtx\transform.inl
+  Note: including file:   C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\Dependencies\GLFW\include\GLFW\glfw3.h
+  Note: including file:    C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\um\GL/gl.h
   Note: including file:  C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\math.h
   Note: including file:   C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\corecrt_math_defines.h
-LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
-  Generating code
-  23 of 2049 functions ( 1.1%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    28 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\Release\vc120.pdb'; linking object as if no debug info
-  OpenGL_Test_Project.vcxproj -> C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\Release\OpenGL_Test_Project.exe

@@ -14,7 +14,7 @@ class Model
 {
 public:
 	Model(const std::string& objPath);
-	Model(Vector3 worldPosition, const std::string& objPath);
+	Model(Vector4 worldPosition, const std::string& objPath);
 	Model();
 	~Model();
 
@@ -22,7 +22,7 @@ public:
 
 	void ChangeShaders(Shader* shaders, unsigned int count = 2);
 
-	Vector3 GetPosition() const
+	Vector4 GetPosition() const
 	{
 		return m_WorldPos;
 	}
@@ -37,14 +37,16 @@ public:
 		return m_Verteces;
 	}
 
-	void Translate(Vector3 vec)
+	void Translate(Vector4 vec)
 	{
-		m_WorldPos += vec;
+		m_WorldPos.x += vec.x;
+		m_WorldPos.y += vec.y;
+		m_WorldPos.z += vec.z;
 		Update();
 	}
 
 private:
-	Vector3 m_WorldPos = { 0, 0, 0 };
+	Vector4 m_WorldPos = { 0.0f, 0.0f, 0.0f, 1.0f };
 	unsigned long m_Faces = -1;
 	unsigned long m_Verteces = -1;
 
