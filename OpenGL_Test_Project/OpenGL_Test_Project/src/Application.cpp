@@ -8,6 +8,7 @@
 #include "imgui\imgui_impl_glfw.h"
 #include "tests\Test.h"
 #include "tests\TestShaderBlending.h"
+#include "tests\TestDrawSphere.h"
 #include "Model.h"
 
 #define _USE_MATH_DEFINES
@@ -55,7 +56,8 @@ int main(void)
 	Model model;
 
 	{
-		test::TestShaderBlending test(window, guiContext);
+		//test::TestShaderBlending test(window, guiContext);
+		test::TestDrawSphere test(window);
 
 		while (!glfwWindowShouldClose(window))
 		{
@@ -65,7 +67,7 @@ int main(void)
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
 
-			test.OnImGuiRender();
+			//test.OnImGuiRender();
 
 			test.OnRender(renderer);
 			ImGui::Render();

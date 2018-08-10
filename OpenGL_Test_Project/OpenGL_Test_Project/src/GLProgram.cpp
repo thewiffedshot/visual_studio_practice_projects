@@ -1,6 +1,6 @@
 #include "GLProgram.h"
 
-GLProgram::GLProgram(Shader shaders[], unsigned int count)
+GLProgram::GLProgram(Shader* shaders, unsigned int count)
 {
 	GLCall(m_RendererID = glCreateProgram());
 	Attach(shaders, count);

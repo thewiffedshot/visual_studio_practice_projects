@@ -22,6 +22,21 @@ public:
 
 	void ChangeShaders(Shader* shaders, unsigned int count = 2);
 
+	VertexArray* GetVertexArray()
+	{
+		return va;
+	}
+
+	IndexBuffer* GetIndexBuffer()
+	{
+		return ibo;
+	}
+
+	GLProgram* GetProgram()
+	{
+		return program;
+	}
+
 	Vector4 GetPosition() const
 	{
 		return m_WorldPos;

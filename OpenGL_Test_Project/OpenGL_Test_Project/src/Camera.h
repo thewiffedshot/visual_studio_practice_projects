@@ -48,7 +48,7 @@ public:
 	}
 
 private:
-	Vector4 m_WorldPos = { 10.0f, 10.0f, 10.0f, 1.0f };
+	Vector4 m_WorldPos = { 2.0f, 2.0f, 2.0f, 1.0f };
 	Vector4 lookPos = { 0.0f, 0.0f, 0.0f, 1.0f };
 	float fov = 60;
 	int windowWidth;

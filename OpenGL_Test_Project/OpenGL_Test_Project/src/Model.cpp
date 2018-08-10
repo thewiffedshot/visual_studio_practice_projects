@@ -208,6 +208,8 @@ Model::Model()
 	std::stringstream faceVertexIndexStream;
 	std::stringstream faceNormalIndexStream;
 
+	unsigned int faceCounter = 0;
+
 	while (getline(stream, line))
 	{
 		if (line.find("v ") != std::string::npos)
@@ -277,10 +279,14 @@ Model::Model()
 			}
 
 			faceNormalIndexStream << ' ';
+			faceCounter++;
 		}
 	}
 
+	m_Faces = faceCounter;
 	Parse(vertexStream.str(), faceVertexIndexStream.str(), normalStream.str(), faceNormalIndexStream.str());
+
+	ibo->SetVertexCount(m_Faces * 3);
 }
 
 void Model::Parse(const std::string& vertexData, const std::string& indexData, const std::string& normalData, const std::string& normalIndexData)
@@ -294,7 +300,6 @@ void Model::Parse(const std::string& vertexData, const std::string& indexData, c
 	std::vector<Vector3> nIndeces;
 	ParseData(normalIndexData, &nIndeces);
 	
-	m_Faces = indeces.size();
 	m_Verteces = verteces.size();
 
 	unsigned long counter = 0;

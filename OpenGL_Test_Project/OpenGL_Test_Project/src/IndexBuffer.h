@@ -20,4 +20,9 @@ public:
 	{
 		return m_Count;
 	}
+
+	inline void SetVertexCount(unsigned long vCount)
+	{
+		m_Count = vCount;
+	}
 };

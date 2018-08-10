@@ -6,6 +6,7 @@
 #include "Camera.h";
 #include <string>
 #include "GLFW\glfw3.h"
+#include <memory>
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -28,11 +29,12 @@ namespace test
 		Model sphereModel;
 		Camera camera;
 
-		Shader shaders[2] = {
-			Shader(GL_VERTEX_SHADER, "res/shaders/BasicLighting.shader"),
-			Shader(GL_FRAGMENT_SHADER, "res/shaders/BasicLighting.shader")
-		};
-
-		GLProgram program;
+		Uniform* ViewMatrix;
+		Uniform* ProjMatrix;
+		Uniform* LightPos;
+		Uniform* MaterialColor;
+		Uniform* LightColor;
+		Uniform* LightDistance;
+		Uniform* LightPower;
 	};
 }
