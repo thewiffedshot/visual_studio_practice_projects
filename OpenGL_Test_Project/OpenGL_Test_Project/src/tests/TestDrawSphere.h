@@ -7,6 +7,7 @@
 #include <string>
 #include "GLFW\glfw3.h"
 #include <memory>
+#include "imgui\imgui.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -16,22 +17,24 @@ namespace test
 	class TestDrawSphere : public Test
 	{
 	public:
-		TestDrawSphere(GLFWwindow* window);
+		TestDrawSphere(GLFWwindow* window, ImGuiContext* gui);
 		~TestDrawSphere();
 
 		void OnRender(const Renderer& renderer) override;
 		void OnImGuiRender() override;
 		void OnUpdate(float deltaTime) override;
 
+		float lightPos[4] = { 40.0f, 0.0f, 0.0f, 1.0f };
+		Uniform* LightPos;
 	private:
 		GLFWwindow* window;
+		ImGuiContext* guiContext;
 		PointLight light;
-		Model sphereModel;
 		Camera camera;
+		Model sphereModel;
 
 		Uniform* ViewMatrix;
 		Uniform* ProjMatrix;
-		Uniform* LightPos;
 		Uniform* MaterialColor;
 		Uniform* LightColor;
 		Uniform* LightDistance;

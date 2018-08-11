@@ -48,14 +48,14 @@ public:
 	}
 
 private:
-	Vector4 m_WorldPos = { 2.0f, 2.0f, 2.0f, 1.0f };
+	Vector4 m_WorldPos = { 10.0f, 10.0f, 10.0f, 1.0f };
 	Vector4 lookPos = { 0.0f, 0.0f, 0.0f, 1.0f };
 	float fov = 60;
 	int windowWidth;
 	int windowHeight;
 	bool initialized = false;
 
-	glm::mat4 view = glm::lookAt(glm::vec3(m_WorldPos.x, m_WorldPos.y, m_WorldPos.z), glm::vec3(lookPos.x, lookPos.y, lookPos.z), glm::vec3(0.0f, 1.0f, 0.0f));
+	glm::mat4 view = glm::lookAt(glm::vec3(m_WorldPos.x, m_WorldPos.y, m_WorldPos.z), glm::vec3(lookPos.x, lookPos.y, lookPos.z), glm::vec3(0.0f, -1.0f, 0.0f));
 	glm::mat4 projection;
 	
 	void Update();

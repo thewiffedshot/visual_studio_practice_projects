@@ -53,5 +53,5 @@ void Camera::Initialize(GLFWwindow* window)
 {
 	initialized = true;
 	glfwGetWindowSize(window, &windowWidth, &windowHeight);
-	projection = glm::perspective(fov, (float)windowWidth / (float)windowHeight, 0.1f, 100.0f);
+	projection = glm::perspective(fov, (float)windowWidth / (float)windowHeight, 0.01f, 1000.0f);
 }

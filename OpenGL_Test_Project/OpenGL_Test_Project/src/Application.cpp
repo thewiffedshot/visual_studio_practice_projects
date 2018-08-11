@@ -57,11 +57,21 @@ int main(void)
 
 	{
 		//test::TestShaderBlending test(window, guiContext);
-		test::TestDrawSphere test(window);
+		test::TestDrawSphere test(window, guiContext);
+		float increment = 0.01f;
+		float value = 0.0f;
 
 		while (!glfwWindowShouldClose(window))
 		{
 			renderer.Clear();
+
+			test.lightPos[0] = abs(sin(value)) * 50.0f;
+			test.lightPos[1] = abs(sin(value)) * 50.0f;
+			test.lightPos[2] = abs(cos(value)) * 50.0f;
+			test.LightPos->SetData(test.lightPos);
+			value += increment;
+
+			test.OnRender(renderer);
 
 			ImGui_ImplOpenGL3_NewFrame();
 			ImGui_ImplGlfw_NewFrame();
@@ -69,7 +79,6 @@ int main(void)
 
 			//test.OnImGuiRender();
 
-			test.OnRender(renderer);
 			ImGui::Render();
 			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 

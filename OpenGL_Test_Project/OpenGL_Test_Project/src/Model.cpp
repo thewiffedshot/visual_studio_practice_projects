@@ -5,6 +5,7 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
+static void ParseData(const std::string& data, std::vector<unsigned long>* parsed);
 static void ParseData(const std::string& data, std::vector<Vector3>* parsed);
 
 Model::Model(const std::string & objPath)
@@ -285,8 +286,6 @@ Model::Model()
 
 	m_Faces = faceCounter;
 	Parse(vertexStream.str(), faceVertexIndexStream.str(), normalStream.str(), faceNormalIndexStream.str());
-
-	ibo->SetVertexCount(m_Faces * 3);
 }
 
 void Model::Parse(const std::string& vertexData, const std::string& indexData, const std::string& normalData, const std::string& normalIndexData)
@@ -295,9 +294,9 @@ void Model::Parse(const std::string& vertexData, const std::string& indexData, c
 	ParseData(vertexData, &verteces);
 	std::vector<Vector3> vNormals;
 	ParseData(normalData, &vNormals);
-	std::vector<Vector3> indeces;
+	std::vector<unsigned long> indeces;
 	ParseData(indexData, &indeces);
-	std::vector<Vector3> nIndeces;
+	std::vector<unsigned long> nIndeces;
 	ParseData(normalIndexData, &nIndeces);
 	
 	m_Verteces = verteces.size();
@@ -308,37 +307,28 @@ void Model::Parse(const std::string& vertexData, const std::string& indexData, c
 	float vData[3];
 	float nData[3];
 
-	for (unsigned int i = 0; i < m_Faces; i++)
+	for (unsigned int i = 0; i < indeces.size(); i++)
 	{
-		Vector3* ptr = &indeces[i];
-		Vector3* nPtr = &nIndeces[i];
+		Vector3 vertex = verteces[indeces[i] - 1];
+		Vector3 vNormal = vNormals[nIndeces[i] - 1];
 
-		for (int j = 0; j < 3; j++)
-		{
-			float val = *((float*)(ptr) + j);
-			int index = val - 1;
+		vData[0] = vertex.x;
+		vData[1] = vertex.y;
+		vData[2] = vertex.z;
 
-			vData[0] = verteces[index].x;
-			vData[1] = verteces[index].y;
-			vData[2] = verteces[index].z;
+		nData[0] = vNormal.x;
+		nData[1] = vNormal.y;
+		nData[2] = vNormal.z;
 
-			val = *((float*)(nPtr) + j);
-			index = val - 1;
-
-			nData[0] = vNormals[index].x;
-			nData[1] = vNormals[index].y;
-			nData[2] = vNormals[index].z;
-
-
-			memcpy(vertexArray.get() + sizeof(nData) / sizeof(float) * counter, vData, sizeof(vData));
-			counter++;
-			memcpy(vertexArray.get() + sizeof(nData) / sizeof(float) * counter, nData, sizeof(nData));
-			counter++;
-		}
+		memcpy(vertexArray.get() + sizeof(vData) / sizeof(float) * counter, vData, sizeof(vData));
+		counter++;
+		memcpy(vertexArray.get() + sizeof(nData) / sizeof(float) * counter, nData, sizeof(nData));
+		counter++;
 	}
 
-	vbo = new VertexBuffer(vertexArray.get(), 18 * m_Faces);
+	vbo = new VertexBuffer(vertexArray.get(), 18 * indeces.size());
 	ibo = new IndexBuffer;
+	ibo->SetVertexCount(indeces.size());
 	
 	layout = new BufferLayout;
 	layout->Push<float>(3);
@@ -367,6 +357,27 @@ static void ParseData(const std::string& data, std::vector<Vector3>* parsed)
 			{
 				parsed->push_back({ vData[0], vData[1], vData[2] });
 			}
+		}
+		else
+		{
+			ph << data[i];
+		}
+	}
+}
+
+static void ParseData(const std::string& data, std::vector<unsigned long>* parsed)
+{
+	std::stringstream ph;
+
+	for (unsigned long i = 0; i < data.size(); i++)
+	{
+		if (data[i] == ' ')
+		{
+			float data = std::stof(ph.str());
+
+			parsed->push_back(data);
+
+			ph.str("");
 		}
 		else
 		{

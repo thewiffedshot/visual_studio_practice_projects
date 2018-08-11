@@ -279,9 +279,4 @@ c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\te
   Note: including file:  C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\math.h
   Note: including file:   C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\corecrt_math_defines.h
   Note: including file: C:\Program Files (x86)\Windows Kits\10\Include\10.0.16299.0\ucrt\math.h
-  Generating Code...
-  Skipping... (no relevant changes detected)
-  TestShaderBlending.cpp
-  TestDrawSphere.cpp
-  Camera.cpp
   OpenGL_Test_Project.vcxproj -> C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\Debug\OpenGL_Test_Project.exe

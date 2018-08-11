@@ -1,10 +1,12 @@
 #include "TestDrawSphere.h"
 #include <string>
 
-test::TestDrawSphere::TestDrawSphere(GLFWwindow* window)
-	: window(window)
+test::TestDrawSphere::TestDrawSphere(GLFWwindow* window, ImGuiContext* gui)
+	: window(window), guiContext(gui)
 {
 	camera.Initialize(window);
+	glEnable(GL_CULL_FACE);
+	//glFrontFace(GL_CCW);
 
 	ViewMatrix = new Uniform(&camera.GetViewMatrix()[0][0], fMAT4x4, "u_viewMatrix", false);
 	ProjMatrix = new Uniform(&camera.GetProjectionMatrix()[0][0], fMAT4x4, "u_projMatrix", false);
@@ -14,13 +16,24 @@ test::TestDrawSphere::TestDrawSphere(GLFWwindow* window)
 	LightDistance = new Uniform(&light.distance, FLOAT, "u_LightDistance", false);
 	LightPower = new Uniform(&light.lightEnergy, FLOAT, "u_LightPower", false);
 	
+	float materialColor[] = { 0.0f, 1.0f, 0.0f, 1.0f };
+	float lightColor[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	float lightPower = 60.0f;
+	float distance = 7.75f;
+
+	MaterialColor->SetData(materialColor);
+	LightColor->SetData(lightColor);
+	LightPos->SetData(lightPos);
+	LightDistance->SetData(&distance);
+	LightPower->SetData(&lightPower);
+
 	sphereModel.GetProgram()->Bind();
 	sphereModel.GetProgram()->AttachUniform(*ViewMatrix);
 	sphereModel.GetProgram()->AttachUniform(*ProjMatrix);
 	sphereModel.GetProgram()->AttachUniform(*LightPos);
 	sphereModel.GetProgram()->AttachUniform(*MaterialColor);
 	sphereModel.GetProgram()->AttachUniform(*LightColor);
-	//sphereModel.GetProgram()->AttachUniform(*LightDistance);
+	sphereModel.GetProgram()->AttachUniform(*LightDistance);
 	sphereModel.GetProgram()->AttachUniform(*LightPower);
 }
 
@@ -42,7 +55,19 @@ void test::TestDrawSphere::OnRender(const Renderer& renderer)
 
 void test::TestDrawSphere::OnImGuiRender()
 {
-	
+	ImGui::SetCurrentContext(guiContext);
+
+	ImGui::Begin("Controls.");
+
+	ImGui::Text("Use this form to control parameters.");
+
+	ImGui::SliderFloat("Light X: ", &lightPos[0], -50.0f, 50.0f);            
+	ImGui::SliderFloat("Light Y: ", &lightPos[1], -50.0f, 50.0f);
+	ImGui::SliderFloat("Light Z: ", &lightPos[2], -50.0f, 50.0f);
+	LightPos->SetData(lightPos);
+
+	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+	ImGui::End();
 }
 
 void test::TestDrawSphere::OnUpdate(float deltaTime)
