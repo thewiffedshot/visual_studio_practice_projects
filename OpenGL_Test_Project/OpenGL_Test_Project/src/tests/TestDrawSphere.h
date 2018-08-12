@@ -24,7 +24,7 @@ namespace test
 		void OnImGuiRender() override;
 		void OnUpdate(float deltaTime) override;
 
-		float lightPos[4] = { 40.0f, 0.0f, 0.0f, 1.0f };
+		float lightPos[4] = { 60.0f, 70.0f, 30.0f, 1.0f };
 		Uniform* LightPos;
 	private:
 		GLFWwindow* window;

@@ -35,28 +35,37 @@ public:
 
 	void Translate(Vector4 vec)
 	{
-		m_WorldPos.x += vec.x;
-		m_WorldPos.y += vec.y;
-		m_WorldPos.z += vec.z;
+		m_WorldPos.x = vec.x;
+		m_WorldPos.y = vec.y;
+		m_WorldPos.z = vec.z;
+		m_WorldPos.w = vec.w;
 		Update();
 	}
 
 	void Look(Vector4 vec)
 	{
-		lookPos = vec;
+		target.x = vec.x;
+		target.y = vec.y;
+		target.z = vec.z;
+		target.w = vec.w;
 		Update();
 	}
 
+	void Update();
 private:
-	Vector4 m_WorldPos = { 10.0f, 10.0f, 10.0f, 1.0f };
-	Vector4 lookPos = { 0.0f, 0.0f, 0.0f, 1.0f };
-	float fov = 60;
+	Vector4 m_WorldPos = { 120.0f, 20.0f, 20.0f, 1.0f };
+	Vector4 target = { 0.0f, 0.0f, 0.0f, 1.0f };
+	glm::vec3 camDirection; 
+	glm::vec3 up; 
+	glm::vec3 camRight; 
+	glm::vec3 camUp; 
+
+	float fov = 120;
 	int windowWidth;
 	int windowHeight;
 	bool initialized = false;
 
-	glm::mat4 view = glm::lookAt(glm::vec3(m_WorldPos.x, m_WorldPos.y, m_WorldPos.z), glm::vec3(lookPos.x, lookPos.y, lookPos.z), glm::vec3(0.0f, -1.0f, 0.0f));
+	glm::mat4 view = glm::lookAt(glm::vec3(m_WorldPos.x, m_WorldPos.y, m_WorldPos.z), glm::vec3(target.x, target.y, target.z), camUp);
 	glm::mat4 projection;
 	
-	void Update();
 };

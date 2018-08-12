@@ -65,11 +65,11 @@ int main(void)
 		{
 			renderer.Clear();
 
-			test.lightPos[0] = abs(sin(value)) * 50.0f;
-			test.lightPos[1] = abs(sin(value)) * 50.0f;
-			test.lightPos[2] = abs(cos(value)) * 50.0f;
-			test.LightPos->SetData(test.lightPos);
-			value += increment;
+			//test.lightPos[0] = abs(sin(value)) * 50.0f;
+			//test.lightPos[1] = abs(sin(value)) * 50.0f;
+			//test.lightPos[2] = abs(cos(value)) * 50.0f;
+			//test.LightPos->SetData(test.lightPos);
+			//value += increment;
 
 			test.OnRender(renderer);
 
@@ -77,7 +77,7 @@ int main(void)
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
 
-			//test.OnImGuiRender();
+			test.OnImGuiRender();
 
 			ImGui::Render();
 			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
