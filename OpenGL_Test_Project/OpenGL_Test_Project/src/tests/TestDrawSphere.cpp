@@ -6,7 +6,7 @@ test::TestDrawSphere::TestDrawSphere(GLFWwindow* window, ImGuiContext* gui)
 {
 	camera.Initialize(window);
 	glEnable(GL_CULL_FACE);
-	glFrontFace(GL_CCW);
+	//glFrontFace(GL_CW);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 

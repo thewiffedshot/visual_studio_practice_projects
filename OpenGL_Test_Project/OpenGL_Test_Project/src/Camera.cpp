@@ -37,7 +37,7 @@ Camera::Camera(GLFWwindow * window)
 
 Camera::Camera()
 {
-	m_WorldPos = { 20.0f, 70.0f, 20.0f, 1.0f };
+	m_WorldPos = { 26.923f, -7.692f, 20.0f, 1.0f };
 	target = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 	Update();

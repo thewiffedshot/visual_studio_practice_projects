@@ -35,7 +35,7 @@ int main(void)
 	}
 
 	glfwMakeContextCurrent(window);												// Setting the window's OpenGL context before initializing GLEW is critical.
-	glfwSwapInterval(1);
+	glfwSwapInterval(0);
 
 	if (glewInit() != GLEW_OK)													// GLEW needs to be initialized before attempting to call any GL functions. Beware of the scary NULL pointers.
 		std::cout << "GLEW initialization error. Terminating..." << std::endl;													

@@ -197,7 +197,7 @@ Model::Model()
 	program->Attach(shaders[0]);
 	program->Attach(shaders[1]);
 
-	std::string objPath = "res/models/sphere.obj";
+	std::string objPath = "res/models/monkey.obj";
 
 	std::string line;
 
@@ -304,11 +304,14 @@ void Model::Parse(const std::string& vertexData, const std::string& indexData, c
 	unsigned long counter = 0;
 
 	std::unique_ptr<float> vertexArray(new float[18 * indeces.size()]);
+	std::unique_ptr<unsigned int> indexArray(new unsigned int[indeces.size()]);
 	float vData[3];
 	float nData[3];
 
 	for (unsigned int i = 0; i < indeces.size(); i++)
 	{
+		unsigned int* iPtr = indexArray.get() + i;
+		*iPtr = indeces[i] - 1;
 		Vector3 vertex = verteces[indeces[i] - 1];
 		Vector3 vNormal = vNormals[nIndeces[i] - 1];
 
@@ -327,7 +330,7 @@ void Model::Parse(const std::string& vertexData, const std::string& indexData, c
 	}
 
 	vbo = new VertexBuffer(vertexArray.get(), 18 * indeces.size());
-	ibo = new IndexBuffer;
+	ibo = new IndexBuffer(indexArray.get(), sizeof(unsigned int) * indeces.size());
 	ibo->SetVertexCount(indeces.size());
 	
 	layout = new BufferLayout;
