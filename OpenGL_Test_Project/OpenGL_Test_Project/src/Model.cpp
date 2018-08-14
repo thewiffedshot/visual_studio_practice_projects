@@ -197,7 +197,7 @@ Model::Model()
 	program->Attach(shaders[0]);
 	program->Attach(shaders[1]);
 
-	std::string objPath = "res/models/monkey.obj";
+	std::string objPath = "res/models/sphere.obj";
 
 	std::string line;
 
@@ -288,6 +288,16 @@ Model::Model()
 	Parse(vertexStream.str(), faceVertexIndexStream.str(), normalStream.str(), faceNormalIndexStream.str());
 }
 
+static bool Contains(const std::vector<unsigned long>& vector, unsigned long key)
+{
+	for (auto num : vector)
+	{
+		if (num == key) return true;
+	}
+	
+	return false;
+}
+
 void Model::Parse(const std::string& vertexData, const std::string& indexData, const std::string& normalData, const std::string& normalIndexData)
 {
 	std::vector<Vector3> verteces;
@@ -298,22 +308,69 @@ void Model::Parse(const std::string& vertexData, const std::string& indexData, c
 	ParseData(indexData, &indeces);
 	std::vector<unsigned long> nIndeces;
 	ParseData(normalIndexData, &nIndeces);
-	
+
 	m_Verteces = verteces.size();
 
 	unsigned long counter = 0;
+	unsigned long position = 0;
 
-	std::unique_ptr<float> vertexArray(new float[18 * indeces.size()]);
-	std::unique_ptr<unsigned int> indexArray(new unsigned int[indeces.size()]);
+	std::vector<unsigned long> checked;
+	std::vector<unsigned long> nChecked;
+
+	std::vector<unsigned long> skippedVertexIndex;
+	std::vector<unsigned long> skipPosition;
+
+	for (unsigned long i = 0; i < indeces.size(); i++)
+	{
+		bool skip = true;
+
+		if (i == 0)
+		{
+			checked.push_back(indeces[i]);
+			nChecked.push_back(nIndeces[i]);
+			continue;
+		}
+		
+		for (unsigned long j = 0; j < checked.size(); j++)
+		{
+			if (!(checked[j] == indeces[i] && nChecked[j] == nIndeces[i]))
+			{
+				position++;
+				skip = false;
+			}
+			else
+			{
+				skippedVertexIndex.push_back(position);
+				skipPosition.push_back(i);
+				skip = true;
+				break;
+			}
+		}
+
+		position = 0;
+
+		if (!skip)
+		{
+			checked.push_back(indeces[i]);
+			nChecked.push_back(nIndeces[i]);
+		}
+	}
+
+	for (unsigned long i = 0; i < checked.size(); i++)
+	{
+		unsigned long l = checked[i];
+		unsigned long ln = nChecked[i];
+	}
+
+	std::unique_ptr<float> vertexArray(new float[18 * checked.size()]);
+	std::unique_ptr<unsigned int> indexArray(new unsigned int[checked.size() + skippedVertexIndex.size()]);
 	float vData[3];
 	float nData[3];
 
-	for (unsigned int i = 0; i < indeces.size(); i++)
+	for (unsigned int i = 0; i < checked.size(); i++)
 	{
-		unsigned int* iPtr = indexArray.get() + i;
-		*iPtr = indeces[i] - 1;
-		Vector3 vertex = verteces[indeces[i] - 1];
-		Vector3 vNormal = vNormals[nIndeces[i] - 1];
+		Vector3 vertex = verteces[checked[i] - 1];
+		Vector3 vNormal = vNormals[nChecked[i] - 1];
 
 		vData[0] = vertex.x;
 		vData[1] = vertex.y;
@@ -329,8 +386,28 @@ void Model::Parse(const std::string& vertexData, const std::string& indexData, c
 		counter++;
 	}
 
-	vbo = new VertexBuffer(vertexArray.get(), 18 * indeces.size());
-	ibo = new IndexBuffer(indexArray.get(), sizeof(unsigned int) * indeces.size());
+	for (unsigned long i = 0, u = 0; i < checked.size() + skippedVertexIndex.size(); i++)
+	{
+		if (i == skipPosition[u])
+		{
+			indexArray.get()[i] = indeces[skippedVertexIndex[u]];
+			u++;
+		}
+		else
+		{
+			indexArray.get()[i] = indeces[i];
+		}
+	}
+
+	unsigned long count = checked.size() + skippedVertexIndex.size();
+
+	for (int i = 0; i < count; i++)
+	{
+		unsigned long l = indexArray.get()[i]; // TODO: Debug the parsing of the index array.
+	}
+
+	vbo = new VertexBuffer(vertexArray.get(), 18 * checked.size());
+	ibo = new IndexBuffer(indexArray.get(), sizeof(unsigned int) * count);
 	ibo->SetVertexCount(indeces.size());
 	
 	layout = new BufferLayout;
