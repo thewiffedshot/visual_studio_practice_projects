@@ -259,6 +259,6 @@
 c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\model.cpp(49): warning C4018: '<': signed/unsigned mismatch
 c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\model.cpp(141): warning C4018: '<': signed/unsigned mismatch
 c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\model.cpp(236): warning C4018: '<': signed/unsigned mismatch
-c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\model.cpp(404): warning C4018: '<': signed/unsigned mismatch
-c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\model.cpp(458): warning C4244: 'argument': conversion from 'float' to 'const unsigned long', possible loss of data
+c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\model.cpp(409): warning C4018: '<': signed/unsigned mismatch
+c:\users\sovietdoggo\source\repos\opengl_test_project\opengl_test_project\src\model.cpp(463): warning C4244: 'argument': conversion from 'float' to 'const unsigned long', possible loss of data
   OpenGL_Test_Project.vcxproj -> C:\Users\SovietDoggo\source\repos\OpenGL_Test_Project\Debug\OpenGL_Test_Project.exe
