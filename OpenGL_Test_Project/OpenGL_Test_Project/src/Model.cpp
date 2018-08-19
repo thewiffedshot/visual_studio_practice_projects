@@ -387,7 +387,7 @@ void Model::Parse(const std::string& vertexData, const std::string& indexData, c
 
 	for (unsigned int i = 0; i < checked.size(); i++)
 	{
-		Vector3 vertex = verteces[checked[i] - 1];		// Something's not right here.
+		Vector3 vertex = verteces[checked[i] - 1];
 		Vector3 vNormal = vNormals[nChecked[i] - 1];
 
 		vData[0] = vertex.x;
