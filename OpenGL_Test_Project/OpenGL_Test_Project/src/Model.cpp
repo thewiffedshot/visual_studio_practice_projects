@@ -197,7 +197,7 @@ Model::Model()
 	program->Attach(shaders[0]);
 	program->Attach(shaders[1]);
 
-	std::string objPath = "res/models/sphere.obj";
+	std::string objPath = "res/models/monkey.obj";
 
 	std::string line;
 
@@ -380,7 +380,7 @@ void Model::Parse(const std::string& vertexData, const std::string& indexData, c
 		}
 	}
 
-	std::unique_ptr<float> vertexArray(new float[18 * checked.size()]);
+	std::unique_ptr<float> vertexArray(new float[6 * checked.size()]);
 	std::unique_ptr<unsigned int> indexArray(new unsigned int[checked.size() + skips]);
 	float vData[3];
 	float nData[3];
@@ -411,8 +411,8 @@ void Model::Parse(const std::string& vertexData, const std::string& indexData, c
 		indexArray.get()[i] = vIndeces[i]; // TODO: Debug the parsing of the index array.
 	}
 
-	vbo = new VertexBuffer(vertexArray.get(), 18 * checked.size());
-	ibo = new IndexBuffer(indexArray.get(), sizeof(unsigned int) * count);
+	vbo = new VertexBuffer(vertexArray.get(), sizeof(float) * 6 * checked.size());
+	ibo = new IndexBuffer(indexArray.get(), count);
 	ibo->SetVertexCount(indeces.size());
 	
 	layout = new BufferLayout;

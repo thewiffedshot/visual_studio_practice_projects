@@ -53,13 +53,12 @@ int main(void)
 	GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));					// Set blending function to enable transparency by alpha difference.
 
 	Renderer renderer;
-	Model model;
 
 	{
 		//test::TestShaderBlending test(window, guiContext);
 		test::TestDrawSphere test(window, guiContext);
-		float increment = 0.01f;
-		float value = 0.0f;
+		//float increment = 0.01f;
+		//float value = 0.0f;
 
 		while (!glfwWindowShouldClose(window))
 		{

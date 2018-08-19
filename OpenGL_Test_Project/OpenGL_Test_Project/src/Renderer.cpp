@@ -10,6 +10,6 @@ void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, GLProgram& pro
 	program.Bind();
 	ib.Bind();
 	va.Bind();
-	//GLCall(glDrawElements(GL_TRIANGLES, ib.GetVertexCount(), GL_UNSIGNED_INT, nullptr));
-	GLCall(glDrawArrays(GL_TRIANGLES, 0, ib.GetVertexCount()));
+	GLCall(glDrawElements(GL_TRIANGLES, ib.GetVertexCount(), GL_UNSIGNED_INT, nullptr));
+	//GLCall(glDrawArrays(GL_TRIANGLES, 0, ib.GetVertexCount()));
 }
