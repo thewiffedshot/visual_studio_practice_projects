@@ -31,6 +31,7 @@ namespace test
 		Camera camera;
 		Model sphereModel;
 
+		Uniform* ModelMatrix;
 		Uniform* ViewMatrix;
 		Uniform* ProjMatrix;
 		Uniform* MaterialColor;
@@ -38,5 +39,6 @@ namespace test
 		Uniform* LightColor;
 		Uniform* LightDistance;
 		Uniform* LightPower;
+		Uniform* AmbientLight;
 	};
 }

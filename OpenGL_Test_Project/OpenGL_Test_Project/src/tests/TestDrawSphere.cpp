@@ -10,6 +10,8 @@ test::TestDrawSphere::TestDrawSphere(GLFWwindow* window, ImGuiContext* gui)
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
+	sphereModel.Translate({ 50.0f, 0.0f, 0.0f });
+	ModelMatrix = new Uniform(&sphereModel.GetModelMatrix()[0][0], fMAT4x4, "u_modelMatrix", false);
 	ViewMatrix = new Uniform(&camera.GetViewMatrix()[0][0], fMAT4x4, "u_viewMatrix", false);
 	ProjMatrix = new Uniform(&camera.GetProjectionMatrix()[0][0], fMAT4x4, "u_projMatrix", false);
 	LightPos = new Uniform(&light.m_WorldPos, FLOAT3, "u_lightPos", false);
@@ -18,7 +20,11 @@ test::TestDrawSphere::TestDrawSphere(GLFWwindow* window, ImGuiContext* gui)
 	LightDistance = new Uniform(&light.distance, FLOAT, "u_LightDistance", false);
 	LightPower = new Uniform(&light.lightEnergy, FLOAT, "u_LightPower", false);
 
+	float ambientColor[3] { 0.1f, 0.1f, 0.1f };
+	AmbientLight = new Uniform(&ambientColor, FLOAT3, "u_AmbientLight", false);
+
 	sphereModel.GetProgram()->Bind();
+	sphereModel.GetProgram()->AttachUniform(*ModelMatrix);
 	sphereModel.GetProgram()->AttachUniform(*ViewMatrix);
 	sphereModel.GetProgram()->AttachUniform(*ProjMatrix);
 	sphereModel.GetProgram()->AttachUniform(*LightPos);
@@ -26,10 +32,12 @@ test::TestDrawSphere::TestDrawSphere(GLFWwindow* window, ImGuiContext* gui)
 	sphereModel.GetProgram()->AttachUniform(*LightColor);
 	sphereModel.GetProgram()->AttachUniform(*LightDistance);
 	sphereModel.GetProgram()->AttachUniform(*LightPower);
+	sphereModel.GetProgram()->AttachUniform(*AmbientLight);
 }
 
 test::TestDrawSphere::~TestDrawSphere()
 {
+	delete ModelMatrix;
 	delete ViewMatrix;
 	delete ProjMatrix;
 	delete LightPos;
@@ -37,6 +45,7 @@ test::TestDrawSphere::~TestDrawSphere()
 	delete LightColor;
 	delete LightDistance;
 	delete LightPower;
+	delete AmbientLight;
 }
 
 void test::TestDrawSphere::OnRender(const Renderer& renderer)
@@ -79,6 +88,10 @@ void test::TestDrawSphere::OnImGuiRender()
 	camera.Look(look);
 	camera.Translate(translation);
 	ViewMatrix->SetData(&camera.GetViewMatrix()[0][0]);
+
+	float ambience[3]{ color[0] / 10, color[1] / 10, color[2] / 10 };
+
+	AmbientLight->SetData(&ambience);
 
 	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 	ImGui::End();

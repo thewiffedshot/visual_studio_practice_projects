@@ -99,7 +99,7 @@ Model::Model(const std::string & objPath)
 	Parse(vertexStream.str(), faceVertexIndexStream.str(), normalStream.str(), faceNormalIndexStream.str());
 }
 
-Model::Model(Vector4 worldPosition, const std::string & objPath)
+Model::Model(Vector3 worldPosition, const std::string & objPath)
 	: m_WorldPos(worldPosition)
 {
 	program = new GLProgram;
@@ -469,6 +469,44 @@ static void ParseData(const std::string& data, std::vector<unsigned long>* parse
 			ph << data[i];
 		}
 	}
+}
+
+void Model::Translate(Vector3 vec)
+{
+	m_WorldPos += vec;
+
+	m_modelMatrix[3][0] += vec.x;
+	m_modelMatrix[3][1] += vec.y;
+	m_modelMatrix[3][2] += vec.z;
+}
+
+void Model::Translate()
+{
+	m_modelMatrix[0][3] = m_WorldPos.x;
+	m_modelMatrix[1][3] = m_WorldPos.y;
+	m_modelMatrix[2][3] = m_WorldPos.z;
+}
+
+void Model::Scale(float factor)
+{
+	m_modelMatrix[0][0] *= factor;
+	m_modelMatrix[1][1] *= factor;
+	m_modelMatrix[2][2] *= factor;
+}
+
+void Model::RotateX(Vector3 vec)
+{
+
+}
+
+void Model::RotateY(Vector3 vec)
+{
+
+}
+
+void Model::RotateZ(Vector3 vec)
+{
+
 }
 
 Model::~Model()

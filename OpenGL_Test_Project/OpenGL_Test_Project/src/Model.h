@@ -9,12 +9,13 @@
 #include "lighting\Material.h"
 #include "lighting\PointLight.h"
 #include "GLProgram.h"
+#include "glm\gtc\matrix_transform.hpp"
 
 class Model
 {
 public:
 	Model(const std::string& objPath);
-	Model(Vector4 worldPosition, const std::string& objPath);
+	Model(Vector3 worldPosition, const std::string& objPath);
 	Model();
 	~Model();
 
@@ -37,7 +38,7 @@ public:
 		return program;
 	}
 
-	Vector4 GetPosition() const
+	Vector3 GetPosition() const
 	{
 		return m_WorldPos;
 	}
@@ -52,18 +53,24 @@ public:
 		return m_Verteces;
 	}
 
-	void Translate(Vector4 vec)
+	glm::mat4 GetModelMatrix() const
 	{
-		m_WorldPos.x += vec.x;
-		m_WorldPos.y += vec.y;
-		m_WorldPos.z += vec.z;
-		Update();
+		return m_modelMatrix;
 	}
 
+	void Translate();
+	void Scale(float factor);
+	void Translate(Vector3 vec);
+	void RotateX(Vector3 vec);
+	void RotateY(Vector3 vec);
+	void RotateZ(Vector3 vec);
+
 private:
-	Vector4 m_WorldPos = { 0.0f, 0.0f, 0.0f, 1.0f };
+	Vector3 m_WorldPos = { 0.0f, 0.0f, 0.0f };
 	unsigned long m_Faces = -1;
 	unsigned long m_Verteces = -1;
+
+	glm::mat4 m_modelMatrix = glm::mat4(1.0f);
 
 	Shader shaders[2] = 
 	{
@@ -81,4 +88,5 @@ private:
 
 	void Update();
 	void Parse(const std::string& vertexData, const std::string& indexData, const std::string& normalData, const std::string& normalIndexData);
-};
+	
+}; 
