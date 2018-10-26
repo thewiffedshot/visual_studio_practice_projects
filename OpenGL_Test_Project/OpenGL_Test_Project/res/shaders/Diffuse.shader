@@ -17,7 +17,7 @@ void main()
 {
 	mat4 transformation = u_projMatrix * u_viewMatrix * u_modelMatrix;
 	gl_Position = transformation * vec4(position_worldspace, 1);
-	normal_cameraspace = normalize(u_viewMatrix * vec4(vNormal_worldspace, 0));
+	normal_cameraspace = normalize(u_viewMatrix * u_modelMatrix * vec4(vNormal_worldspace, 0));
 	pos_cameraspace = u_viewMatrix * u_modelMatrix * vec4(position_worldspace, 1);
 	lightpos_cameraspace = u_viewMatrix * vec4(u_lightPos, 1);
 }

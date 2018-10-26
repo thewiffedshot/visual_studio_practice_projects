@@ -5,6 +5,9 @@
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 
+#define _USE_MATH_DEFINES
+#include <math.h>
+
 static void ParseData(const std::string& data, std::vector<unsigned long>* parsed);
 static void ParseData(const std::string& data, std::vector<Vector3>* parsed);
 
@@ -494,19 +497,32 @@ void Model::Scale(float factor)
 	m_modelMatrix[2][2] *= factor;
 }
 
-void Model::RotateX(Vector3 vec)
+void Model::Rotate(const Vector3 vec, float deg)
 {
+	const glm::mat4 modelMatrix = m_modelMatrix;
 
+	m_modelMatrix = glm::rotate(modelMatrix, deg, glm::vec3(vec.x, vec.y, vec.z));
 }
 
-void Model::RotateY(Vector3 vec)
+void Model::RotateX(float deg)
 {
+	const glm::mat4 modelMatrix = m_modelMatrix;
 
+	m_modelMatrix = glm::rotate(modelMatrix, deg, glm::vec3(1.0f, 0.0f, 0.0f));
 }
 
-void Model::RotateZ(Vector3 vec)
+void Model::RotateY(float deg)
 {
+	const glm::mat4 modelMatrix = m_modelMatrix;
 
+	m_modelMatrix = glm::rotate(modelMatrix, deg, glm::vec3(0.0f, 1.0f, 0.0f));
+}
+
+void Model::RotateZ(float deg)
+{
+	const glm::mat4 modelMatrix = m_modelMatrix;
+
+	m_modelMatrix = glm::rotate(modelMatrix, deg, glm::vec3(0.0f, 0.0f, 1.0f));
 }
 
 Model::~Model()

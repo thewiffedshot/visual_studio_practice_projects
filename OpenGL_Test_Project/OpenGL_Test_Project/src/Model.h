@@ -61,9 +61,10 @@ public:
 	void Translate();
 	void Scale(float factor);
 	void Translate(Vector3 vec);
-	void RotateX(Vector3 vec);
-	void RotateY(Vector3 vec);
-	void RotateZ(Vector3 vec);
+	void Rotate(const Vector3 vec, float deg);
+	void RotateX(float deg);
+	void RotateY(float deg);
+	void RotateZ(float deg);
 
 private:
 	Vector3 m_WorldPos = { 0.0f, 0.0f, 0.0f };

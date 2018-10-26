@@ -1,5 +1,6 @@
 #include "TestDrawSphere.h"
 #include <string>
+#include <chrono>
 
 test::TestDrawSphere::TestDrawSphere(GLFWwindow* window, ImGuiContext* gui)
 	: window(window), guiContext(gui)
@@ -11,6 +12,7 @@ test::TestDrawSphere::TestDrawSphere(GLFWwindow* window, ImGuiContext* gui)
 	glDepthFunc(GL_LESS);
 
 	sphereModel.Translate({ 50.0f, 0.0f, 0.0f });
+
 	ModelMatrix = new Uniform(&sphereModel.GetModelMatrix()[0][0], fMAT4x4, "u_modelMatrix", false);
 	ViewMatrix = new Uniform(&camera.GetViewMatrix()[0][0], fMAT4x4, "u_viewMatrix", false);
 	ProjMatrix = new Uniform(&camera.GetProjectionMatrix()[0][0], fMAT4x4, "u_projMatrix", false);
@@ -58,9 +60,17 @@ Vector4 translation = { 0.0f, 0.0f, 0.0f, 0.0f };
 Vector4 look = { 0.0f, 0.0f, 0.0f, 0.0f };
 float color[4] = { 1.0f, 0.0f, 1.0f, 1.0f };
 
+using myClock = std::chrono::steady_clock;
+std::chrono::time_point<myClock> previousTime;
+
 void test::TestDrawSphere::OnImGuiRender()
 {
-	ImGui::SetCurrentContext(guiContext);
+	auto delta = myClock::now() - previousTime;
+	previousTime = myClock::now();
+
+	float deltaTime = std::chrono::duration_cast<std::chrono::nanoseconds>(delta).count() * 0.000000001f;
+
+ 	ImGui::SetCurrentContext(guiContext);
 
 	ImGui::Begin("Controls.");
 
@@ -81,8 +91,8 @@ void test::TestDrawSphere::OnImGuiRender()
 	ImGui::SliderFloat("Look Y: ", &look.y, -200.0f, 200.0f);
 	ImGui::SliderFloat("Look Z: ", &look.z, -200.0f, 200.0f);
 	look.w = 1.0f;
-
-
+	
+	sphereModel.RotateY(deltaTime * 0.5f);
 	LightPos->SetData(&light.m_WorldPos);
 	MaterialColor->SetData(&color);
 	camera.Look(look);
@@ -92,6 +102,7 @@ void test::TestDrawSphere::OnImGuiRender()
 	float ambience[3]{ color[0] / 10, color[1] / 10, color[2] / 10 };
 
 	AmbientLight->SetData(&ambience);
+	ModelMatrix->SetData(&sphereModel.GetModelMatrix()[0][0]);
 
 	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 	ImGui::End();
