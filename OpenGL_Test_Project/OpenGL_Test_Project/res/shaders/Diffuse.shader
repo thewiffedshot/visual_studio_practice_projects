@@ -39,7 +39,7 @@ uniform float u_LightDistance;
 uniform float u_LightPower;
 uniform vec3 u_AmbientLight;
 
-float cosTheta = clamp(dot(normal_cameraspace.xyz, lightDir.xyz), 0, 1);
+float cosTheta = clamp(dot(normalize(normal_cameraspace.xyz), lightDir.xyz), 0, 1);
 
 void main()
 {

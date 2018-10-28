@@ -328,7 +328,7 @@ void Model::Parse(const std::string& vertexData, const std::string& indexData, c
 
 		if (i == 0)
 		{
-			checked.push_back(indeces[i]);
+			checked.push_back(indeces[i]);   // Rework this.
 			nChecked.push_back(nIndeces[i]);
 
 			for (unsigned long n = 0; n < indeces.size(); n++)
@@ -357,7 +357,7 @@ void Model::Parse(const std::string& vertexData, const std::string& indexData, c
 				{
 					if (indeces[n] == indeces[i] && nIndeces[n] == nIndeces[i])
 					{
-						vIndeces.push_back(n);
+						vIndeces.push_back(n % checked.size());
 						break;
 					}
 				}
